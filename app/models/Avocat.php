@@ -8,8 +8,6 @@ namespace App\Models;
 
   
 
-
-
  public function getId(){
      return $this->id;
 }

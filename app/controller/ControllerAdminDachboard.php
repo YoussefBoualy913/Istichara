@@ -1,9 +1,9 @@
 <?php
-namespace App\Controller\ControllerAdminDachboard;
+namespace App\Controller;
 
 class ControllerAdminDachboard{
 
      public function show(){
-        echo "hhhfgj";
+        require_once(__DIR__.'/../../src/views/admin_dashboard.php');
      }
 }

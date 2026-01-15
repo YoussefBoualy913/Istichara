@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - ISTICHARA</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="/../../src/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -25,11 +25,11 @@
                     <i class="fas fa-chart-pie"></i>
                     Tableau de Bord
                 </a>
-                <a href="#" class="sidebar-link">
+                <a href="./avocats" class="sidebar-link">
                     <i class="fas fa-users-cog"></i>
                     Gestion Avocats
                 </a>
-                <a href="#" class="sidebar-link">
+                <a href="./Huissiers" class="sidebar-link">
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
