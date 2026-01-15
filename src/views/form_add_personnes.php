@@ -83,13 +83,7 @@
                             <label class="label">Email</label>
                             <input type="email" class="input" placeholder="email@exemple.com">
                         </div>
-                        <div class="input-group">
-                            <label class="label">Téléphone</label>
-                            <input type="tel" class="input" placeholder="06...">
-                        </div>
-                    </div>
-
-                    <div class="input-group" style="margin-bottom: 1rem;">
+                         <div class="input-group" style="margin-bottom: 1rem;">
                         <label class="label">Ville</label>
                         <select class="select">
                             <option>Casablanca</option>
@@ -99,26 +93,52 @@
                             <option>Fès</option>
                         </select>
                     </div>
+                    </div>
+
+                   
 
                     <!-- AVOCAT SPECIFIC FIELDS -->
-                    <div id="fields-avocat">
-                        <div class="input-group" style="margin-bottom: 1rem;">
-                            <label class="label">Spécialités</label>
-                            <input type="text" class="input" placeholder="Ex: Pénal, Civil, Affaires...">
-                            <small style="color: var(--text-light);">Séparer par des virgules</small>
+                   
+                        
+                         <div class="input-group" style="margin-bottom: 1rem;">
+                            <label class="label">years of experience </label>
+                            <input type="number" class="input" min="0" placeholder="Ex:4 ">
+                            
                         </div>
 
                         <div class="flex items-center gap-2" style="margin-bottom: 1rem;">
-                            <input type="checkbox" id="consult-online">
-                            <label for="consult-online" class="label" style="cursor:pointer;">Propose la consultation en
-                                ligne</label>
+                            <input type="checkbox" id="Avocat">
+                            <label for="consult-online" class="label" style="cursor:pointer;">Avocat</label>
+                             <input type="checkbox" id="Huissiers">
+                            <label for="consult-online" class="label" style="cursor:pointer;">Huissiers</label>
                         </div>
 
+                    <div class="grid Avocat" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;display:none;">
                         <div class="input-group" style="margin-bottom: 1rem;">
-                            <label class="label">Biographie courte</label>
-                            <textarea class="input" rows="4" placeholder="Description du parcours..."></textarea>
+                            <label class="label">Spécialités</label>
+                            <input type="text" class="input" placeholder="Ex:droit Pénal">
                         </div>
+                        
+                        <div class="input-group" style="margin-bottom: 1rem;">
+                           <label class="label">Consultation en ligne</label>
+                            <select class="select">
+                                 <option>Oui</option>
+                                 <option>Non</option>
+                                 
+                            </select>
+                       </div>
                     </div>
+                   
+
+                    <div class="input-group Huissiers" style="margin-bottom: 1rem;display:none;">
+                            <label class="label">types actes</label>
+                             <select class="select">
+                                  <option>constats</option>
+                                  <option>exécution</option>
+                                  <option>Signification</option>
+                             </select>
+                    </div>
+               
 
                     <div class="flex gap-4" style="margin-top: 2rem;">
                         <a href="avocats.html" class="btn btn-outline" style="flex:1; text-align:center;">Annuler</a>
@@ -130,7 +150,7 @@
 
         </main>
     </div>
-
+<script src="/../../src/js/script.js"></script>
 </body>
 
 </html>
