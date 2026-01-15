@@ -12,6 +12,7 @@ CREATE TABLE avocat (
     ville_id INT,
     years_of_experience INT,
     specialite ENUM('Droit pénal', 'civil', 'famille', 'affaires') NOT NULL,
+    consoltation_en_ligne bool,
     FOREIGN KEY (ville_id) REFERENCES ville(id)
 );
 CREATE TABLE huissier (

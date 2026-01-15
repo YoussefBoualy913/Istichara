@@ -1,13 +1,15 @@
 <?php
-
+namespace  App\Repository;
+use App\Repository\RepositryInterface\RepositryInterface;
 use App\Models\Avocat;
 use App\Models\Huissiers;
 use App\Models\Personnes;
+use App\Helper\Database;
+use PDO;
 
-class BaseRepositry{
-   private PDO  $pdo ;
+class BaseRepositry extends RepositryInterface{
 
-   public function __construct()
+   public function __construct( private PDO  $pdo)
    {
    $this->pdo = Database::getConnexion();
    }
@@ -23,24 +25,58 @@ class BaseRepositry{
     
    }
 
-    public function create(Personnes $personnes,$data):void {
+    public function findById(string $tablename,int $id):void{
+     $stmt = $this->pdo->prepare("select  * from".$tablename."where id =?");
+     $stmt->execute([$id]);
+     $stmt->fetch();
+    
+   }
 
-    if($personnes instanceof Avocat){
-        $keys = array_keys($data);
-    $sql ="insert into avocat(".implode(',',$keys).") valus(:".implode(",:",$keys).")";
+    public function create(Personnes $personnes,$data,$tablename):void {
+
+    $keys = array_keys($data);
+    $sql ="insert into ".$tablename."(".implode(',',$keys).") valus(:".implode(",:",$keys).")";
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute($data);
+   
+
+   }
+
+   public function updete(Personnes $personnes):void {
+
+    if($personnes instanceof Avocat){
+      
+   $stmt = $this->pdo->prepare("updete from Avocat set `nom`= :nom ,`email`= :email `ville_id`= :ville_id,
+   `years_of_experience`= :years_of_experience,specialite=:specialite ,consoltation_en_ligne=:consoltation_en_ligne where id =:id");
+       $stmt->execute([
+        ':nom' => $personnes->getNom(),
+        ':email' => $personnes->getEmail(),
+        ':ville_id' => $personnes->getVille_id(),
+        ':years_of_experience' => $personnes->getYears_of_experience(),
+        ':specialite' => $personnes->getspecialite(),
+        ':consoltation_en_ligne' => $personnes->getConsoltation_en_ligne(),
+        ':consoltation_en_ligne' => $personnes->getConsoltation_en_ligne(),
+        ':id' => $personnes->getId(),
+       ]);
 
     }
      if($personnes instanceof Huissiers ){
-        $keys = array_keys($data);
-    $sql ="insert into Huissiers(".implode(',',$keys).") valus(:".implode(",:",$keys).")";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute($data);
+       $stmt = $this->pdo->prepare("updete from huissier set `nom`= :nom ,`email`= :email `ville_id`= :ville_id,
+       `years_of_experience`= :years_of_experience,types_actes=:types_actes where id =:id");
+       $stmt->execute([
+        ':nom' => $personnes->getNom(),
+        ':email' => $personnes->getEmail(),
+        ':ville_id' => $personnes->getVille_id(),
+        ':years_of_experience' => $personnes->getYears_of_experience(),
+        ':types_actes' => $personnes->getTypes_actes(),
+        ':id' => $personnes->getId(),
+       ]);
 
     }
 
    }
+
+   
 
 
    }

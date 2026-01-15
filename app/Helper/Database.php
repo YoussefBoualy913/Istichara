@@ -1,4 +1,7 @@
 <?php
+namespace App\Helper;
+use PDO;
+use PDOException;
  class Database {
     private static string $host = "localhost";
     private static string $database = "ApexMercatoe";
