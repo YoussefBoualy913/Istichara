@@ -20,7 +20,7 @@ class BaseRepository implements  RepositoryInterface {
      return  $stmt->fetchAll();
    }
    public function delete(string $tablename,int $id):void{
-     $stmt = $this->pdo->prepare("dellete * from".$tablename."where id =?");
+     $stmt = $this->pdo->prepare("delete  from ".$tablename." where id = ?");
      $stmt->execute([$id]);
     
    }
