@@ -15,7 +15,7 @@ class BaseRepository implements  RepositoryInterface {
    }
    
    public function getALL(string $tablename) :array {
-     $stmt = $this->pdo->prepare("select * from".$tablename."");
+     $stmt = $this->pdo->prepare("select p.*,vi.nom as villename from ".$tablename." as p join ville vi on p.ville_id = vi.id ");
      $stmt->execute();
      return  $stmt->fetchAll();
    }
@@ -75,7 +75,7 @@ class BaseRepository implements  RepositoryInterface {
      if($personnes instanceof Huissiers ){
          $stmt = $this->pdo->prepare("updete  ville set `nom` = ?");
      $stmt->execute([ $personnes->getVille()]);
-     
+
        $stmt = $this->pdo->prepare("updete from huissier set `nom`= :nom ,`email`= :email,
        `years_of_experience`= :years_of_experience,types_actes=:types_actes where id =:id");
        $stmt->execute([

@@ -75,49 +75,30 @@
                                 <th>Nom & Prénom</th>
                                 <th>Ville</th>
                                 <th>Spécialités</th>
+                                <th>Experience</th>
+                                <th>C. en ligne</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                           <?php foreach($result as $item){  ?> 
                             <tr>
-                                <td style="font-weight: 500;">Me. Karim Bennani</td>
-                                <td>Casablanca</td>
-                                <td>Pénal, Affaires</td>
+                                <td style="font-weight: 500;"><?= $item['nom'] ?></td>
+                                <td><?= $item['villename'] ?></td>
+                                <td><?= $item['specialite'] ?></td>
+                                <td><?= $item['years_of_experience'] ?></td>
+                                <td><?= $item['consoltation_en_ligne'] ?></td>
                                 <td>
                                     <button class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
                                             class="fas fa-edit"></i></button>
-                                    <button class="btn btn-outline"
+                                    <a href="delete/avocat" class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                            class="fas fa-trash"></i></button>
+                                            class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td style="font-weight: 500;">Me. Salma Idrissi</td>
-                                <td>Rabat</td>
-                                <td>Civil, Famille</td>
-                                <td>
-                                    <button class="btn btn-outline"
-                                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                            class="fas fa-edit"></i></button>
-                                    <button class="btn btn-outline"
-                                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                            class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 500;">Me. Youssef Alami</td>
-                                <td>Marrakech</td>
-                                <td>Immobilier</td>
-                                <td>
-                                    <button class="btn btn-outline"
-                                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                            class="fas fa-edit"></i></button>
-                                    <button class="btn btn-outline"
-                                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                            class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
+                             <?php } ?>
+                            
                         </tbody>
                     </table>
                 </div>
