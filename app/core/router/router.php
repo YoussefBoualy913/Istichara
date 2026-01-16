@@ -3,7 +3,7 @@
  class Router{
     private static array $router ;
   
- public static function get($path,$fille){
+ public static function add($path,$fille){
     
     self::$router[$path] = $fille;
     

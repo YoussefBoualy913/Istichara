@@ -22,4 +22,5 @@ class ControllerAddAvocat{
         $repoavocat->create($data,'avocat');
        
      }
+    
 }

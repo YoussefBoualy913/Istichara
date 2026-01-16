@@ -5,12 +5,13 @@ use App\Models\Avocat;
 
 require_once('../app/core/router/router.php');
 
-Router::get('dashboard',['App\\Controller\\ControllerAdminDachboard', 'show']);
-Router::get('avocats',['App\\Controller\\ControllerAdminAvocats', 'show']);
-Router::get('Huissiers',['App\\Controller\\ControllerAdminHuissiers', 'show']);
-Router::get('create/avocat',['App\\Controller\\ControllerAddAvocat', 'addavocat']);
-Router::get('create',['App\\Controller\\ControllerAddHuissiers', 'show']);
-Router::get('create/Huissiers',['App\\Controller\\ControllerAddAvocat', 'addHuissiers']);
+Router::add('dashboard',['App\\Controller\\ControllerAdminDachboard', 'show']);
+Router::add('avocats',['App\\Controller\\ControllerAdminAvocats', 'show']);
+Router::add('Huissiers',['App\\Controller\\ControllerAdminHuissiers', 'show']);
+Router::add('create/avocat',['App\\Controller\\ControllerAddAvocat', 'addavocat']);
+Router::add('create',['App\\Controller\\ControllerAddHuissiers', 'show']);
+Router::add('create/Huissiers',['App\\Controller\\ControllerAddAvocat', 'addHuissiers']);
+Router::add('delete/avocat',['App\\Controller\\ControlleDeleteAvocat', 'deleteavocat']);
 
 Router::dispatsh($_GET['url']);
 
