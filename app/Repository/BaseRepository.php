@@ -56,13 +56,14 @@ class BaseRepository implements  RepositoryInterface {
    public function updete(Personnes $personnes):void {
 
     if($personnes instanceof Avocat){
-      
-   $stmt = $this->pdo->prepare("updete from Avocat set `nom`= :nom ,`email`= :email `ville_id`= :ville_id,
+      $stmt = $this->pdo->prepare("updete  ville set `nom` = ?");
+     $stmt->execute([ $personnes->getVille()]);
+
+   $stmt = $this->pdo->prepare("updete from Avocat set `nom`= :nom ,`email`= :email,
    `years_of_experience`= :years_of_experience,specialite=:specialite ,consoltation_en_ligne=:consoltation_en_ligne where id =:id");
        $stmt->execute([
         ':nom' => $personnes->getNom(),
         ':email' => $personnes->getEmail(),
-        ':ville_id' => $personnes->getVille_id(),
         ':years_of_experience' => $personnes->getYears_of_experience(),
         ':specialite' => $personnes->getspecialite(),
         ':consoltation_en_ligne' => $personnes->getConsoltation_en_ligne(),
@@ -72,12 +73,14 @@ class BaseRepository implements  RepositoryInterface {
 
     }
      if($personnes instanceof Huissiers ){
-       $stmt = $this->pdo->prepare("updete from huissier set `nom`= :nom ,`email`= :email `ville_id`= :ville_id,
+         $stmt = $this->pdo->prepare("updete  ville set `nom` = ?");
+     $stmt->execute([ $personnes->getVille()]);
+     
+       $stmt = $this->pdo->prepare("updete from huissier set `nom`= :nom ,`email`= :email,
        `years_of_experience`= :years_of_experience,types_actes=:types_actes where id =:id");
        $stmt->execute([
         ':nom' => $personnes->getNom(),
         ':email' => $personnes->getEmail(),
-        ':ville_id' => $personnes->getVille_id(),
         ':years_of_experience' => $personnes->getYears_of_experience(),
         ':types_actes' => $personnes->getTypes_actes(),
         ':id' => $personnes->getId(),

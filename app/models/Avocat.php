@@ -11,8 +11,14 @@ namespace App\Models;
  public function getSpecialite(){
      return $this->specialite;
 }
- public function getConsoltation_en_ligne(){
-     return $this->consoltation_en_ligne;
+public function getConsoltation_en_ligne(){
+    return $this->consoltation_en_ligne;
+}
+public function setSpecialite($specialite){
+    return $this->specialite = $specialite;
+}
+public function setconsoltation_en_ligne($consoltation_en_ligne){
+    return $this->consoltation_en_ligne = $consoltation_en_ligne;
 }
 
 

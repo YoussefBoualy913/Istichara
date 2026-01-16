@@ -20,6 +20,9 @@ class ControllerAddAvocat{
         $data['consoltation_en_ligne'] = $_POST['consoltation_en_ligne'];
         
         $repoavocat->create($data,'avocat');
+     
+        header('location:../avocats');
+        exit;
        
      }
     
