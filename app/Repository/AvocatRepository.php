@@ -1,19 +1,15 @@
 <?php
-use App\Repository\BaseRepositry;
-use App\Models\Avocat;
-use App\Helper\Database;
+namespace App\Repository;
 
-class AvocatRepository extends BaseRepositry{
-   private PDO  $pdo ;
+class AvocatRepository extends BaseRepository{
+  
 
-   public function __construct()
-   {
-   $this->pdo = Database::getConnexion();
+   public function __construct(){
+     parent::__construct();
    }
    
    
 
    
-
-
    }
+   

@@ -65,33 +65,24 @@
                     <h3>Nouveau Profil Avocat</h3>
                 </div>
 
-                <form>
+                <form method="POST" action="create/avocat">
                     <!-- Common Fields -->
                     <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                         <div class="input-group">
-                            <label class="label">Nom</label>
-                            <input type="text" class="input" placeholder="Nom">
+                            <label class="label">Nom complet</label>
+                            <input type="text" name="nom" class="input" placeholder="Ex:youssef">
                         </div>
                         <div class="input-group">
-                            <label class="label">Prénom</label>
-                            <input type="text" class="input" placeholder="Prénom">
+                            <label class="label">Email</label>
+                            <input type="email" name="email" class="input" placeholder="Ex:email@exemple.com">
                         </div>
                     </div>
 
                     <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <div class="input-group">
-                            <label class="label">Email</label>
-                            <input type="email" class="input" placeholder="email@exemple.com">
-                        </div>
-                         <div class="input-group" style="margin-bottom: 1rem;">
+                        
+                    <div class="input-group" style="margin-bottom: 1rem;">
                         <label class="label">Ville</label>
-                        <select class="select">
-                            <option>Casablanca</option>
-                            <option>Rabat</option>
-                            <option>Marrakech</option>
-                            <option>Tanger</option>
-                            <option>Fès</option>
-                        </select>
+                        <input type="text" class="input" name="ville" placeholder="Ex:Zagora">
                     </div>
                     </div>
 
@@ -102,7 +93,7 @@
                         
                          <div class="input-group" style="margin-bottom: 1rem;">
                             <label class="label">years of experience </label>
-                            <input type="number" class="input" min="0" placeholder="Ex:4 ">
+                            <input type="number" name="years_of_experience" class="input" min="0" placeholder="Ex:4 ">
                             
                         </div>
 
@@ -116,12 +107,19 @@
                     <div class="grid Avocat" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;display:none;">
                         <div class="input-group" style="margin-bottom: 1rem;">
                             <label class="label">Spécialités</label>
-                            <input type="text" class="input" placeholder="Ex:droit Pénal">
+                          
+                            <select class="select" name="specialite" placeholder="Ex:droitPénal">
+                                 <option>Droitpénal</option>
+                                 <option>civil</option>
+                                 <option>affaires</option>
+                                 <option>famille</option>
+                                 
+                            </select>
                         </div>
                         
                         <div class="input-group" style="margin-bottom: 1rem;">
                            <label class="label">Consultation en ligne</label>
-                            <select class="select">
+                            <select class="select" name="consoltation_en_ligne">
                                  <option>Oui</option>
                                  <option>Non</option>
                                  
@@ -132,7 +130,7 @@
 
                     <div class="input-group Huissiers" style="margin-bottom: 1rem;display:none;">
                             <label class="label">types actes</label>
-                             <select class="select">
+                             <select class="select" name="types_actes">
                                   <option>constats</option>
                                   <option>exécution</option>
                                   <option>Signification</option>
@@ -141,7 +139,7 @@
                
 
                     <div class="flex gap-4" style="margin-top: 2rem;">
-                        <a href="avocats.html" class="btn btn-outline" style="flex:1; text-align:center;">Annuler</a>
+                        <a href="dashborad" class="btn btn-outline" style="flex:1; text-align:center;">Annuler</a>
                         <button type="submit" class="btn btn-primary" style="flex:1;">Enregistrer</button>
                     </div>
 

@@ -1,17 +1,17 @@
 <?php
 namespace  App\Repository;
-use App\Repository\RepositryInterface\RepositryInterface;
+
 use App\Models\Avocat;
 use App\Models\Huissiers;
 use App\Models\Personnes;
 use App\Helper\Database;
+use App\Repository\RepositoryInterface\RepositoryInterface;
 use PDO;
 
-class BaseRepositry extends RepositryInterface{
-
-   public function __construct( private PDO  $pdo)
-   {
-   $this->pdo = Database::getConnexion();
+class BaseRepository implements  RepositoryInterface {
+   protected PDO  $pdo;
+   public function __construct( ){
+    $this->pdo = Database::getConnexion();
    }
    
    public function getALL(string $tablename) :array {
@@ -19,7 +19,7 @@ class BaseRepositry extends RepositryInterface{
      $stmt->execute();
      return  $stmt->fetchAll();
    }
-   public function dellete(string $tablename,int $id):void{
+   public function delete(string $tablename,int $id):void{
      $stmt = $this->pdo->prepare("dellete * from".$tablename."where id =?");
      $stmt->execute([$id]);
     
@@ -32,11 +32,22 @@ class BaseRepositry extends RepositryInterface{
     
    }
 
-    public function create(Personnes $personnes,$data,$tablename):void {
+    public function create(array $data,string $tablename):void {
+    $stmt = $this->pdo->prepare("insert into ville(`nom`) VALUES(?)");
+     $stmt->execute([$data['ville']]);
+     $data['ville_id'] = $this->pdo->lastInsertId();
+     unset($data['ville']);
 
     $keys = array_keys($data);
-    $sql ="insert into ".$tablename."(".implode(',',$keys).") valus(:".implode(",:",$keys).")";
+    $sql ="insert into ".$tablename."(".implode(',',$keys).") VALUES(:".implode(",:",$keys).")";
     $stmt = $this->pdo->prepare($sql);
+
+     foreach($data as $keys =>$valus ){
+          
+          $data[":".$keys]= $data[$keys] ;
+         unset($data[$keys]);  
+          
+           }
     $stmt->execute($data);
    
 

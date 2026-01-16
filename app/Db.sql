@@ -11,7 +11,7 @@ CREATE TABLE avocat (
     email VARCHAR(150) UNIQUE NOT NULL,
     ville_id INT,
     years_of_experience INT,
-    specialite ENUM('Droit pénal', 'civil', 'famille', 'affaires') NOT NULL,
+    specialite ENUM('Droitpénal', 'civil', 'famille', 'affaires') NOT NULL,
     consoltation_en_ligne bool,
     FOREIGN KEY (ville_id) REFERENCES ville(id)
 );
