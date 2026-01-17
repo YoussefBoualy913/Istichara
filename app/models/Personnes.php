@@ -6,6 +6,7 @@ abstract class Personnes{
     protected string $nom ;
     protected string $email ;
     protected string $ville;
+    protected string $ville_id;
     protected int $years_of_experience;
 
 
@@ -17,6 +18,9 @@ public function getId(){
 }
  public function getEmail(){
      return $this->email;
+}
+ public function getVille_id(){
+     return $this->ville_id;
 }
  public function getVille(){
      return $this->ville;
@@ -38,6 +42,9 @@ public function getId(){
 
  public function setVille($ville){
      return $this->ville = $ville;
+}
+ public function setVille_id($ville_id){
+     return $this->ville_id = $ville_id;
 }
 
  public function setYears_of_experience($years_of_experience){

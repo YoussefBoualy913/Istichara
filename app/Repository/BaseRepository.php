@@ -25,10 +25,10 @@ class BaseRepository implements  RepositoryInterface {
     
    }
 
-    public function findById(string $tablename,int $id):void{
-     $stmt = $this->pdo->prepare("select  * from".$tablename."where id =?");
+    public function findById(string $tablename,int $id):array{
+     $stmt = $this->pdo->prepare("select p.*,vi.nom as villename from ".$tablename." as p join ville vi on p.ville_id = vi.id  where p.id = ?");
      $stmt->execute([$id]);
-     $stmt->fetch();
+     return $stmt->fetch();
     
    }
 
@@ -56,10 +56,10 @@ class BaseRepository implements  RepositoryInterface {
    public function updete(Personnes $personnes):void {
 
     if($personnes instanceof Avocat){
-      $stmt = $this->pdo->prepare("updete  ville set `nom` = ?");
-     $stmt->execute([ $personnes->getVille()]);
+      $stmt = $this->pdo->prepare("UPDATE  ville set nom = ? where id =?");
+     $stmt->execute([$personnes->getVille(),$personnes->getVille_id()]);
 
-   $stmt = $this->pdo->prepare("updete from Avocat set `nom`= :nom ,`email`= :email,
+   $stmt = $this->pdo->prepare("UPDATE avocat set `nom`= :nom ,`email`= :email,
    `years_of_experience`= :years_of_experience,specialite=:specialite ,consoltation_en_ligne=:consoltation_en_ligne where id =:id");
        $stmt->execute([
         ':nom' => $personnes->getNom(),
@@ -73,10 +73,10 @@ class BaseRepository implements  RepositoryInterface {
 
     }
      if($personnes instanceof Huissiers ){
-         $stmt = $this->pdo->prepare("updete  ville set `nom` = ?");
+         $stmt = $this->pdo->prepare("UPDATE  ville set `nom` = ?");
      $stmt->execute([ $personnes->getVille()]);
 
-       $stmt = $this->pdo->prepare("updete from huissier set `nom`= :nom ,`email`= :email,
+       $stmt = $this->pdo->prepare("UPDATE from huissier set `nom`= :nom ,`email`= :email,
        `years_of_experience`= :years_of_experience,types_actes=:types_actes where id =:id");
        $stmt->execute([
         ':nom' => $personnes->getNom(),

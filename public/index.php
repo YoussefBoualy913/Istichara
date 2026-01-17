@@ -12,6 +12,8 @@ Router::add('avocat/create',['App\\Controller\\ControllerAddAvocat', 'addavocat'
 Router::add('create',['App\\Controller\\ControllerAddHuissiers', 'show']);
 Router::add('create/Huissiers',['App\\Controller\\ControllerAddAvocat', 'addHuissiers']);
 Router::add('avocat/delete',['App\\Controller\\ControlleDeleteAvocat', 'deleteavocat']);
+Router::add('avocat/updete',['App\\Controller\\ControllerUpdeteAvocat', 'show']);
+Router::add('updete',['App\\Controller\\ControllerUpdeteAvocat', 'updeteavocat']);
 
 Router::dispatsh($_GET['url']);
 

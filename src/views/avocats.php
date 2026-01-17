@@ -89,9 +89,9 @@
                                 <td><?= $item['years_of_experience'] ?></td>
                                 <td><?= $item['consoltation_en_ligne'] ?></td>
                                 <td>
-                                    <button class="btn btn-outline"
+                                    <a href="avocat/updete? avocat_id=<?=$item['id'] ?>"  class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                            class="fas fa-edit"></i></button>
+                                            class="fas fa-edit"></i></a>
                                     <a href="avocat/delete? avocat_id=<?=$item['id'] ?>" class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
                                             class="fas fa-trash"></i></a>
