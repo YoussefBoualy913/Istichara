@@ -67,7 +67,7 @@
                         <i class="fas fa-user-tie"></i>
                     </div>
                     <div>
-                        <div style="font-size: 2rem; font-weight: 700;">124</div>
+                        <div style="font-size: 2rem; font-weight: 700;"><?=$totalavocat ?></div>
                         <div style="color: var(--text-muted);">Avocats Inscrits</div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                         <i class="fas fa-file-signature"></i>
                     </div>
                     <div>
-                        <div style="font-size: 2rem; font-weight: 700;">86</div>
+                        <div style="font-size: 2rem; font-weight: 700;"><?=$totalhuissier ?></div>
                         <div style="color: var(--text-muted);">Huissiers Inscrits</div>
                     </div>
                 </div>
@@ -97,62 +97,30 @@
                 <!-- Professionals List -->
                 <div class="card">
                     <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
-                        <h3>Liste des Professionnels</h3>
-                        <button onclick="openModal()" class="btn btn-primary">
-                            <i class="fas fa-plus" style="margin-right: 0.5rem;"></i> Ajouter
-                        </button>
+                        <h3>Répartition par Ville</h3>
+                        
                     </div>
 
                     <div class="table-container">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Nom & Prénom</th>
-                                    <th>Type</th>
-                                    <th>Ville</th>
-                                    <th>Actions</th>
+                                    <th>ville</th>
+                                    <th>totale avocat</th>
+                                    <th>totale huissiers </th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($totalPparville as $item){ ?>
                                 <tr>
-                                    <td style="font-weight: 500;">Me. Karim Bennani</td>
-                                    <td><span class="badge badge-blue">Avocat</span></td>
-                                    <td>Casablanca</td>
-                                    <td>
-                                        <button class="btn btn-outline"
-                                            style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                                class="fas fa-edit"></i></button>
-                                        <button class="btn btn-outline"
-                                            style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
+                                    <td style="font-weight: 500;"><?= $item['nom'] ?></td>
+                                    <td><span class="badge badge-blue"><?= $item['totalavocat'] ?></span></td>
+                                    <td><span class="badge badge-gold"><?= $item['totalhuissier'] ?></span></td>
+                                   
                                 </tr>
-                                <tr>
-                                    <td style="font-weight: 500;">Mr. Omar Tazi</td>
-                                    <td><span class="badge badge-gold">Huissier</span></td>
-                                    <td>Marrakech</td>
-                                    <td>
-                                        <button class="btn btn-outline"
-                                            style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                                class="fas fa-edit"></i></button>
-                                        <button class="btn btn-outline"
-                                            style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="font-weight: 500;">Me. Salma Idrissi</td>
-                                    <td><span class="badge badge-blue">Avocat</span></td>
-                                    <td>Rabat</td>
-                                    <td>
-                                        <button class="btn btn-outline"
-                                            style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                                class="fas fa-edit"></i></button>
-                                        <button class="btn btn-outline"
-                                            style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                                class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                               <?php } ?>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -161,31 +129,7 @@
                 <!-- Distribution Stats -->
                 <div class="flex" style="flex-direction: column; gap: 1.5rem;">
 
-                    <div class="card">
-                        <h3 style="margin-bottom: 1rem;">Répartition par Ville</h3>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Ville</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Casablanca</td>
-                                    <td style="font-weight: bold;">45</td>
-                                </tr>
-                                <tr>
-                                    <td>Rabat</td>
-                                    <td style="font-weight: bold;">32</td>
-                                </tr>
-                                <tr>
-                                    <td>Marrakech</td>
-                                    <td style="font-weight: bold;">28</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    
 
                     <div class="card">
                         <h3 style="margin-bottom: 1rem;">Top Avocats (Exp.)</h3>
@@ -194,23 +138,23 @@
                             style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">1</div>
                             <div>
-                                <div style="font-weight: 600;">Me. Alami</div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);">35 ans d'expérience</div>
+                                <div style="font-weight: 600;"><?= $topAvocat['0']['nom'] ?></div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['0']['years_of_experience'] ?> ans d'expérience</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4"
                             style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">2</div>
                             <div>
-                                <div style="font-weight: 600;">Me. Tazi</div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);">28 ans d'expérience</div>
+                                <div style="font-weight: 600;"><?= $topAvocat['1']['nom'] ?></div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['1']['years_of_experience'] ?> ans d'expérience</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">3</div>
                             <div>
-                                <div style="font-weight: 600;">Me. Bennis</div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);">25 ans d'expérience</div>
+                                <div style="font-weight: 600;"><?= $topAvocat['2']['nom'] ?></div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['2']['years_of_experience'] ?> ans d'expérience</div>
                             </div>
                         </div>
                     </div>

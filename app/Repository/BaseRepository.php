@@ -33,11 +33,19 @@ class BaseRepository implements  RepositoryInterface {
    }
 
     public function create(array $data,string $tablename):void {
+
+    $stmt = $this->pdo->prepare("select * from ville where nom = ?");
+    $stmt->execute([$data['ville']]);
+    $ville = $stmt->fetch();
+    if($ville['id']){ 
+        $data['ville_id'] = $ville['id'];
+           unset($data['ville']);
+    }else{
     $stmt = $this->pdo->prepare("insert into ville(`nom`) VALUES(?)");
      $stmt->execute([$data['ville']]);
      $data['ville_id'] = $this->pdo->lastInsertId();
      unset($data['ville']);
-
+    }
     $keys = array_keys($data);
     $sql ="insert into ".$tablename."(".implode(',',$keys).") VALUES(:".implode(",:",$keys).")";
     $stmt = $this->pdo->prepare($sql);

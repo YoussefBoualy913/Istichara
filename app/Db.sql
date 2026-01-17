@@ -3,7 +3,7 @@ use istichara;
 
 CREATE TABLE ville (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(100) NOT NULL UNIQUE
+    nom VARCHAR(100) NOT NULL unique
 );
 CREATE TABLE avocat (
     id INT AUTO_INCREMENT PRIMARY KEY,

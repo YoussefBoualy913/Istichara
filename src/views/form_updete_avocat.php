@@ -43,7 +43,7 @@
         <main class="main-content">
 
             <header class="flex justify-between items-center" style="margin-bottom: 2rem;">
-                <h2 style="font-size: 1.75rem;">Ajouter un Avocat</h2>
+                <h2 style="font-size: 1.75rem;">Modifier un Avocat</h2>
                 <div class="flex gap-4 items-center">
                     <div
                         style="background: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);">
