@@ -19,7 +19,7 @@ class StatistiqueRepository{
    }
    
    public function  professionnelsParVille():array  {
-      $stmt = $this->pdo->prepare("select ville.nom,count(a.id) as totalavocat,COUNT(h.id) as totalhuissier
+      $stmt = $this->pdo->prepare("select ville.nom,count(DISTINCT  a.id) as totalavocat,COUNT(DISTINCT  h.id) as totalhuissier
       from ville  
       left JOIN avocat as a on a.ville_id = ville.id
       left JOIN huissier as h on h.ville_id = ville.id

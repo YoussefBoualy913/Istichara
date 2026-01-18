@@ -63,7 +63,7 @@
             <div class="card">
                 <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
                     <h3>Liste des Huissiers</h3>
-                    <a href="create" class="btn btn-primary">
+                    <a href="./Huissiers/create" class="btn btn-primary">
                         <i class="fas fa-plus" style="margin-right: 0.5rem;"></i> Ajouter un Huissier
                     </a>
                 </div>
@@ -74,50 +74,29 @@
                             <tr>
                                 <th>Nom & Prénom</th>
                                 <th>Ville</th>
+                                <th>Experience</th>
                                 <th>Types d'actes</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach( $result as $item){ ?>
                             <tr>
-                                <td style="font-weight: 500;">Me. Omar Tazi</td>
-                                <td>Marrakech</td>
-                                <td>Signification, Exécution</td>
+                                <td style="font-weight: 500;"><?= $item['nom'] ?></td>
+                                <td><?= $item['villename'] ?></td>
+                                <td><?= $item['years_of_experience'] ?></td>
+                                <td><?= $item['types_actes'] ?></td>
                                 <td>
-                                    <button class="btn btn-outline"
+                                    <a href="./Huissiers/edit? Huissiers_id=<?=$item['id'] ?>" class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                            class="fas fa-edit"></i></button>
-                                    <button class="btn btn-outline"
+                                            class="fas fa-edit"></i></a>
+                                    <a href="./Huissiers/destroy? Huissiers_id=<?=$item['id'] ?>" class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                            class="fas fa-trash"></i></button>
+                                            class="fas fa-trash"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td style="font-weight: 500;">Me. Ahmed Daoudi</td>
-                                <td>Casablanca</td>
-                                <td>Constats, Signification</td>
-                                <td>
-                                    <button class="btn btn-outline"
-                                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                            class="fas fa-edit"></i></button>
-                                    <button class="btn btn-outline"
-                                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                            class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 500;">Me. Fatima Zahra</td>
-                                <td>Rabat</td>
-                                <td>Exécution, Constats</td>
-                                <td>
-                                    <button class="btn btn-outline"
-                                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
-                                            class="fas fa-edit"></i></button>
-                                    <button class="btn btn-outline"
-                                        style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
-                                            class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
+                            <?php } ?>
+                            
                         </tbody>
                     </table>
                 </div>

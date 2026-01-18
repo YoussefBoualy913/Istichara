@@ -63,7 +63,7 @@
             <div class="card">
                 <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
                     <h3>Liste des Avocats</h3>
-                    <a href="create" class="btn btn-primary">
+                    <a href="./avocat/create?ref='av'" class="btn btn-primary">
                         <i class="fas fa-plus" style="margin-right: 0.5rem;"></i> Ajouter un Avocat
                     </a>
                 </div>
@@ -89,10 +89,10 @@
                                 <td><?= $item['years_of_experience'] ?></td>
                                 <td><?= $item['consoltation_en_ligne'] ?></td>
                                 <td>
-                                    <a href="./edit? avocat_id=<?=$item['id'] ?>"  class="btn btn-outline"
+                                    <a href="./avocat/edit? avocat_id=<?=$item['id'] ?>"  class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
                                             class="fas fa-edit"></i></a>
-                                    <a href="./destroy? avocat_id=<?=$item['id'] ?>" class="btn btn-outline"
+                                    <a href="./avocat/destroy? avocat_id=<?=$item['id'] ?>" class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
                                             class="fas fa-trash"></i></a>
                                 </td>

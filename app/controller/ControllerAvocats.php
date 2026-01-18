@@ -27,7 +27,7 @@ class ControllerAvocats{
         
         $repoavocat->create($data,'avocat');
      
-        header('location:./avocats');
+        header('location:../avocats');
         exit;
        
      }
@@ -53,7 +53,7 @@ class ControllerAvocats{
         $avocat->setConsoltation_en_ligne($_POST['consoltation_en_ligne']);
 
         $repoavocat->updete($avocat);
-       header('location:./avocats');
+       header('location:../avocats');
         exit;
      }
 
@@ -61,7 +61,7 @@ class ControllerAvocats{
        $repoavocat = new AvocatRepository();
      
        $repoavocat->delete('avocat',$_GET['avocat_id']);
-       header('location:./avocats');
+       header('location:../avocats');
         exit;
      }
 }

@@ -20,15 +20,15 @@
             </div>
 
             <nav class="sidebar-menu">
-                <a href="dashboard" class="sidebar-link">
+                <a href="../dashboard" class="sidebar-link">
                     <i class="fas fa-chart-pie"></i>
                     Tableau de Bord
                 </a>
-                <a href="avocats" class="sidebar-link active">
+                <a href="../avocats" class="sidebar-link ">
                     <i class="fas fa-users-cog"></i>
                     Gestion Avocats
                 </a>
-                <a href="Huissiers" class="sidebar-link">
+                <a href="../Huissiers" class="sidebar-link">
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
@@ -65,7 +65,7 @@
                     <h3>Nouveau Profil Avocat</h3>
                 </div>
 
-                <form method="POST" action="store">
+                <form method="POST" action="<?php if(isset($_GET['ref'])){echo '../avocat/store';}else{echo '../Huissiers/store';} ?>">
                     <!-- Common Fields -->
                     <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                         <div class="input-group">

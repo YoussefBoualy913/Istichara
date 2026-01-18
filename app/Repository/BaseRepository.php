@@ -64,8 +64,21 @@ class BaseRepository implements  RepositoryInterface {
    public function updete(Personnes $personnes):void {
 
     if($personnes instanceof Avocat){
-      $stmt = $this->pdo->prepare("UPDATE  ville set nom = ? where id =?");
-     $stmt->execute([$personnes->getVille(),$personnes->getVille_id()]);
+
+    $stmt = $this->pdo->prepare("select * from ville where nom = ?");
+    $stmt->execute([$personnes->getVille()]);
+    $ville = $stmt->fetch();
+    if($ville['id']){ 
+        $data['ville_id'] = $ville['id'];
+         $stmt = $this->pdo->prepare("UPDATE  avocat set ville_id = ? where id =?");
+        $stmt->execute([$data['ville_id'],$personnes->getId()]);
+          
+    }else{
+   
+        $stmt = $this->pdo->prepare("UPDATE  ville set nom = ? where id =?");
+        $stmt->execute([$personnes->getVille(),$personnes->getVille_id()]);
+     
+    }
 
    $stmt = $this->pdo->prepare("UPDATE avocat set `nom`= :nom ,`email`= :email,
    `years_of_experience`= :years_of_experience,specialite=:specialite ,consoltation_en_ligne=:consoltation_en_ligne where id =:id");
@@ -81,10 +94,23 @@ class BaseRepository implements  RepositoryInterface {
 
     }
      if($personnes instanceof Huissiers ){
-         $stmt = $this->pdo->prepare("UPDATE  ville set `nom` = ?");
-     $stmt->execute([ $personnes->getVille()]);
 
-       $stmt = $this->pdo->prepare("UPDATE from huissier set `nom`= :nom ,`email`= :email,
+    $stmt = $this->pdo->prepare("select * from ville where nom = ?");
+    $stmt->execute([$personnes->getVille()]);
+    $ville = $stmt->fetch();
+    if($ville['id']){ 
+        $data['ville_id'] = $ville['id'];
+         $stmt = $this->pdo->prepare("UPDATE  huissier set ville_id = ? where id =?");
+        $stmt->execute([$data['ville_id'],$personnes->getId()]);
+          
+    }else{
+   
+        $stmt = $this->pdo->prepare("UPDATE  ville set nom = ? where id =?");
+        $stmt->execute([$personnes->getVille(),$personnes->getVille_id()]);
+     
+    }
+
+       $stmt = $this->pdo->prepare("UPDATE  huissier set `nom`= :nom ,`email`= :email,
        `years_of_experience`= :years_of_experience,types_actes=:types_actes where id =:id");
        $stmt->execute([
         ':nom' => $personnes->getNom(),

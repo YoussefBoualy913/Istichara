@@ -24,11 +24,11 @@
                     <i class="fas fa-chart-pie"></i>
                     Tableau de Bord
                 </a>
-                <a href="../avocats" class="sidebar-link active">
+                <a href="../avocats" class="sidebar-link ">
                     <i class="fas fa-users-cog"></i>
                     Gestion Avocats
                 </a>
-                <a href="..Huissiers" class="sidebar-link">
+                <a href="../Huissiers" class="sidebar-link active">
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
@@ -43,7 +43,7 @@
         <main class="main-content">
 
             <header class="flex justify-between items-center" style="margin-bottom: 2rem;">
-                <h2 style="font-size: 1.75rem;">Modifier un Avocat</h2>
+                <h2 style="font-size: 1.75rem;">Modifier un Huissiers</h2>
                 <div class="flex gap-4 items-center">
                     <div
                         style="background: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border);">
@@ -62,10 +62,10 @@
             <!-- Form Card -->
             <div class="card" style="max-width: 800px; margin: 0 auto;">
                 <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
-                    <h3>Nouveau Profil Avocat</h3>
+                    <h3>Nouveau Profil Huissiers</h3>
                 </div>
 
-                <form method="POST" action="./update? avocat_id=<?=$result['id']?>">
+                <form method="POST" action="../Huissiers/update? Huissiers_id=<?=$result['id']?>">
                     <!-- Common Fields -->
                     <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                         <div class="input-group">
@@ -101,26 +101,14 @@
                        
 
                     <div class="grid Avocat" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                        <div class="input-group" style="margin-bottom: 1rem;">
-                            <label class="label">Spécialités</label>
-                          
-                            <select class="select" name="specialite" value="<?=$result['specialite'] ?>"  placeholder="Ex:droitPénal">
-                                 <option>Droitpénal</option>
-                                 <option>civil</option>
-                                 <option>affaires</option>
-                                 <option>famille</option>
-                                 
-                            </select>
-                        </div>
-                        
-                        <div class="input-group" style="margin-bottom: 1rem;">
-                           <label class="label">Consultation en ligne</label>
-                            <select class="select" value="<?=$result['consoltation_en_ligne'] ?>"  name="consoltation_en_ligne">
-                                 <option>Oui</option>
-                                 <option>Non</option>
-                                 
-                            </select>
-                       </div>
+                        <div class="input-group Huissiers" style="margin-bottom: 1rem">
+                            <label class="label">types actes</label>
+                             <select class="select" name="types_actes" value="<?=$result['types_actes'] ?>">
+                                  <option>constats</option>
+                                  <option>exécution</option>
+                                  <option>Signification</option>
+                             </select>
+                    </div>
                     </div>
                
 

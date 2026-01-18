@@ -1,13 +1,13 @@
 <?php
 namespace App\Repository;
-use App\Helper\Database;
 
-class HuissiersRepositry{
+
+class HuissiersRepository extends BaseRepository{
   
 
    public function __construct()
    {
-  
+        parent::__construct();
    }
    
    
