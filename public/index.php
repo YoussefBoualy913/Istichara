@@ -5,15 +5,15 @@ use App\Models\Avocat;
 
 require_once('../app/core/router/router.php');
 
-Router::add('dashboard',['App\\Controller\\ControllerAdminDachboard', 'show']);
-Router::add('avocats',['App\\Controller\\ControllerAdminAvocats', 'show']);
+Router::add('dashboard',['App\\Controller\\ControllerDachboard', 'index']);
+Router::add('avocats',['App\\Controller\\ControllerAvocats', 'index']);
+Router::add('create',['App\\Controller\\ControllerAvocats', 'create']);
+Router::add('store',['App\\Controller\\ControllerAvocats', 'store']);
+Router::add('edit',['App\\Controller\\ControllerAvocats', 'edit']);
+Router::add('update',['App\\Controller\\ControllerAvocats', 'update']);
+Router::add('destroy',['App\\Controller\\ControllerAvocats', 'destroy']);
 Router::add('Huissiers',['App\\Controller\\ControllerAdminHuissiers', 'show']);
-Router::add('avocat/create',['App\\Controller\\ControllerAddAvocat', 'addavocat']);
-Router::add('create',['App\\Controller\\ControllerAddHuissiers', 'show']);
 Router::add('create/Huissiers',['App\\Controller\\ControllerAddAvocat', 'addHuissiers']);
-Router::add('avocat/delete',['App\\Controller\\ControlleDeleteAvocat', 'deleteavocat']);
-Router::add('avocat/updete',['App\\Controller\\ControllerUpdeteAvocat', 'show']);
-Router::add('updete',['App\\Controller\\ControllerUpdeteAvocat', 'updeteavocat']);
 
 Router::dispatsh($_GET['url']);
 

@@ -65,7 +65,7 @@
                     <h3>Nouveau Profil Avocat</h3>
                 </div>
 
-                <form method="POST" action="avocat/create">
+                <form method="POST" action="store">
                     <!-- Common Fields -->
                     <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                         <div class="input-group">

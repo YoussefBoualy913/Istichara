@@ -1,9 +1,9 @@
 <?php
 namespace App\Controller;
 use App\Repository\StatistiqueRepository;
-class ControllerAdminDachboard{
+class ControllerDachboard{
 
-     public function show(){
+     public function index(){
         $repoStatistique = new StatistiqueRepository();
         $totalavocat = $repoStatistique->totalProfessionnels('avocat');
         $totalhuissier = $repoStatistique->totalProfessionnels('huissier');
