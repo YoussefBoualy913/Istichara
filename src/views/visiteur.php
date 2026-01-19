@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ISTICHARA - Expertise Juridique au Maroc</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/../../src/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -21,7 +21,7 @@
                     <a href="#" class="nav-link active">Accueil</a>
                     <a href="#" class="nav-link">Experts</a>
                     <a href="#" class="nav-link">À propos</a>
-                    <a href="admin.html" class="btn btn-outline">Espace Pro / Admin</a>
+                    <a href="dashboard" class="btn btn-primary" style="padding: 0.5rem 1rem;">Connexion</a>
                 </nav>
             </div>
         </div>

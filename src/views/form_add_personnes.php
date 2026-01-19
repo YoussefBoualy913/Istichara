@@ -32,7 +32,7 @@
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
-                <a href="index.html" class="sidebar-link" style="margin-top: auto;">
+                <a href="../visiteur" class="sidebar-link" style="margin-top: auto;">
                     <i class="fas fa-sign-out-alt"></i>
                     Retour au site
                 </a>

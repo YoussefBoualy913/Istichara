@@ -28,11 +28,11 @@
                     <i class="fas fa-users-cog"></i>
                     Gestion Avocats
                 </a>
-                <a href="..Huissiers" class="sidebar-link">
+                <a href="../Huissiers" class="sidebar-link">
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
-                <a href="index.html" class="sidebar-link" style="margin-top: auto;">
+                <a href="../visiteur" class="sidebar-link" style="margin-top: auto;">
                     <i class="fas fa-sign-out-alt"></i>
                     Retour au site
                 </a>
