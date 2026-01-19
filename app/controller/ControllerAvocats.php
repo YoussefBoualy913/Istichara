@@ -41,7 +41,7 @@ class ControllerAvocats{
       public function update(){
         $avocat = new Avocat();
         $repoavocat = new AvocatRepository();
-       var_dump($_POST['ville_id']);
+        var_dump($_POST['ville_id']);
        
         $avocat->setId($_GET['avocat_id']);
         $avocat->setNom($_POST['nom']);

@@ -5,7 +5,7 @@ use App\Models\Avocat;
 
 require_once('../app/core/router/router.php');
 
-Router::add('dashboard',['App\\Controller\\ControllerDachboard', 'index']);
+Router::add('dashboard',['App\\Controller\\ControllerDachboard', 'index' ]);
 Router::add('visiteur',['App\\Controller\\ControllerVisiteur', 'index']);
 Router::add('avocats',['App\\Controller\\ControllerAvocats', 'index']);
 Router::add('avocat/create',['App\\Controller\\ControllerAvocats', 'create']);
