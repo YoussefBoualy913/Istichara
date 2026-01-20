@@ -9,9 +9,6 @@ abstract class User{
     protected string $password ;
     
    
-
-   
-
 public function getId():int {
      return $this->id;
 }

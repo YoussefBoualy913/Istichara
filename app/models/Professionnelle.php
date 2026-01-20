@@ -2,7 +2,7 @@
 
 namespace  App\Models;
 
- class Professionnelle extends User{
+ abstract class Professionnelle extends User{
     protected string $ville_id;
     protected int $years_of_experience;
     protected array $document;
