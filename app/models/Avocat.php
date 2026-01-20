@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
- class Avocat extends User{
+ class Avocat extends Professionnelle{
     private string $specialite;
     private bool $consoltation_en_ligne ;
 

@@ -2,7 +2,7 @@
 
 namespace  App\Models;
 
- class Huissiers extends User{
+ class Huissiers extends Professionnelle{
     private string $types_actes;
  
 
