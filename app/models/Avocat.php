@@ -2,25 +2,24 @@
 
 namespace App\Models;
 
- class Avocat extends Personnes{
+ class Avocat extends User{
     private string $specialite;
     private bool $consoltation_en_ligne ;
 
   
 
- public function getSpecialite(){
+ public function getSpecialite():string{
      return $this->specialite;
 }
-public function getConsoltation_en_ligne(){
+public function getConsoltation_en_ligne():string{
     return $this->consoltation_en_ligne;
 }
-public function setSpecialite($specialite){
-    return $this->specialite = $specialite;
+public function setSpecialite($specialite):void{
+    $this->specialite = $specialite;
 }
-public function setconsoltation_en_ligne($consoltation_en_ligne){
-    return $this->consoltation_en_ligne = $consoltation_en_ligne;
+public function setconsoltation_en_ligne($consoltation_en_ligne):void{
+     $this->consoltation_en_ligne = $consoltation_en_ligne;
 }
-
 
 
 

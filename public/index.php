@@ -6,7 +6,7 @@ use App\Models\Avocat;
 require_once('../app/core/router/router.php');
 
 Router::add('dashboard',['App\\Controller\\ControllerDachboard', 'index' ]);
-Router::add('visiteur',['App\\Controller\\ControllerVisiteur', 'index']);
+Router::add('',['App\\Controller\\ControllerVisiteur', 'index']);
 Router::add('avocats',['App\\Controller\\ControllerAvocats', 'index']);
 Router::add('avocat/create',['App\\Controller\\ControllerAvocats', 'create']);
 Router::add('avocat/store',['App\\Controller\\ControllerAvocats', 'store']);
@@ -21,4 +21,3 @@ Router::add('Huissiers/update',['App\\Controller\\ControllerHuissiers', 'update'
 Router::add('Huissiers/destroy',['App\\Controller\\ControllerHuissiers', 'destroy']);
 
 Router::dispatsh($_GET['url']);
-
