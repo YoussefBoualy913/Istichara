@@ -10,8 +10,5 @@
             "name": "youssef boualy",
             "email": "youssefboua913@gmail.com"
         }
-    ],
-    "require": {
-        "twig/twig": "^3.22"
-    }
+    ]
 }

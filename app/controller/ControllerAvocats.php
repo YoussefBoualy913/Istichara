@@ -20,7 +20,7 @@ class ControllerAvocats{
         
         $data['nom'] = $_POST['nom'];
         $data['email'] = $_POST['email'];
-        $data['ville'] = $_POST['ville'];
+        $data['ville_id'] = $_POST['ville_id'];
         $data['years_of_experience'] = $_POST['years_of_experience'];
         $data['specialite'] = $_POST['specialite'];
         $data['consoltation_en_ligne'] = $_POST['consoltation_en_ligne'];
@@ -46,7 +46,6 @@ class ControllerAvocats{
         $avocat->setId($_GET['avocat_id']);
         $avocat->setNom($_POST['nom']);
         $avocat->setEmail($_POST['email']);
-        $avocat->setVille($_POST['ville']);
         $avocat->setVille_id($_POST['ville_id']);
         $avocat->setSpecialite($_POST['specialite']);
         $avocat->setYears_of_experience($_POST['years_of_experience']);
