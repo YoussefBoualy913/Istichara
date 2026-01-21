@@ -6,7 +6,7 @@ use App\Helper\Request;
 use App\Helper\Response;
 use App\Helper\Session;
 use App\Helper\Validator;
-use Core\Helper\View;
+use App\Helper\View;
 
 class AuthentificationController {
     private Request $request;
