@@ -21,7 +21,7 @@
                     <a href="#" class="nav-link active">Accueil</a>
                     <a href="#" class="nav-link">Experts</a>
                     <a href="#" class="nav-link">À propos</a>
-                    <a href="dashboard" class="btn btn-primary" style="padding: 0.5rem 1rem;">Connexion</a>
+                    <a href="register" class="btn btn-primary" style="padding: 0.5rem 1rem;">Connexion</a>
                 </nav>
             </div>
         </div>
