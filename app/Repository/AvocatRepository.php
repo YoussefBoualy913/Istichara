@@ -12,7 +12,7 @@ class AvocatRepository extends BaseRepository{
 
 
     public function searchAvocats(?string $query = null, ?int $villeId = null) {
-        $sql = "SELECT p.*, v.name AS ville_name, u.* FROM " . static::$tableName . " a JOIN ville v ON p.ville_id = v.id JOIN users u ON p.user_id = u.id WHERE 1=1";
+        $sql = "SELECT p.*, v.name AS ville_name, u.* FROM " . static::$tableName . " p JOIN ville v ON p.ville_id = v.id JOIN users u ON p.user_id = u.id WHERE 1=1";
         $params = [];
 
         if ($query) {
