@@ -120,6 +120,7 @@
                                         <button class="btn btn-outline btn-info" title="Détails">
                                            <i class="fas fa-file-alt"></i>
                                          </button>
+                                         <button class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></button>
        
                                 </tr>
                                  <tr>
@@ -132,6 +133,7 @@
                                         <button class="btn btn-outline btn-info" title="Détails">
                                            <i class="fas fa-file-alt"></i>
                                          </button>
+                                         <button class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></button>
        
                                 </tr>
                                  <tr>
@@ -144,6 +146,7 @@
                                         <button class="btn btn-outline btn-info" title="Détails">
                                            <i class="fas fa-file-alt"></i>
                                          </button>
+                                         <button class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></button>
        
                                 </tr>
                                 
