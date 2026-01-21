@@ -12,4 +12,6 @@ class ControllerVisiteur{
      public function register(){
          require_once (__DIR__.'/../../src/views/register.php');
      }
+
+     
 }

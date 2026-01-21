@@ -385,23 +385,23 @@
                     <p>Créez votre compte client</p>
                 </div>
 
-                <form onsubmit="handleClientRegister(event)">
+                <form action="client/create" method="POST" onsubmit="handleClientRegister(event)">
                     <div class="form-group">
                         <label>Nom complet</label>
-                        <input type="text" required placeholder="Votre nom">
+                        <input type="text" name="name" required placeholder="Votre nom">
                     </div>
 
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" required placeholder="votre@email.com">
+                        <input type="email" name="email" required placeholder="votre@email.com">
                     </div>
 
                     <div class="form-group">
                         <label>Mot de passe</label>
-                        <input type="password" required placeholder="••••••••">
+                        <input type="password" name="password" required placeholder="••••••••">
                     </div>
 
-                    <input type="hidden" value="client">
+                    <input type="hidden" name="role" value="client">
 
                     <button type="submit" class="btn btn-primary" style="width: 100%;">S'inscrire</button>
                 </form>
@@ -575,11 +575,11 @@
                     </div>
                 </div>
 
-                <form id="step3Form" onsubmit="handleProfessionalRegister(event)">
+                <form id="step3Form" method="POST" enctype="multipart/form-data" onsubmit="handleProfessionalRegister(event)">
                     <div class="form-group">
                         <label>Certificat professionnel</label>
                         <div class="file-upload" onclick="document.getElementById('certif').click()">
-                            <input type="file" id="certif" accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName('certif', 'certifName')">
+                            <input type="file" id="certif" name="certificat" accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName('certif', 'certifName')">
                             <div class="upload-icon">📄</div>
                             <p>Cliquez pour télécharger votre certificat</p>
                             <div class="file-name" id="certifName"></div>
@@ -589,12 +589,22 @@
                     <div class="form-group">
                         <label>Document de vérification</label>
                         <div class="file-upload" onclick="document.getElementById('review').click()">
-                            <input type="file" id="review" accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName('review', 'reviewName')">
+                            <input type="file" id="review" name="document" accept=".pdf,.jpg,.jpeg,.png" required onchange="updateFileName('review', 'reviewName')">
                             <div class="upload-icon">📋</div>
                             <p>Cliquez pour télécharger votre document</p>
                             <div class="file-name" id="reviewName"></div>
                         </div>
                     </div>
+
+                    <!-- Champs cachés pour toutes les données -->
+                    <input type="hidden" id="finalName" name="name">
+                    <input type="hidden" id="finalEmail" name="email">
+                    <input type="hidden" id="finalPassword" name="password">
+                    <input type="hidden" id="finalType" name="type">
+                    <input type="hidden" id="finalVille" name="ville">
+                    <input type="hidden" id="finalExperience" name="experience">
+                    <input type="hidden" id="finalSpecialite" name="specialite">
+                    <input type="hidden" id="finalTypeActes" name="typeActes">
 
                     <div class="button-group">
                         <button type="button" class="btn btn-secondary" onclick="goToStep2()">Retour</button>
@@ -654,7 +664,13 @@
 
             professionalData = { name, email, password, type, role: 'professionnel' };
 
-            // Show/hide fields based on professional type
+            const form = document.getElementById('step3Form');
+            if (type === 'avocat') {
+                form.action = 'avocat/create';
+            } else if (type === 'huissier') {
+                form.action = 'huissier/create';
+            }
+
             if (type === 'avocat') {
                 document.getElementById('specialiteGroup').style.display = 'block';
                 document.getElementById('typeActesGroup').style.display = 'none';
@@ -699,6 +715,21 @@
                 professionalData.typeActes = typeActes;
             }
 
+            document.getElementById('finalName').value = professionalData.name;
+            document.getElementById('finalEmail').value = professionalData.email;
+            document.getElementById('finalPassword').value = professionalData.password;
+            document.getElementById('finalType').value = professionalData.type;
+            document.getElementById('finalVille').value = professionalData.ville;
+            document.getElementById('finalExperience').value = professionalData.experience;
+            
+            if (professionalData.type === 'avocat') {
+                document.getElementById('finalSpecialite').value = professionalData.specialite;
+                document.getElementById('finalTypeActes').value = '';
+            } else {
+                document.getElementById('finalSpecialite').value = '';
+                document.getElementById('finalTypeActes').value = professionalData.typeActes;
+            }
+
             hideAllForms();
             document.getElementById('professionalRegisterStep3').classList.remove('hidden');
         }
@@ -718,29 +749,22 @@
         }
 
         function handleClientRegister(e) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = Object.fromEntries(formData);
-            data.role = 'client';
-            console.log('Client registration:', data);
-            alert('Inscription client réussie! (Intégrez votre logique backend ici)');
+            // Le formulaire sera soumis normalement à client/create
+            console.log('Soumission du formulaire client...');
         }
 
         function handleProfessionalRegister(e) {
-            e.preventDefault();
+            // Vérifier les fichiers avant soumission
             const certif = document.getElementById('certif').files[0];
             const review = document.getElementById('review').files[0];
 
             if (!certif || !review) {
                 alert('Veuillez télécharger tous les documents');
+                e.preventDefault();
                 return;
             }
 
-            professionalData.certif = certif.name;
-            professionalData.review = review.name;
-
-            console.log('Professional registration:', professionalData);
-            alert('Inscription professionnelle réussie! Votre compte sera vérifié sous 48h. (Intégrez votre logique backend ici)');
+            console.log('Soumission du formulaire professionnel vers:', e.target.action);
         }
     </script>
 </body>

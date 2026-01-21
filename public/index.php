@@ -1,12 +1,12 @@
 
 <?php
 
-use App\Helper\Request;
+// use App\Helper\Request;
 
 require_once('../vendor/autoload.php');
 require_once('../app/core/router/router.php');
 
-$request = new Request();
+// $request = new Request();
 
 Router::add('register',["callable" =>"App\\Controller\\ControllerVisiteur@register","auth" =>false ,"roles" => []]);
 Router::add('',["callable" => "App\\Controller\\ControllerVisiteur@index" , "auth" => false, "roles" => []]);
