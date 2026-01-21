@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Middlewares;
+namespace App\Core\Middleware;
 
 use App\Helper\Response;
 use App\Helper\Session;
@@ -14,13 +14,11 @@ class AuthMiddleware {
         $this->response = new Response();
     }
     
-    public function handle(bool $requiredAuth, array $routeInfo) {
-        if($requiredAuth) return;
+    public function handle(array $routeInfo) {
+        if(!$routeInfo['auth']) return;
         $userId = $this->session->getUserId();
-
-        if($routeInfo['auth'] && !$userId) $this->response->header('/');
-
+        if(!$userId) $this->response->header('/');
         $user = true;
-        if($user) $this->response->header("/");
+        // if(!$user || !in_array($user->getRole(), $routeInfo["roles"])) $this->response->header("/");
     }
 }
