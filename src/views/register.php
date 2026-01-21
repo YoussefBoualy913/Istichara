@@ -641,35 +641,39 @@
             document.getElementById('professionalRegisterStep1').classList.remove('hidden');
         }
 
-        function goToStep2() {
-            const name = document.getElementById('proName').value;
-            const email = document.getElementById('proEmail').value;
-            const password = document.getElementById('proPassword').value;
-            const type = document.getElementById('proType').value;
+function goToStep2() {
+    const name = document.getElementById('proName').value;
+    const email = document.getElementById('proEmail').value;
+    const password = document.getElementById('proPassword').value;
+    const type = document.getElementById('proType').value;
 
-            if (!name || !email || !password || !type) {
-                alert('Veuillez remplir tous les champs');
-                return;
-            }
+    if (!name || !email || !password || !type) {
+        alert('Veuillez remplir tous les champs');
+        return;
+    }
 
-            professionalData = { name, email, password, type, role: 'professionnel' };
+    professionalData = { name, email, password, type, role: 'professionnel' };
 
-            // Show/hide fields based on professional type
-            if (type === 'avocat') {
-                document.getElementById('specialiteGroup').style.display = 'block';
-                document.getElementById('typeActesGroup').style.display = 'none';
-                document.getElementById('specialite').required = true;
-                document.getElementById('typeActes').required = false;
-            } else {
-                document.getElementById('specialiteGroup').style.display = 'none';
-                document.getElementById('typeActesGroup').style.display = 'block';
-                document.getElementById('specialite').required = false;
-                document.getElementById('typeActes').required = true;
-            }
+    // Mettre à jour l'URL sans recharger la page
+    const newUrl = window.location.origin + window.location.pathname + '?type=' + type;
+    window.history.pushState({ type: type }, '', newUrl);
 
-            hideAllForms();
-            document.getElementById('professionalRegisterStep2').classList.remove('hidden');
-        }
+    // Show/hide fields based on professional type
+    if (type === 'avocat') {
+        document.getElementById('specialiteGroup').style.display = 'block';
+        document.getElementById('typeActesGroup').style.display = 'none';
+        document.getElementById('specialite').required = true;
+        document.getElementById('typeActes').required = false;
+    } else {
+        document.getElementById('specialiteGroup').style.display = 'none';
+        document.getElementById('typeActesGroup').style.display = 'block';
+        document.getElementById('specialite').required = false;
+        document.getElementById('typeActes').required = true;
+    }
+
+    hideAllForms();
+    document.getElementById('professionalRegisterStep2').classList.remove('hidden');
+}
 
         function goToStep3() {
             const ville = document.getElementById('ville').value;
