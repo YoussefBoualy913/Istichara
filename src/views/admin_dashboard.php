@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -6,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - ISTICHARA</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -25,15 +24,15 @@
                     <i class="fas fa-chart-pie"></i>
                     Tableau de Bord
                 </a>
-                <a href="./avocats" class="sidebar-link">
+                <a href="avocats.html" class="sidebar-link">
                     <i class="fas fa-users-cog"></i>
                     Gestion Avocats
                 </a>
-                <a href="./Huissiers" class="sidebar-link">
+                <a href="huissiers.html" class="sidebar-link">
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
-                <a href="./visiteur" class="sidebar-link" style="margin-top: auto;">
+                <a href="index.html" class="sidebar-link" style="margin-top: auto;">
                     <i class="fas fa-sign-out-alt"></i>
                     Retour au site
                 </a>
@@ -67,7 +66,7 @@
                         <i class="fas fa-user-tie"></i>
                     </div>
                     <div>
-                        <div style="font-size: 2rem; font-weight: 700;"><?=$totalavocat ?></div>
+                        <div style="font-size: 2rem; font-weight: 700;">124</div>
                         <div style="color: var(--text-muted);">Avocats Inscrits</div>
                     </div>
                 </div>
@@ -76,7 +75,7 @@
                         <i class="fas fa-file-signature"></i>
                     </div>
                     <div>
-                        <div style="font-size: 2rem; font-weight: 700;"><?=$totalhuissier ?></div>
+                        <div style="font-size: 2rem; font-weight: 700;">86</div>
                         <div style="color: var(--text-muted);">Huissiers Inscrits</div>
                     </div>
                 </div>
@@ -97,29 +96,56 @@
                 <!-- Professionals List -->
                 <div class="card">
                     <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
-                        <h3>Répartition par Ville</h3>
-                        
+                        <h3>Liste des Professionnels Panding</h3>
                     </div>
 
                     <div class="table-container">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>ville</th>
-                                    <th>totale avocat</th>
-                                    <th>totale huissiers </th>
-                                    
+                                    <th>Nom & Prénom</th>
+                                    <th>status</th>
+                                   
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($totalPparville as $item){ ?>
                                 <tr>
-                                    <td style="font-weight: 500;"><?= $item['nom'] ?></td>
-                                    <td><span class="badge badge-blue"><?= $item['totalavocat'] ?></span></td>
-                                    <td><span class="badge badge-gold"><?= $item['totalhuissier'] ?></span></td>
+                                    <td style="font-weight: 500;">Me. Karim Bennani</td>
+                                    <td><span class="badge badge-gold">panding</span></td>
                                    
+                                    <td>
+                                      
+
+                                        <button class="btn btn-outline btn-info" title="Détails">
+                                           <i class="fas fa-file-alt"></i>
+                                         </button>
+       
                                 </tr>
-                               <?php } ?>
+                                 <tr>
+                                    <td style="font-weight: 500;">Me. youssef</td>
+                                    <td><span class="badge badge-gold">panding</span></td>
+                                   
+                                    <td>
+                                      
+
+                                        <button class="btn btn-outline btn-info" title="Détails">
+                                           <i class="fas fa-file-alt"></i>
+                                         </button>
+       
+                                </tr>
+                                 <tr>
+                                    <td style="font-weight: 500;">Me. Khalid</td>
+                                    <td><span class="badge badge-gold">panding</span></td>
+                                   
+                                    <td>
+                                      
+
+                                        <button class="btn btn-outline btn-info" title="Détails">
+                                           <i class="fas fa-file-alt"></i>
+                                         </button>
+       
+                                </tr>
                                 
                             </tbody>
                         </table>
@@ -129,7 +155,31 @@
                 <!-- Distribution Stats -->
                 <div class="flex" style="flex-direction: column; gap: 1.5rem;">
 
-                    
+                    <div class="card">
+                        <h3 style="margin-bottom: 1rem;">Répartition par Ville</h3>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ville</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Casablanca</td>
+                                    <td style="font-weight: bold;">45</td>
+                                </tr>
+                                <tr>
+                                    <td>Rabat</td>
+                                    <td style="font-weight: bold;">32</td>
+                                </tr>
+                                <tr>
+                                    <td>Marrakech</td>
+                                    <td style="font-weight: bold;">28</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <div class="card">
                         <h3 style="margin-bottom: 1rem;">Top Avocats (Exp.)</h3>
@@ -138,23 +188,23 @@
                             style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">1</div>
                             <div>
-                                <div style="font-weight: 600;"><?= $topAvocat['0']['nom'] ?></div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['0']['years_of_experience'] ?> ans d'expérience</div>
+                                <div style="font-weight: 600;">Me. Alami</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">35 ans d'expérience</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4"
                             style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">2</div>
                             <div>
-                                <div style="font-weight: 600;"><?= $topAvocat['1']['nom'] ?></div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['1']['years_of_experience'] ?> ans d'expérience</div>
+                                <div style="font-weight: 600;">Me. Tazi</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">28 ans d'expérience</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">3</div>
                             <div>
-                                <div style="font-weight: 600;"><?= $topAvocat['2']['nom'] ?></div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['2']['years_of_experience'] ?> ans d'expérience</div>
+                                <div style="font-weight: 600;">Me. Bennis</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">25 ans d'expérience</div>
                             </div>
                         </div>
                     </div>
@@ -166,99 +216,11 @@
         </main>
     </div>
 
-    <!-- Modal Form -->
-    <div id="modal" class="modal-overlay">
-        <div class="modal">
-            <div class="flex justify-between items-center" style="margin-bottom: 1.5rem;">
-                <h3>Ajouter un Professionnel</h3>
-                <button onclick="closeModal()"
-                    style="background:none; border:none; cursor:pointer; font-size: 1.25rem;">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-
-            <form>
-                <!-- Toggle Type -->
-                <div class="flex justify-center" style="margin-bottom: 1.5rem;">
-                    <div class="toggle-container">
-                        <div id="btn-avocat" class="toggle-option active" onclick="toggleForm('avocat')">Avocat</div>
-                        <div id="btn-huissier" class="toggle-option" onclick="toggleForm('huissier')">Huissier</div>
-                    </div>
-                </div>
-
-                <!-- Common Fields -->
-                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                    <div class="input-group">
-                        <label class="label">Nom</label>
-                        <input type="text" class="input" placeholder="Nom">
-                    </div>
-                    <div class="input-group">
-                        <label class="label">Prénom</label>
-                        <input type="text" class="input" placeholder="Prénom">
-                    </div>
-                </div>
-
-                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                    <div class="input-group">
-                        <label class="label">Email</label>
-                        <input type="email" class="input" placeholder="email@exemple.com">
-                    </div>
-                    <div class="input-group">
-                        <label class="label">Téléphone</label>
-                        <input type="tel" class="input" placeholder="06...">
-                    </div>
-                </div>
-
-                <div class="input-group" style="margin-bottom: 1rem;">
-                    <label class="label">Ville</label>
-                    <select class="select">
-                        <option>Casablanca</option>
-                        <option>Rabat</option>
-                        <!-- etc -->
-                    </select>
-                </div>
-
-                <!-- AVOCAT SPECIFIC FIELDS -->
-                <div id="fields-avocat">
-                    <div class="input-group" style="margin-bottom: 1rem;">
-                        <label class="label">Spécialités</label>
-                        <input type="text" class="input" placeholder="Ex: Pénal, Civil, Affaires...">
-                        <small style="color: var(--text-light);">Séparer par des virgules</small>
-                    </div>
-
-                    <div class="flex items-center gap-2" style="margin-bottom: 1rem;">
-                        <input type="checkbox" id="consult-online">
-                        <label for="consult-online" class="label" style="cursor:pointer;">Propose la consultation en
-                            ligne</label>
-                    </div>
-                </div>
-
-                <!-- HUISSIER SPECIFIC FIELDS -->
-                <div id="fields-huissier" style="display: none;">
-                    <div class="input-group" style="margin-bottom: 1rem;">
-                        <label class="label">Types d'actes autorisés</label>
-                        <select class="select" multiple style="height: 100px;">
-                            <option>Signification</option>
-                            <option>Exécution</option>
-                            <option>Constats</option>
-                        </select>
-                        <small style="color: var(--text-light);">Maintenir Ctrl pour sélectionner plusieurs</small>
-                    </div>
-                </div>
-
-                <div class="flex gap-4" style="margin-top: 2rem;">
-                    <button type="button" class="btn btn-outline" style="flex:1;"
-                        onclick="closeModal()">Annuler</button>
-                    <button type="submit" class="btn btn-primary" style="flex:1;">Enregistrer</button>
-                </div>
-
             </form>
         </div>
     </div>
 
-    <script>
-       
-    </script>
+    
 </body>
 
 </html>

@@ -13,5 +13,4 @@ class Demande {
     private string $validation_status;
     private string $meet_link ; 
 
-    
 }
