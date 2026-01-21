@@ -14,19 +14,19 @@ class BaseRepository implements RepositoryInterface {
     $this->pdo = Database::getConnexion();
   }
    
-  public function getALL() :?array {
+  public function getALL() :array | bool {
     $stmt = $this->pdo->prepare("select p.*, u.*, v.name AS ville_name FROM " . static::$tableName .  " p JOIN ville v ON v.id = p.ville_id JOIN users u ON u.id = p.user_id");
     $stmt->execute();
-    return  $stmt->fetchAll();
+    return $stmt->fetchAll();
   }
 
-  public function findById(int $id): ?array{
+  public function findById(int $id): array | bool {
       $stmt = $this->pdo->prepare("select p.*, v.name as ville_name FROM ".static::$tableName." p JOIN ville v on p.ville_id = v.id  where p.id = :id");
       $stmt->execute(["id" => $id]);
       return $stmt->fetch();
    }
 
-  public function update(array $user, array $pro = []): bool{
+  public function update(array $user, array $pro = []): bool {
     $userId = $user['id'];
     unset($user['id']);
     try{
