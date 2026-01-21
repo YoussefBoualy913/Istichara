@@ -11,7 +11,7 @@ class UserRepository extends BaseRepository {
         return $stmt->fetch();
     }
     
-    public function getALL() :?array {
+    public function getALL() : array | bool {
         $stmt = $this->pdo->prepare("select * FROM " . static::$tableName);
         $stmt->execute();
         return  $stmt->fetchAll();
