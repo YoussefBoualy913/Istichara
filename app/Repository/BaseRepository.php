@@ -7,39 +7,26 @@ use PDO;
 use PDOException;
 
 class BaseRepository implements RepositoryInterface {
-   protected PDO  $pdo;
-   protected static string $tableName;
+  protected PDO  $pdo;
+  protected static string $tableName;
 
-   public function __construct(){
+  public function __construct(){
     $this->pdo = Database::getConnexion();
-   }
+  }
    
-   public function getALL() :array {
-    $stmt = $this->pdo->prepare("select p.*, v.name AS ville_name from " . static::$tableName .  " p JOIN ville v ON v.id = p.ville_id");
+  public function getALL() :?array {
+    $stmt = $this->pdo->prepare("select p.*, u.*, v.name AS ville_name FROM " . static::$tableName .  " p JOIN ville v ON v.id = p.ville_id JOIN users u ON u.id = p.user_id");
     $stmt->execute();
     return  $stmt->fetchAll();
-   }
+  }
 
-   public function delete(int $id):void{
-      $stmt = $this->pdo->prepare("delete from ".static::$tableName." where id = :id");
-      $stmt->execute(["id" => $id]);
-   }
-
-    public function findById(int $id):array{
-      $stmt = $this->pdo->prepare("select p.*, v.name as ville_name from ".static::$tableName." p JOIN ville v on p.ville_id = v.id  where p.id = :id");
+  public function findById(int $id): ?array{
+      $stmt = $this->pdo->prepare("select p.*, v.name as ville_name FROM ".static::$tableName." p JOIN ville v on p.ville_id = v.id  where p.id = :id");
       $stmt->execute(["id" => $id]);
       return $stmt->fetch();
    }
 
-    public function creat(array $data):void {
-      $keys = array_keys($data);
-      $sql ="insert into ". static::$tableName ."(".implode(', ',$keys).") VALUES(:".implode(", :",$keys).")";
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->execute($data);
-   }
-
-
-  public function update(array $user, array $pro = []){
+  public function update(array $user, array $pro = []): bool{
     $userId = $user['id'];
     unset($user['id']);
     try{
@@ -71,13 +58,14 @@ class BaseRepository implements RepositoryInterface {
         $stm->execute([...$pro, "user_id" => $userId]);
 
         $this->pdo->commit();
+        return true;
       } catch(PDOException $e){
         $this->pdo->rollBack();
         return false;
       }
   }
 
-  public function create(array $user, array $pro = []){
+  public function create(array $user, array $pro = []): bool{
     try{
         $this->pdo->beginTransaction();
 
@@ -91,7 +79,7 @@ class BaseRepository implements RepositoryInterface {
         if(!$pro) {
           $this->pdo->commit();
           return true;
-          };
+        };
           
         $userId = $this->pdo->lastInsertId();
         $keys = array_keys($pro);
@@ -104,6 +92,7 @@ class BaseRepository implements RepositoryInterface {
         $stm->execute([...$pro, "user_id" => $userId]);
 
         $this->pdo->commit();
+        return true;
       } catch(PDOException $e){
         $this->pdo->rollBack();
         return false;
