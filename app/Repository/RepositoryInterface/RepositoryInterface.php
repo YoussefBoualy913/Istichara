@@ -3,11 +3,8 @@ namespace App\Repository\RepositoryInterface;
 use App\Models\Professionnelle;
 
 interface RepositoryInterface {
-     public function getAll(string $tablename);
-     public function updete(Professionnelle $personnes);
-     public function delete(string $tablename,int $id);
-     public function findById(string $tablename,int $id);
-     public function create(array $data,string $tablename);
-   
- 
+     public function getAll(): array | bool;
+     public function update(array $user, array $pro = []): bool;
+     public function create(array $user, array $pro = []): bool;
+     public function findById(int $id): array | bool;
 }

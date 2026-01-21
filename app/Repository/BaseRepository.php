@@ -1,78 +1,101 @@
 <?php
 namespace  App\Repository;
 
-use App\Models\Avocat;
-use App\Models\Huissiers;
 use App\Helper\Database;
-use App\Models\Professionnelle;
 use App\Repository\RepositoryInterface\RepositoryInterface;
 use PDO;
+use PDOException;
 
-class BaseRepository implements  RepositoryInterface {
-   protected PDO  $pdo;
-   public function __construct( ){
+class BaseRepository implements RepositoryInterface {
+  protected PDO  $pdo;
+  protected static string $tableName;
+
+  public function __construct(){
     $this->pdo = Database::getConnexion();
-   }
+  }
    
-   public function getALL(string $tablename) :array {
-     $stmt = $this->pdo->prepare("select p.*,vi.name as ville_name vi.id as ville_id  from ".$tablename." as p join ville vi on p.ville_id = vi.id ");
-     $stmt->execute();
-     return  $stmt->fetchAll();
-   }
-   public function delete(string $tablename,int $id):void{
-     $stmt = $this->pdo->prepare("delete  from ".$tablename." where id = ?");
-     $stmt->execute([$id]);
-    
-   }
+  public function getALL() :array | bool {
+    $stmt = $this->pdo->prepare("select p.*, u.*, v.name AS ville_name FROM " . static::$tableName .  " p JOIN ville v ON v.id = p.ville_id JOIN users u ON u.id = p.user_id");
+    $stmt->execute();
+    return $stmt->fetchAll();
+  }
 
-    public function findById(string $tablename,int $id):array{
-     $stmt = $this->pdo->prepare("select p.*,vi.nom as villename from ".$tablename." as p join ville vi on p.ville_id = vi.id  where p.id = ?");
-     $stmt->execute([$id]);
-     return $stmt->fetch();
-    
+  public function findById(int $id): array | bool {
+      $stmt = $this->pdo->prepare("select p.*, v.name as ville_name FROM ".static::$tableName." p JOIN ville v on p.ville_id = v.id  where p.id = :id");
+      $stmt->execute(["id" => $id]);
+      return $stmt->fetch();
    }
 
-    public function create(array $data,string $tablename):void {
-    $keys = array_keys($data);
-    $sql ="insert into ".$tablename."(".implode(',',$keys).") VALUES(:".implode(",:",$keys).")";
-    $stmt = $this->pdo->prepare($sql);
-    $stmt->execute($data);
-   }
+  public function update(array $user, array $pro = []): bool {
+    $userId = $user['id'];
+    unset($user['id']);
+    try{
+        $this->pdo->beginTransaction();
 
-   public function updete(Professionnelle $personnes):void {
+        $keys = array_keys($user);
+        $placeholder = [];
+        foreach($keys as $key){
+          $placeholder[] = "$key = :$key";
+        }
 
-    if($personnes instanceof Avocat){
+        $sql = "UPDATE users SET " . implode(", ", $placeholder) . " WHERE id = :id";
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([...$user, "id" => $userId]);
 
-      $stmt = $this->pdo->prepare("UPDATE avocat set `nom`= :nom ,`email`= :email,
-      `years_of_experience`= :years_of_experience,specialite=:specialite ,consoltation_en_ligne=:consoltation_en_ligne where id =:id");
-       $stmt->execute([
-        ':nom' => $personnes->getNom(),
-        ':email' => $personnes->getEmail(),
-        ':years_of_experience' => $personnes->getYears_of_experience(),
-        ':specialite' => $personnes->getspecialite(),
-        ':consoltation_en_ligne' => $personnes->getConsoltation_en_ligne(),
-        ':consoltation_en_ligne' => $personnes->getConsoltation_en_ligne(),
-        ':id' => $personnes->getId(),
-       ]);
+        if(!$pro) {
+          $this->pdo->commit();
+          return true;
+        };
 
-    }
-     if($personnes instanceof Huissiers ){
+        $keys = array_keys($pro);
+        $placeholder = [];
+        foreach($keys as $key){
+          $placeholder[] = "$key = :$key";
+        }
 
-       $stmt = $this->pdo->prepare("UPDATE  huissier set `nom`= :nom ,`email`= :email,
-       `years_of_experience`= :years_of_experience,types_actes=:types_actes where id =:id");
-       $stmt->execute([
-        ':nom' => $personnes->getNom(),
-        ':email' => $personnes->getEmail(),
-        ':years_of_experience' => $personnes->getYears_of_experience(),
-        ':types_actes' => $personnes->getTypes_actes(),
-        ':id' => $personnes->getId(),
-       ]);
+        $sql = "UPDATE " . $user['role'] . " SET " . implode(", ", $placeholder) . " WHERE user_id = :id";
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([...$pro, "user_id" => $userId]);
 
-    }
+        $this->pdo->commit();
+        return true;
+      } catch(PDOException $e){
+        $this->pdo->rollBack();
+        return false;
+      }
+  }
 
-   }
+  public function create(array $user, array $pro = []): bool{
+    try{
+        $this->pdo->beginTransaction();
 
-   
+        $keys = array_keys($user);
+
+        $sql ="insert into users (".implode(', ',$keys).") VALUES(:".implode(", :",$keys).")";
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute($user);
+
+        
+        if(!$pro) {
+          $this->pdo->commit();
+          return true;
+        };
+          
+        $userId = $this->pdo->lastInsertId();
+        $keys = array_keys($pro);
+        $placeholder = [];
+        $keys[] = "user_id";
 
 
-   }
+        $sql ="insert into ". $user['role'] ."(".implode(', ',$keys).") VALUES(:".implode(", :",$keys).")";
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([...$pro, "user_id" => $userId]);
+
+        $this->pdo->commit();
+        return true;
+      } catch(PDOException $e){
+        $this->pdo->rollBack();
+        return false;
+      }
+  }
+}
