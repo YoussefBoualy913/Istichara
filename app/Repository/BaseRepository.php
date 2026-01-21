@@ -33,22 +33,18 @@ class BaseRepository implements  RepositoryInterface {
    }
 
     public function create(array $data,string $tablename):void {
-       
     $keys = array_keys($data);
     $sql ="insert into ".$tablename."(".implode(',',$keys).") VALUES(:".implode(",:",$keys).")";
     $stmt = $this->pdo->prepare($sql);
-
     $stmt->execute($data);
-   
-
    }
 
    public function updete(Professionnelle $personnes):void {
 
     if($personnes instanceof Avocat){
 
-   $stmt = $this->pdo->prepare("UPDATE avocat set `nom`= :nom ,`email`= :email,
-   `years_of_experience`= :years_of_experience,specialite=:specialite ,consoltation_en_ligne=:consoltation_en_ligne where id =:id");
+      $stmt = $this->pdo->prepare("UPDATE avocat set `nom`= :nom ,`email`= :email,
+      `years_of_experience`= :years_of_experience,specialite=:specialite ,consoltation_en_ligne=:consoltation_en_ligne where id =:id");
        $stmt->execute([
         ':nom' => $personnes->getNom(),
         ':email' => $personnes->getEmail(),

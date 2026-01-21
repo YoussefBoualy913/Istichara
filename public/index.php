@@ -1,12 +1,16 @@
 
 <?php
-require_once('../vendor/autoload.php');
-use App\Models\Avocat;
 
+use App\Helper\Request;
+
+require_once('../vendor/autoload.php');
 require_once('../app/core/router/router.php');
 
-Router::add('dashboard',['App\\Controller\\ControllerDachboard', 'index' ]);
+$request = new Request();
+
+
 Router::add('',['App\\Controller\\ControllerVisiteur', 'index']);
+Router::add('dashboard',['App\\Controller\\ControllerDachboard', 'index']);
 Router::add('avocats',['App\\Controller\\ControllerAvocats', 'index']);
 Router::add('avocat/create',['App\\Controller\\ControllerAvocats', 'create']);
 Router::add('avocat/store',['App\\Controller\\ControllerAvocats', 'store']);
