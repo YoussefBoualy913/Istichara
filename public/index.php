@@ -24,4 +24,4 @@ Router::add('Huissiers/edit',["callable" => 'App\\Controller\\ControllerHuissier
 Router::add('Huissiers/update',["callable" => 'App\\Controller\\ControllerHuissiers@update', "auth" => true, "roles"  => ["ADMIN"]]);
 Router::add('Huissiers/destroy',["callable" => 'App\\Controller\\ControllerHuissiers@destroy', "auth" => true, "roles"  => ["ADMIN"]]);
 
-Router::dispatsh($_GET['url']);
+Router::dispatsh($_GET['url'] ?? "");
