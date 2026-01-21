@@ -15,7 +15,7 @@ class BaseRepository implements  RepositoryInterface {
    }
    
    public function getALL(string $tablename) :array {
-     $stmt = $this->pdo->prepare("select p.*,vi.nom as villename from ".$tablename." as p join ville vi on p.ville_id = vi.id ");
+     $stmt = $this->pdo->prepare("select p.*,vi.name as ville_name vi.id as ville_id  from ".$tablename." as p join ville vi on p.ville_id = vi.id ");
      $stmt->execute();
      return  $stmt->fetchAll();
    }
