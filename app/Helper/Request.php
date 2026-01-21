@@ -19,7 +19,7 @@ class Request {
         return $_GET[$query] ?? null;
     }
 
-    public function getParam(string $param): string {
+    public function getParam(string $param): ?string {
         return $_POST[$param] ?? null;
     }
 
