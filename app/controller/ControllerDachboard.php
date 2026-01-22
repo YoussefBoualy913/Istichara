@@ -5,27 +5,33 @@ use App\Helper\View;
 use App\Repository\AvocatRepository;
 use App\Repository\HuissiersRepository;
 use App\Repository\StatistiqueRepository;
-class ControllerDachboard{
+
+class ControllerDachboard
+{
 
    private View $view;
+   private StatistiqueRepository $repoStatistique;
+   private AvocatRepository $AvocatRepository;
+   private HuissiersRepository $HuissiersRepository;
+  
 
    public function __construct()
    {
       $this->view = new View();
+      $this->repoStatistique = new StatistiqueRepository();
+      $this->AvocatRepository = new AvocatRepository();
+      $this->HuissiersRepository = new HuissiersRepository();
    }
      public function index(){
-        $repoStatistique = new StatistiqueRepository();
-        $totalavocat = $repoStatistique->totalProfessionnels('avocat');
-        $totalhuissier = $repoStatistique->totalProfessionnels('huissier');
-        $totalPparville =  $repoStatistique->professionnelsParVille();
-        $topAvocat =  $repoStatistique->topAvocat();
+        $totalavocat = $this->repoStatistique->totalProfessionnels('avocat');
+        $totalhuissier = $$this->repoStatistique->totalProfessionnels('huissier');
+        $totalPparville =  $$this->repoStatistique->professionnelsParVille();
+        $topAvocat =  $$this->repoStatistique->topAvocat();
       
-        $AvocatRepository = new AvocatRepository();
-        $HuissiersRepository = new HuissiersRepository();
-        $Inactifavocat = $AvocatRepository-> Inactif();
-        $InactifHuissier = $HuissiersRepository-> Inactif();
+        $Inactifavocat = $this->AvocatRepository-> Inactif();
+        $InactifHuissier = $this->HuissiersRepository-> Inactif();
         $InactifProfessionnlle = array_merge($Inactifavocat, $InactifHuissier);
-
+ 
           $this->view->render('admin_dashboard.php',['InactifProfessionnlle' =>  $InactifProfessionnlle,'totalavocat'=> $totalavocat,
             'totalhuissier' =>  $totalhuissier,'totalPparville' =>  $totalPparville,'topAvocat' =>  $topAvocat,]);
        
