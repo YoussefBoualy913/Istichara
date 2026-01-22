@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Controller\Api;
 
 use App\Helper\Request;
@@ -22,7 +21,7 @@ class ProfessionalsAPIController {
     }
 
     public  function getProfessionals(){
-
+        header('Content-Type: application/json; charset=utf-8');
         $type = $this->validator->isValidString($this->request->getQuery("type"));
         $ville = $this->validator->isValidNumber($this->request->getQuery("ville"));
         $search = $this->request->getQuery("search");
@@ -36,6 +35,11 @@ class ProfessionalsAPIController {
         if(!$type || $type === 'avocat') $avocats = $this->avocatRepo->searchAvocats($search, $ville, $experience);
 
         $profetionals = [...$huissier, ...$avocats];
-        echo json_encode(["message" => "hello", "data" => $profetionals]);
+
+        echo json_encode([
+            'success' => true,
+            'count'   => count($profetionals),
+            'data'    => $profetionals
+        ]);
     }
 }
