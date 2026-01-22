@@ -8,6 +8,7 @@ use App\Helper\Response;
 use App\Helper\Session;
 use App\Helper\Validator;
 use App\Helper\View;
+use App\models\Client;
 use App\Repository\AvocatRepository;
 use App\Repository\HuissiersRepository;
 use App\Repository\UserRepository;
@@ -38,7 +39,7 @@ class AuthController {
     public function login() {
         if($this->session->getUserId()) $this->response->header("/");
 
-        $email = $this->Validator->isValidEmail($this->request->getParam("user-email"));
+        $email = $this->Validator->isValidEmail($this->request->getParam("email"));
         $password = $this->Validator->isValidString($this->request->getParam("password"));
         
         $user  = $this->userRepo->findByEmail($email);
@@ -62,10 +63,13 @@ class AuthController {
         if($user) $this->response->header("/auth/register");
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $data = ["name" => $name, "email" => $email, "password" => $hashedPassword];
+        $data = ["name" => $name, "email" => $email, "password" => $hashedPassword, "role" => "client"];
 
         $status = $this->userRepo->createOne($data);
         if(!$status) $this->response->header("/error");
+
+        $user = $this->userRepo->findByEmail($email);
+        $this->session->setUserId($user['id']);
         $this->response->header("/");
     }
 

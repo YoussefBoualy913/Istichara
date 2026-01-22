@@ -3,6 +3,8 @@
 require_once('../vendor/autoload.php');
 require_once('../app/core/router/router.php');
 
+session_start();
+
 // Public routes
 Router::add('',["callable" => "App\\Controller\\ControllerVisiteur@index" , "auth" => false, "roles" => []]);
 Router::add('register',["callable" =>"App\\Controller\\ControllerVisiteur@register","auth" =>false ,"roles" => []]);

@@ -26,18 +26,12 @@ class StatistiqueRepository{
       GROUP by ville.nom;");
       $stmt->execute();
       return $stmt->fetchAll();
-      }
-      
-      
+  }   
       public function  topAvocat():array  {
-         $stmt = $this->pdo->prepare("select nom ,years_of_experience
-                                      from  avocat
-                                      ORDER BY years_of_experience DESC
-                                      LIMIT 3 ;");
+         $stmt = $this->pdo->prepare("select nom ,years_of_experience from  avocat ORDER BY years_of_experience DESC LIMIT 3 ;");
          $stmt->execute();
-        return $stmt->fetchAll();
+         return $stmt->fetchAll();
       }
-
    
 
 
