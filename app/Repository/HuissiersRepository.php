@@ -10,4 +10,10 @@ class HuissiersRepository extends BaseRepository{
           $stmt->execute(["id" => $id]);
           return $stmt->fetch();
      }
+
+     public function Inactif(): array | null{
+        $stmt = $this->pdo->prepare("select * from ".static::$tableName."   where statut = 'inactif'");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
