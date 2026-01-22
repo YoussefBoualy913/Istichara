@@ -19,16 +19,19 @@ class StatistiqueRepository{
    }
    
    public function  professionnelsParVille():array  {
-      $stmt = $this->pdo->prepare("select ville.nom,count(DISTINCT  a.id) as totalavocat,COUNT(DISTINCT  h.id) as totalhuissier
+      $stmt = $this->pdo->prepare("select ville.name,count(DISTINCT  a.id) as totalavocat,COUNT(DISTINCT  h.id) as totalhuissier
       from ville  
       left JOIN avocat as a on a.ville_id = ville.id
       left JOIN huissier as h on h.ville_id = ville.id
-      GROUP by ville.nom;");
+      GROUP by ville.name;");
       $stmt->execute();
       return $stmt->fetchAll();
   }   
       public function  topAvocat():array  {
-         $stmt = $this->pdo->prepare("select nom ,years_of_experience from  avocat ORDER BY years_of_experience DESC LIMIT 3 ;");
+         $stmt = $this->pdo->prepare("select users.name ,avocat.years_of_experience 
+                                      from  users 
+                                      join avocat on users.id = avocat.user_id
+                                      ORDER BY years_of_experience DESC LIMIT 3 ;");
          $stmt->execute();
          return $stmt->fetchAll();
       }

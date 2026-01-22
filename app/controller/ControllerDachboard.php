@@ -24,16 +24,16 @@ class ControllerDachboard
    }
      public function index(){
         $totalavocat = $this->repoStatistique->totalProfessionnels('avocat');
-        $totalhuissier = $$this->repoStatistique->totalProfessionnels('huissier');
-        $totalPparville =  $$this->repoStatistique->professionnelsParVille();
-        $topAvocat =  $$this->repoStatistique->topAvocat();
-      
+        $totalhuissier = $this->repoStatistique->totalProfessionnels('huissier');
+        $totalPparville =  $this->repoStatistique->professionnelsParVille();
+        $topAvocat =  $this->repoStatistique->topAvocat();
+    
         $Inactifavocat = $this->AvocatRepository-> Inactif();
         $InactifHuissier = $this->HuissiersRepository-> Inactif();
         $InactifProfessionnlle = array_merge($Inactifavocat, $InactifHuissier);
- 
-          $this->view->render('admin_dashboard.php',['InactifProfessionnlle' =>  $InactifProfessionnlle,'totalavocat'=> $totalavocat,
-            'totalhuissier' =>  $totalhuissier,'totalPparville' =>  $totalPparville,'topAvocat' =>  $topAvocat,]);
+         // var_dump($InactifProfessionnlle);
+          $this->view->render('admin_dashboard.php',['topAvocat' =>  $topAvocat,'InactifProfessionnlle' =>  $InactifProfessionnlle,
+          'totalPparville' =>  $totalPparville,'totalavocat' =>  $totalavocat,'totalhuissier' =>  $totalhuissier]);
        
      }
 }

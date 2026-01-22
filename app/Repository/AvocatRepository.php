@@ -23,7 +23,11 @@ class AvocatRepository extends BaseRepository{
     }
     
     public function Inactif(): array | null{
-        $stmt = $this->pdo->prepare("select * from ".static::$tableName."   where statut = 'inactif'");
+        $stmt = $this->pdo->prepare("select users.name ,users.id
+                                     from users
+                                     join ".static::$tableName." on users.id = ".static::$tableName.".user_id 
+                                     where statut = 'inactif'"
+                                       );
         $stmt->execute();
         return $stmt->fetchAll();
     }
