@@ -119,7 +119,7 @@
                                     <td>
                                       
 
-                                        <a href="" class="btn btn-outline btn-info" title="Détails">
+                                        <a href="./verifyAccountDetails ? user_id=<?=$item['user_id'] ?>" class="btn btn-outline btn-info" title="Détails">
                                            <i class="fas fa-file-alt"></i>
                                          </a>
                                          <a href="" class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></a>

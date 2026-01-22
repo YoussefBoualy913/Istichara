@@ -29,7 +29,7 @@ class AvocatRepository extends BaseRepository{
     }
     
     public function Inactif(): array | null{
-        $stmt = $this->pdo->prepare("select users.name ,users.id
+        $stmt = $this->pdo->prepare("select users.name ,".static::$tableName.".user_id
                                      from users
                                      join ".static::$tableName." on users.id = ".static::$tableName.".user_id 
                                      where statut = 'inactif'"

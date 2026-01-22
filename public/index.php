@@ -21,7 +21,9 @@ Router::add('auth/logout',["callable" =>"App\\Controller\\Auth\\AuthController@l
 
 
 
+// Admin routes
 Router::add('dashboard',["callable" => 'App\\Controller\\ControllerDachboard@index', "auth" => true, "roles" => ["ADMIN"]]);
+Router::add('verifyAccountDetails',["callable" => 'App\\Controller\\ControllerDachboard@verifyAccountDetails', "auth" => true, "roles" => ["ADMIN"]]);
 Router::add('avocats',["callable" => 'App\\Controller\\ControllerAvocats@index', "auth" => true, "roles" => ["ADMIN"]]);
 Router::add('avocat/create',["callable" => 'App\\Controller\\ControllerAvocats@create', "auth" => true, "roles" => ["ADMIN"]]);
 Router::add('avocat/store',["callable" => 'App\\Controller\\ControllerAvocats@store', "auth" => true, "roles"  => ["ADMIN"]]);

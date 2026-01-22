@@ -41,9 +41,9 @@ class ControllerDachboard
      }
 
       public function verifyAccountDetails(){
-       
+      
        $professionnlle = $this->UserRepository->findByUserId($_GET['user_id']);
       
-
+        $this->view->render('verifyAccount_details.php');
       }
 }
