@@ -1,14 +1,13 @@
 <?php
 namespace App\Models;
 
-abstract class User{
+class User {
      protected int $id;
      protected string $name;
      protected string $email;
      protected string $role;
      protected string $password;
 
-     
      public function getId():int {
           return $this->id;
      }
@@ -48,4 +47,13 @@ abstract class User{
      public function setPassword($password):void{
           $this->password = $password;
      }
+
+     public function hydrate(array $data){
+        $this->id = $data["user_id"];
+        $this->name = $data['name'];
+        $this->email = $data['email'];
+        $this->role = $data['role'];
+        $this->password = $data["password"];
+    }
+
 }
