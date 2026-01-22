@@ -15,6 +15,11 @@ class Validator{
         return is_string($value) ? trim($value) : null;
     }
 
+    public function isValidNumber(mixed $value): string | null{
+        if(!is_numeric($value)) return null;
+        return (int) $value;
+    }
+
     public function isValidPassword(string $password, string $hash){
         return password_verify($password, $hash) ? trim($password) : null;
     }

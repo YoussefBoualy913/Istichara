@@ -81,7 +81,6 @@ class AuthController {
         $email = $this->Validator->isValidEmail($this->request->getParam("email"));
         $password = $this->Validator->isValidString($this->request->getParam("password"));
         $ville = 1;
-        $consultationEnLign = $this->Validator->isValidString($this->request->getParam("consultation"));
         $experience = $this->Validator->isValidString($this->request->getParam("experience"));
         $specialite = $this->Validator->isValidString($this->request->getParam("specialite"));
 

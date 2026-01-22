@@ -9,6 +9,8 @@ session_start();
 Router::add('',["callable" => "App\\Controller\\ControllerVisiteur@index" , "auth" => false, "roles" => []]);
 Router::add('register',["callable" =>"App\\Controller\\ControllerVisiteur@register","auth" =>false ,"roles" => []]);
 
+// Public API routes
+Router::add('api/v4/professionals',["callable" =>"App\\Controller\\Api\\ProfessionalsAPIController@getProfessionals","auth" =>false ,"roles" => []]);
 
 // Authntification routes
 Router::add('auth/login',["callable" =>"App\\Controller\\Auth\\AuthController@login","auth" =>false ,"roles" => []]);
