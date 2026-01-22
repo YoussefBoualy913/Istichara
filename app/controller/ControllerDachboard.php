@@ -5,6 +5,7 @@ use App\Helper\View;
 use App\Repository\AvocatRepository;
 use App\Repository\HuissiersRepository;
 use App\Repository\StatistiqueRepository;
+use App\Repository\UserRepository;
 
 class ControllerDachboard
 {
@@ -13,6 +14,7 @@ class ControllerDachboard
    private StatistiqueRepository $repoStatistique;
    private AvocatRepository $AvocatRepository;
    private HuissiersRepository $HuissiersRepository;
+   private UserRepository $UserRepository;
   
 
    public function __construct()
@@ -21,6 +23,7 @@ class ControllerDachboard
       $this->repoStatistique = new StatistiqueRepository();
       $this->AvocatRepository = new AvocatRepository();
       $this->HuissiersRepository = new HuissiersRepository();
+      $this->UserRepository = new UserRepository();
    }
      public function index(){
         $totalavocat = $this->repoStatistique->totalProfessionnels('avocat');
@@ -36,4 +39,11 @@ class ControllerDachboard
           'totalPparville' =>  $totalPparville,'totalavocat' =>  $totalavocat,'totalhuissier' =>  $totalhuissier]);
        
      }
+
+      public function verifyAccountDetails(){
+       
+       $professionnlle = $this->UserRepository->findByUserId($_GET['user_id']);
+      
+
+      }
 }
