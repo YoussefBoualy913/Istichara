@@ -1,14 +1,9 @@
 <?php
 
 namespace App\Core\Middleware;
-
 use App\Helper\Response;
 use App\Helper\Session;
-use App\Models\Huissiers;
-use App\Repository\AvocatRepository;
-use App\Repository\HuissiersRepository;
 use App\Repository\UserRepository;
-use ReturnTypeWillChange;
 
 class AuthMiddleware {
     private Session $session;
