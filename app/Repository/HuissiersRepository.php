@@ -11,7 +11,7 @@ class HuissiersRepository extends BaseRepository{
           return $stmt->fetch();
      }
 
-     public function searchAvocats(?string $query = null, ?int $villeId = null) {
+    public function searchAvocats(?string $query = null, ?int $villeId = null) {
         $sql = "SELECT p.*, v.name AS ville_name, u.* FROM " . static::$tableName . " p JOIN ville v ON p.ville_id = v.id JOIN users u ON p.user_id = u.id WHERE 1=1";
         $params = [];
 
@@ -28,5 +28,11 @@ class HuissiersRepository extends BaseRepository{
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll();
-     }
+    }
+
+     public function Inactif(): array | null{
+        $stmt = $this->pdo->prepare("select * from ".static::$tableName."   where statut = 'inactif'");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }

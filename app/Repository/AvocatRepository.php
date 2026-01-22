@@ -27,6 +27,11 @@ class AvocatRepository extends BaseRepository{
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
+    }
+    
+    public function Inactif(): array | null{
+        $stmt = $this->pdo->prepare("select * from ".static::$tableName."   where statut = 'inactif'");
+        $stmt->execute();
         return $stmt->fetchAll();
     }
 }
