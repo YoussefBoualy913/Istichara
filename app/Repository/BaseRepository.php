@@ -56,7 +56,6 @@ class BaseRepository implements RepositoryInterface {
         $sql = "UPDATE " . $user['role'] . " SET " . implode(", ", $placeholder) . " WHERE user_id = :id";
         $stm = $this->pdo->prepare($sql);
         $stm->execute([...$pro, "user_id" => $userId]);
-
         $this->pdo->commit();
         return true;
       } catch(PDOException $e){
