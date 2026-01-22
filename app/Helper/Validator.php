@@ -4,12 +4,13 @@ namespace App\Helper;
 
 class Validator{
     
-    public function isValidEmail(mixed $value): bool {
+    public function isValidEmail(mixed $value): string | bool {
         if(!$value || !trim($value)) return false;
-        return filter_var($value, FILTER_VALIDATE_EMAIL) ? trim($value) : null;
+        if(!filter_var($value, FILTER_VALIDATE_EMAIL)) return false;
+        return trim($value);
     }
 
-    public function isValidString(mixed $value){
+    public function isValidString(mixed $value): string | null{
         if(!$value || !trim($value)) return false;
         return is_string($value) ? trim($value) : null;
     }

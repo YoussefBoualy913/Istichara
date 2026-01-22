@@ -385,7 +385,7 @@
                     <p>Créez votre compte client</p>
                 </div>
 
-                <form action="client/create" method="POST" onsubmit="handleClientRegister(event)">
+                <form action="auth/client/register" method="POST" onsubmit="handleClientRegister(event)">
                     <div class="form-group">
                         <label>Nom complet</label>
                         <input type="text" name="name" required placeholder="Votre nom">
@@ -666,9 +666,9 @@
 
             const form = document.getElementById('step3Form');
             if (type === 'avocat') {
-                form.action = 'avocat/create';
+                form.action = 'auth/avocat/register';
             } else if (type === 'huissier') {
-                form.action = 'huissier/create';
+                form.action = 'auth/huissier/register';
             }
 
             if (type === 'avocat') {
