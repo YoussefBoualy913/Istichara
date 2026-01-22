@@ -333,15 +333,15 @@
                     <p>Entrez vos identifiants pour accéder à votre compte</p>
                 </div>
 
-                <form onsubmit="handleLogin(event)">
+                <form method="POST" action="/auth/login">
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" required placeholder="votre@email.com">
+                        <input type="email" name="email" required placeholder="votre@email.com">
                     </div>
 
                     <div class="form-group">
                         <label>Mot de passe</label>
-                        <input type="password" required placeholder="••••••••">
+                        <input type="password" name="password" required placeholder="••••••••">
                     </div>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
@@ -741,13 +741,6 @@
                 display.textContent = '✓ ' + input.files[0].name;
             }
         }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            console.log('Connexion...');
-            alert('Connexion réussie! (Intégrez votre logique backend ici)');
-        }
-
         function handleClientRegister(e) {
             // Le formulaire sera soumis normalement à client/create
             console.log('Soumission du formulaire client...');

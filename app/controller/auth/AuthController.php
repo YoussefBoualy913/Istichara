@@ -39,7 +39,7 @@ class AuthController {
     public function login() {
         if($this->session->getUserId()) $this->response->header("/");
 
-        $email = $this->Validator->isValidEmail($this->request->getParam("user-email"));
+        $email = $this->Validator->isValidEmail($this->request->getParam("email"));
         $password = $this->Validator->isValidString($this->request->getParam("password"));
         
         $user  = $this->userRepo->findByEmail($email);
