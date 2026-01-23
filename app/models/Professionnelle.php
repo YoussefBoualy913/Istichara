@@ -15,7 +15,7 @@ abstract class Professionnelle extends User{
      }
 
      public function getVille_name():string {
-          return $this->ville_id;
+          return $this->ville_name;
      }
 
      public function getYears_of_experience():int {
@@ -48,6 +48,6 @@ abstract class Professionnelle extends User{
      }
      
      public function setVille_name($value) {
-          $this->years_of_experience = $value ;
+          $this->ville_name = $value ;
      }
 }

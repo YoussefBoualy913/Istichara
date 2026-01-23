@@ -21,7 +21,7 @@ class User {
      }
 
      public function getRole():string{
-          return $this->name;
+          return $this->role;
      }
 
      public function getPassword():string{

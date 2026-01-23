@@ -85,22 +85,27 @@
                             <i class="fas fa-user" style="font-size: 3rem; color: #94a3b8;"></i>
                             <!-- <img src="..." alt="Profile" style="width: 100%; height: 100%; object-fit: cover;"> -->
                         </div>
-                        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Me. Karim Bennani</h2>
-                        <span class="badge badge-blue" style="font-size: 1rem; padding: 0.5rem 1rem;">Avocat</span>
+                        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Me.<?=$professionnlle[0]->getName() ?></h2>
+                          <?php if($professionnlle[0]->getRole() === "avocat"){ 
+                                
+                         echo '     <span class="badge badge-blue" style="font-size: 1rem; padding: 0.5rem 1rem;">Avocat</span>';
+                                 }?>
+                         <?php if($professionnlle[0]->getRole() === "huissier"){ 
+                                
+                         echo '     <span class="badge badge-gold" style="font-size: 1rem; padding: 0.5rem 1rem;">Huissier</span>';
+                                 }?>
+
                         <div
                             style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1rem; text-align: left;">
                             <div style="margin-bottom: 0.75rem;">
                                 <i class="fas fa-map-marker-alt" style="width: 20px; color: var(--text-muted);"></i>
-                                <span style="font-weight: 500;">Casablanca, Maarif</span>
+                                <span style="font-weight: 500;"><?=$professionnlle[0]->getVille_name() ?></span>
                             </div>
                             <div style="margin-bottom: 0.75rem;">
                                 <i class="fas fa-envelope" style="width: 20px; color: var(--text-muted);"></i>
-                                <span>karim.bennani@email.com</span>
+                                <span><?=$professionnlle[0]->getEmail() ?></span>
                             </div>
-                            <div style="margin-bottom: 0.75rem;">
-                                <i class="fas fa-phone" style="width: 20px; color: var(--text-muted);"></i>
-                                <span>06 61 23 45 67</span>
-                            </div>
+                           
                         </div>
                     </div>
 
@@ -111,34 +116,52 @@
 
                         <div style="margin-bottom: 1rem;">
                             <label
-                                style="color: var(--text-muted); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Spécialités</label>
+                                style="color: var(--text-muted); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">
+                               <?php if($professionnlle[0]->getRole() === "avocat"){ 
+                                    echo "Specialite";
+                                 };
+                                 if($professionnlle[0]->getRole() === "huissier"){ 
+                                    echo "Types_actes";
+                                 };
+                                 ?>
+                            </label>
                             <div class="flex gap-2 flex-wrap">
-                                <span class="badge" style="background: #f1f5f9; color: #475569;">Droit Pénal</span>
-                                <span class="badge" style="background: #f1f5f9; color: #475569;">Droit des
-                                    Affaires</span>
+
+                                <?php if($professionnlle[0]->getRole() === "avocat"){ 
+
+                                   
+                               echo' <span class="badge" style="background: #f1f5f9; color: #475569;">'.$professionnlle[0]->getSpecialite() .'</span>';
+                                 }; ?>
+                                  <?php if($professionnlle[0]->getRole() === "huissier"){ 
+                                   
+                               echo' <span class="badge" style="background: #f1f5f9; color: #475569;">'.$professionnlle[0]->getTypes_actes().'</span>';
+                                 }; ?>
                             </div>
                         </div>
 
                         <div style="margin-bottom: 1rem;">
                             <label
                                 style="color: var(--text-muted); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Expérience</label>
-                            <span style="font-weight: 600;">8 ans</span>
+                            <span style="font-weight: 600;"><?=$professionnlle[0]->getYears_of_experience() ?> ans</span>
                         </div>
 
                         <div style="margin-bottom: 1rem;">
-                            <label
-                                style="color: var(--text-muted); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Consultation
-                                en ligne</label>
-                            <span style="color: var(--success); font-weight: 600;"><i class="fas fa-check-circle"></i>
-                                Activé</span>
+                             
+                         <?php if($professionnlle[0]->getRole() === "avocat"){ 
+                                
+                           echo '  <label
+                                 style="color: var(--text-muted); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Consultation
+                                 en ligne</label>';
+                            if($professionnlle[0]->getConsoltation_en_ligne()){
+                            echo ' <span style="color: var(--success); font-weight: 600;"><i class="fas fa-check-circle"></i>
+                                 Activé</span> ';}
+                                 
+                            if(!$professionnlle[0]->getConsoltation_en_ligne()){
+                            echo ' <span style="color: var(--accent); font-weight: 600;"><i class="fas fa-check-circle"></i>
+                                Non activé</span> ';}
+                                 } ?>
                         </div>
 
-                        <div>
-                            <label
-                                style="color: var(--text-muted); font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">Tarif
-                                Horaire</label>
-                            <span style="font-weight: 600;">300 DH / heure</span>
-                        </div>
 
                     </div>
 
@@ -164,9 +187,9 @@
                                         <small style="color: var(--text-muted);">PDF - 2.4 MB</small>
                                     </div>
                                 </div>
-                                <button class="btn btn-outline" style="font-size: 0.9rem;">
+                                <a href="<?= $professionnlle[0]->getDocument()[0]['carte_professionnelle'] ?>" class="btn btn-outline" style="font-size: 0.9rem;">
                                     <i class="fas fa-eye"></i> Voir
-                                </button>
+                                </a>
                             </div>
                             <div
                                 style="background: #f8fafc; height: 150px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
@@ -189,13 +212,13 @@
                                         <small style="color: var(--text-muted);">JPG - 1.1 MB</small>
                                     </div>
                                 </div>
-                                <button class="btn btn-outline" style="font-size: 0.9rem;">
+                                <a href="<?= $professionnlle[0]->getDocument()[0]['diplome'] ?>" class="btn btn-outline" style="font-size: 0.9rem;">
                                     <i class="fas fa-eye"></i> Voir
-                                </button>
+                                </a>
                             </div>
                             <div
                                 style="background: #f8fafc; height: 150px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
-                                <i class="fas fa-image" style="font-size: 3rem; margin-right: 1rem;"></i> Aperçu du
+                                <i class="fas fa-file-pdf" style="font-size: 3rem; margin-right: 1rem;"></i> Aperçu du
                                 document
                             </div>
                         </div>

@@ -64,8 +64,23 @@ class ControllerDachboard
 
       public function verifyAccountDetails(){
       
-       $professionnlle = $this->UserRepository->findByUserId($_GET['user_id']);
+       $pro = $this->UserRepository->findByUserId($_GET['user_id']);
+       $professionnlle =[];
+       if($pro['role'] === "avocat" ){
+           
+            $avocat = new Avocat();
+            $avocat->hydrate($pro); 
+            array_push($professionnlle , $avocat); 
+          
+         }
+         if($pro['role'] === "huissier" ){
+                    
+            $huissier = new Huissiers();
+            $huissier->hydrate($pro); 
+            array_push($professionnlle , $huissier); 
+         }
       
-        $this->view->render('verifyAccount_details.php');
+      
+        $this->view->render('verifyAccount_details.php',['professionnlle' =>$professionnlle]);
       }
 }
