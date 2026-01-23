@@ -19,8 +19,7 @@ use App\Helper\Response;
       $requireAuth = $routeInfo['auth'];
       $roles = $routeInfo['roles'];
 
-      // (new AuthMiddleware())->handle($routeInfo);
-
+      (new AuthMiddleware())->handle($routeInfo);
       $controller = explode("@", $callable)[0];
       $method = explode("@", $callable)[1];
       (new $controller())->$method();

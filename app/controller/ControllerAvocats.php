@@ -2,6 +2,8 @@
 namespace App\Controller;
 use  App\Models\Avocat;
 use App\Repository\AvocatRepository;
+use App\Repository\UserRepository;
+
 class ControllerAvocats{
 
      public function index(){
@@ -25,7 +27,7 @@ class ControllerAvocats{
         $data['specialite'] = $_POST['specialite'];
         $data['consoltation_en_ligne'] = $_POST['consoltation_en_ligne'];
         
-        $repoavocat->create($data,'avocat');
+        $repoavocat->create($data);
      
         header('location:../avocats');
         exit;
@@ -44,22 +46,22 @@ class ControllerAvocats{
         var_dump($_POST['ville_id']);
        
         $avocat->setId($_GET['avocat_id']);
-        $avocat->setNom($_POST['nom']);
+        $avocat->setName($_POST['nom']);
         $avocat->setEmail($_POST['email']);
         $avocat->setVille_id($_POST['ville_id']);
         $avocat->setSpecialite($_POST['specialite']);
         $avocat->setYears_of_experience($_POST['years_of_experience']);
         $avocat->setConsoltation_en_ligne($_POST['consoltation_en_ligne']);
 
-        $repoavocat->updete($avocat);
+      //   $repoavocat->update($avocat);
        header('location:../avocats');
         exit;
      }
 
       public function destroy(){
-       $repoavocat = new AvocatRepository();
+       $repoRepository = new UserRepository();
      
-       $repoavocat->delete('avocat',$_GET['avocat_id']);
+       $repoRepository->delete($_GET['avocat_id']);
        header('location:../avocats');
         exit;
      }
