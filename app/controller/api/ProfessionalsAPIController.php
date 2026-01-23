@@ -24,22 +24,21 @@ class ProfessionalsAPIController {
         header('Content-Type: application/json; charset=utf-8');
         $type = $this->validator->isValidString($this->request->getQuery("type"));
         $ville = $this->validator->isValidNumber($this->request->getQuery("ville"));
-        $search = $this->request->getQuery("search");
+        $search = $this->validator->isValidString($this->request->getQuery("search"));
         $experience = $this->validator->isValidNumber($this->request->getQuery("experience"));
+        $page = $this->validator->isValidNumber($this->request->getQuery("page" ?? 1));
+
+        $offset = ($page - 1) * 10;
 
         $huissier = [];
         $avocats = [];
         $profetionals = [];
 
-        if(!$type || $type === 'huissier') $huissier = $this->huissierRepo->searchHuisser($search, $ville, $experience);
-        if(!$type || $type === 'avocat') $avocats = $this->avocatRepo->searchAvocats($search, $ville, $experience);
+
+        if(!$type || $type === 'huissier') $huissier = $this->huissierRepo->searchHuisser($search, $ville, $experience, $offset);
+        if(!$type || $type === 'avocat') $avocats = $this->avocatRepo->searchAvocats($search, $ville, $experience, $offset);
 
         $profetionals = [...$huissier, ...$avocats];
-
-        echo json_encode([
-            'success' => true,
-            'count'   => count($profetionals),
-            'data'    => $profetionals
-        ]);
+        echo json_encode([ 'success' => true, 'count'  => count($profetionals), 'data'  => $profetionals]);
     }
 }

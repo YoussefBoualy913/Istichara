@@ -1,7 +1,9 @@
 <?php
-namespace App\Controller;
+namespace App\Admin\Controller;
+
 use App\Repository\HuissiersRepository;
 use  App\Models\Huissiers;
+
 class ControllerHuissiers{
 
      public function index(){

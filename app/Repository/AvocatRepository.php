@@ -4,7 +4,7 @@ namespace App\Repository;
 class AvocatRepository extends BaseRepository{
     protected static string $tableName = "avocat";
 
-    public function searchAvocats(?string $query = null, ?int $villeId = null, ?int $experience = null) {
+    public function searchAvocats(?string $query = null, ?int $villeId = null, ?int $experience = null, ?int $offset = null) {
         $sql = "SELECT p.*, v.name AS ville_name, u.* FROM " . static::$tableName . " p JOIN ville v ON p.ville_id = v.id JOIN users u ON p.user_id = u.id WHERE 1=1";
         $params = [];
 
@@ -21,6 +21,14 @@ class AvocatRepository extends BaseRepository{
         if ($experience) {
             $sql = $sql . " AND p.years_of_experience >= :exp";
             $params['exp'] = $experience;
+        }
+
+        $sql = $sql . " LIMIT 10";
+        
+        
+        if ($offset) {
+            $sql = $sql . " OFFSET :offset";
+            $params['offset'] = $offset;
         }
 
         $stmt = $this->pdo->prepare($sql);
