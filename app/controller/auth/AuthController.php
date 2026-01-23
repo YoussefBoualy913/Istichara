@@ -49,7 +49,13 @@ class AuthController {
         if(!$ispasswordValid) $this->response->header("/auth/login");
 
         $this->session->setUserId((int) $user['id']);
-        $this->response->header("/");
+
+        if($user['role']=='avocat'){
+        $this->response->header("professional/dashboard");
+        }
+
+
+
     }
     
     public function registerClient() {

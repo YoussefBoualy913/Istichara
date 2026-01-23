@@ -45,8 +45,8 @@ class ProfessionalRepository extends BaseRepository
         
         // Pourcentage de consultations en ligne
         $onlineSql = "SELECT 
-                        (COUNT(CASE WHEN meet_link IS NOT NULL AND meet_link != '' THEN 1 END) * 100.0 / 
-                         COUNT(*)) as online_percentage
+                        (COUNT(CASE WHEN meet_link IS NOT NULL AND meet_link != '' THEN 1 END)) * 100.0 / 
+                         1 as online_percentage
                       FROM demand 
                       WHERE $profField = :prof_id";
         
@@ -152,6 +152,87 @@ class ProfessionalRepository extends BaseRepository
         return $stmt->fetch();
     }
     
+    // Ajoutez ces méthodes à la fin de la classe ProfessionalRepository
+
+/**
+ * Obtenir les clients d'un professionnel
+ */
+public function getClients($userId, $userRole)
+{
+    $profId = $this->getProfessionalId($userId, $userRole);
+    
+    if (!$profId) {
+        return [];
+    }
+    
+    $profField = $userRole . '_id';
+    
+    $sql = "SELECT DISTINCT u.id, u.name, u.email, COUNT(d.id) as total_demands
+            FROM demand d
+            JOIN users u ON d.user_id = u.id
+            WHERE d.$profField = :prof_id
+            GROUP BY u.id, u.name, u.email
+            ORDER BY u.name";
+    
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['prof_id' => $profId]);
+    return $stmt->fetchAll();
+}
+
+/**
+ * Obtenir les documents d'un professionnel
+ */
+public function getDocuments($userId, $userRole)
+{
+    $profId = $this->getProfessionalId($userId, $userRole);
+    
+    if (!$profId) {
+        return [];
+    }
+    
+    $table = $userRole === 'avocat' ? 'avocat' : 'huissier';
+    
+    $sql = "SELECT document FROM $table WHERE id = :prof_id";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['prof_id' => $profId]);
+    $result = $stmt->fetch();
+    
+    if ($result && $result['document']) {
+        return json_decode($result['document'], true) ?: [];
+    }
+    
+    return [];
+}
+
+/**
+ * Obtenir les statistiques détaillées
+ */
+public function getStatistics($userId, $userRole, $period = 'month')
+{
+    $profId = $this->getProfessionalId($userId, $userRole);
+    
+    if (!$profId) {
+        return [];
+    }
+    
+    $profField = $userRole . '_id';
+    
+    // Statistiques par mois pour les 6 derniers mois
+    $sql = "SELECT 
+                TO_CHAR(date, 'YYYY-MM') as month,
+                COUNT(*) as total_demands,
+                SUM(CASE WHEN validation_status = 'confirmed' THEN 1 ELSE 0 END) as confirmed,
+                SUM(CASE WHEN validation_status = 'completed' THEN 1 ELSE 0 END) as completed
+            FROM demand 
+            WHERE $profField = :prof_id
+            AND date >= CURRENT_DATE - INTERVAL '6 months'
+            GROUP BY TO_CHAR(date, 'YYYY-MM')
+            ORDER BY month DESC";
+    
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute(['prof_id' => $profId]);
+    return $stmt->fetchAll();
+}
     /**
      * Mettre à jour le profil
      */

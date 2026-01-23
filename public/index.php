@@ -36,10 +36,10 @@ Router::add('Huissiers/destroy',["callable" => 'App\\Controller\\ControllerHuiss
 // routes des professionnelles
 
 
-Router::add('professional/dashboard', ["callable" => 'App\\Controller\\ControllerProfessional@index', "auth" => true, "roles" => ["avocat", "huissier"]]);
-Router::add('professional/demands', ["callable" => 'App\\Controller\\ControllerProfessional@demands', "auth" => true, "roles" => ["avocat", "huissier"]]);
-Router::add('professional/update-status', ["callable" => 'App\\Controller\\ControllerProfessional@updateStatus', "auth" => true, "roles" => ["avocat", "huissier"]]);
-Router::add('professional/demand-details', ["callable" => 'App\\Controller\\ControllerProfessional@getDemandDetails', "auth" => true, "roles" => ["avocat", "huissier"]]);
-Router::add('professional/profile', ["callable" => 'App\\Controller\\ControllerProfessional@profile', "auth" => true, "roles" => ["avocat", "huissier"]]);
+Router::add('professional/dashboard', ["callable" => 'App\\Controller\\ControllerProfessional@index', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
+Router::add('professional/demands', ["callable" => 'App\\Controller\\ControllerProfessional@demands', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
+Router::add('professional/update-status', ["callable" => 'App\\Controller\\ControllerProfessional@updateStatus', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
+Router::add('professional/demand-details', ["callable" => 'App\\Controller\\ControllerProfessional@getDemandDetails', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
+Router::add('professional/profile', ["callable" => 'App\\Controller\\ControllerProfessional@profile', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
 
 Router::dispatsh($_GET['url'] ?? "");
