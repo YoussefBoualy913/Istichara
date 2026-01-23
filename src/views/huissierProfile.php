@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Avocat - ISTICHARA</title>
+    <title>Profil Huissier - ISTICHARA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
@@ -198,8 +198,8 @@
             display: inline-flex;
             align-items: center;
             padding: 0.5rem 1rem;
-            background: #eff6ff;
-            color: #1e40af;
+            background: #fef3c7;
+            color: #92400e;
             border-radius: var(--radius-md);
             font-weight: 600;
             font-size: 0.95rem;
@@ -269,22 +269,41 @@
             font-weight: 600;
         }
 
-        .consultation-badge {
+        .actes-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .acte-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
+            padding: 0.625rem 1rem;
             background: #ecfdf5;
             color: #047857;
             border-radius: var(--radius-md);
             font-weight: 600;
             border: 1px solid #a7f3d0;
+            font-size: 0.9rem;
         }
 
-        .consultation-badge.offline {
+        .acte-badge.signification {
+            background: #eff6ff;
+            color: #1e40af;
+            border-color: #bfdbfe;
+        }
+
+        .acte-badge.execution {
             background: #fef3c7;
             color: #92400e;
             border-color: #fde68a;
+        }
+
+        .acte-badge.constat {
+            background: #f3e8ff;
+            color: #6b21a8;
+            border-color: #e9d5ff;
         }
 
         .action-buttons {
@@ -361,12 +380,31 @@
                 height: 100px;
                 font-size: 2.5rem;
             }
+
+            .actes-badges {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
-    <?php require_once __DIR__ . "/../components/header.php" ?>
+<header class="header">
+    <div class="container">
+        <div class="flex justify-between items-center">
+            <a href="/" class="brand">
+                <i class="fas fa-balance-scale"></i>
+                ISTICHARA<span>.</span>
+            </a>
+            <nav class="flex gap-6 items-center">
+                <a href="/" class="nav-link">Accueil</a>
+                <a href="/experts" class="nav-link active">Experts</a>
+                <a href="/about" class="nav-link">À propos</a>
+                <a href="/register" class="btn btn-primary">Connexion</a>
+            </nav>
+        </div>
+    </div>
+</header>
 
 <main class="profile-container">
     <a href="/experts" class="back-link">
@@ -378,30 +416,30 @@
     <div class="profile-header">
         <div class="profile-top">
             <div class="profile-avatar">
-                <i class="fas fa-user-tie"></i>
+                <i class="fas fa-gavel"></i>
             </div>
             
             <div class="profile-info">
-                <h1 class="profile-name">Sarah El Fassi</h1>
+                <h1 class="profile-name">Ahmed Benani</h1>
                 <div class="profile-specialty">
-                    <i class="fas fa-gavel" style="margin-right: 0.5rem;"></i>
-                    Droit pénal
+                    <i class="fas fa-stamp" style="margin-right: 0.5rem;"></i>
+                    Huissier de Justice
                 </div>
                 
                 <div class="profile-meta">
                     <div class="meta-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Casablanca</span>
+                        <span>Rabat</span>
                     </div>
                     
                     <div class="meta-item">
                         <i class="fas fa-briefcase"></i>
-                        <span>15 ans d'expérience</span>
+                        <span>12 ans d'expérience</span>
                     </div>
                     
                     <div class="meta-item">
                         <i class="fas fa-envelope"></i>
-                        <span>s.elfassi@law.ma</span>
+                        <span>a.benani@huissier.ma</span>
                     </div>
                 </div>
             </div>
@@ -414,48 +452,63 @@
         
         <div class="info-grid">
             <div class="info-item">
-                <span class="info-label">Spécialité</span>
-                <span class="info-value">Droit pénal</span>
+                <span class="info-label">Profession</span>
+                <span class="info-value">Huissier de Justice</span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Années d'expérience</span>
-                <span class="info-value">15 ans</span>
+                <span class="info-value">12 ans</span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Ville d'exercice</span>
-                <span class="info-value">Casablanca</span>
+                <span class="info-value">Rabat</span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Email</span>
-                <span class="info-value">s.elfassi@law.ma</span>
+                <span class="info-value">a.benani@huissier.ma</span>
             </div>
         </div>
+    </div>
 
-        <div style="margin-top: 2rem;">
-            <span class="info-label" style="display: block; margin-bottom: 0.75rem;">Mode de consultation</span>
-            <div class="consultation-badge">
-                <i class="fas fa-video"></i>
-                Consultation en ligne disponible
+    <!-- Types d'Actes Section -->
+    <div class="profile-section">
+        <h2 class="section-title">Types d'Actes</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+            Services juridiques proposés par cet huissier de justice.
+        </p>
+        
+        <div class="actes-badges">
+            <div class="acte-badge signification">
+                <i class="fas fa-file-invoice"></i>
+                Signification
+            </div>
+            <div class="acte-badge execution">
+                <i class="fas fa-hammer"></i>
+                Exécution
+            </div>
+            <div class="acte-badge constat">
+                <i class="fas fa-clipboard-check"></i>
+                Constats
             </div>
         </div>
     </div>
 
     <!-- Action Buttons -->
     <div class="profile-section">
-        <h2 class="section-title">Prendre Rendez-vous</h2>
+        <h2 class="section-title">Demander un Service</h2>
         <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-            Réservez une consultation avec cet avocat pour discuter de votre situation juridique.
+            Contactez cet huissier de justice pour vos besoins en actes juridiques.
         </p>
         
         <div class="action-buttons">
-            <button class="btn btn-large btn-book" onclick="bookConsultation()">
-                <i class="fas fa-calendar-check" style="margin-right: 0.75rem;"></i>
-                Réserver une consultation
+            <button class="btn btn-large btn-book" onclick="demanderService()">
+                <i class="fas fa-file-signature" style="margin-right: 0.75rem;"></i>
+                Demander un acte
             </button>
-            <button class="btn btn-large btn-contact" onclick="contactAvocat()">
+            <button class="btn btn-large btn-contact" onclick="contactHuissier()">
                 <i class="fas fa-envelope" style="margin-right: 0.75rem;"></i>
                 Envoyer un message
             </button>
@@ -476,14 +529,12 @@
 </footer>
 
 <script>
-function bookConsultation() {
-    alert('Redirection vers la page de réservation...');
-    // window.location.href = '/book';
+function demanderService() {
+    alert('Redirection vers la page de demande d\'acte...');
 }
 
-function contactAvocat() {
+function contactHuissier() {
     alert('Ouverture du formulaire de contact...');
-    // window.location.href = '/contact';
 }
 </script>
 
