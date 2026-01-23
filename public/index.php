@@ -19,4 +19,15 @@ Router::add('Huissiers/edit',["callable" => 'App\\Controller\\ControllerHuissier
 Router::add('Huissiers/update',["callable" => 'App\\Controller\\ControllerHuissiers@update', "auth" => true, "roles"  => ["ADMIN"]]);
 Router::add('Huissiers/destroy',["callable" => 'App\\Controller\\ControllerHuissiers@destroy', "auth" => true, "roles"  => ["ADMIN"]]);
 
+
+
+Router::add('professional/dashboard', ["callable" => 'App\\Controller\\ControllerProfessional@index', "auth" => true, "roles" => ["avocat", "huissier"]]);
+
+
+// Demandes
+Router::add('professional/demands', ["callable" => 'App\\Controller\\ControllerProfessional@demands', "auth" => true, "roles" => ["avocat", "huissier"]]);
+
+
+
+
 Router::dispatsh($_GET['url'] ?? "");
