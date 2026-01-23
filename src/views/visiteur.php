@@ -106,7 +106,7 @@
 </footer>
 
 <script>
-const API_URL = "http://istichara.test/api/v4/professionals";
+const API_URL = "<?= $_ENV['BASE_URL'] ?>/api/v4/professionals";
 const PER_PAGE = 6;
 let currentPage = 1;
 let allProfessionals = [];
