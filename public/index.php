@@ -1,7 +1,12 @@
 <?php
 
+use Dotenv\Dotenv;
+
 require_once('../vendor/autoload.php');
 require_once('../app/core/router/router.php');
+
+(Dotenv::createImmutable(__DIR__. "/.."))->load();
+
 
 session_start();
 
