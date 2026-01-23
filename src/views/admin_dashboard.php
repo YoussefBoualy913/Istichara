@@ -113,13 +113,13 @@
 
                             <?php foreach($InactifProfessionnlle as $item){ ?>
                                 <tr>
-                                    <td style="font-weight: 500;"><?=$item['name'] ?></td>
+                                    <td style="font-weight: 500;"><?=$item->getName() ?></td>
                                     <td><span class="badge badge-gold">panding</span></td>
                                    
                                     <td>
                                       
 
-                                        <a href="./verifyAccountDetails ? user_id=<?=$item['user_id'] ?>" class="btn btn-outline btn-info" title="Détails">
+                                        <a href="./verifyAccountDetails ? user_id=<?=$item->getId()?>" class="btn btn-outline btn-info" title="Détails">
                                            <i class="fas fa-file-alt"></i>
                                          </a>
                                          <a href="" class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></a>
