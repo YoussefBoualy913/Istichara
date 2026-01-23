@@ -23,7 +23,7 @@ document.querySelectorAll('.close').forEach(button => {
 
 // View Demand Details
 function viewDemand(demandId) {
-    fetch(`/professional/get-demand-details?id=${demandId}`)
+    fetch(`/professional/demand-details?id=${demandId}`)
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -31,41 +31,41 @@ function viewDemand(demandId) {
                 const modalBody = document.getElementById('modalBody');
                 
                 modalBody.innerHTML = `
-                    <div class="demand-details">
-                        <div class="detail-row">
-                            <span class="label">Référence:</span>
-                            <span class="value">#${demand.id}</span>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                            <strong style="color: #64748b;">Référence:</strong>
+                            <span>#${demand.id}</span>
                         </div>
-                        <div class="detail-row">
-                            <span class="label">Client:</span>
-                            <span class="value">${demand.client_name}</span>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                            <strong style="color: #64748b;">Client:</strong>
+                            <span>${demand.client_name || 'N/A'}</span>
                         </div>
-                        <div class="detail-row">
-                            <span class="label">Email:</span>
-                            <span class="value">${demand.client_email || 'N/A'}</span>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                            <strong style="color: #64748b;">Email:</strong>
+                            <span>${demand.client_email || 'N/A'}</span>
                         </div>
-                        <div class="detail-row">
-                            <span class="label">Téléphone:</span>
-                            <span class="value">${demand.client_phone || 'N/A'}</span>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                            <strong style="color: #64748b;">Téléphone:</strong>
+                            <span>${demand.client_phone || 'N/A'}</span>
                         </div>
-                        <div class="detail-row">
-                            <span class="label">Date:</span>
-                            <span class="value">${demand.formatted_date || demand.date}</span>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                            <strong style="color: #64748b;">Date:</strong>
+                            <span>${demand.formatted_date || demand.date}</span>
                         </div>
-                        <div class="detail-row">
-                            <span class="label">Statut:</span>
-                            <span class="value">
-                                <span class="status-badge ${demand.validation_status}">${getStatusLabel(demand.validation_status)}</span>
-                            </span>
+                        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: #f8fafc; border-radius: 8px;">
+                            <strong style="color: #64748b;">Statut:</strong>
+                            <span class="status-badge ${demand.validation_status}">${getStatusLabel(demand.validation_status)}</span>
                         </div>
+                        ${demand.message ? `
+                        <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
+                            <strong style="color: #64748b; display: block; margin-bottom: 8px;">Message:</strong>
+                            <p style="margin: 0; line-height: 1.6;">${demand.message}</p>
+                        </div>
+                        ` : ''}
                         ${demand.meet_link ? `
-                        <div class="detail-row">
-                            <span class="label">Lien de réunion:</span>
-                            <span class="value">
-                                <a href="${demand.meet_link}" target="_blank" class="meet-link">
-                                    🔗 ${demand.meet_link}
-                                </a>
-                            </span>
+                        <div style="padding: 12px; background: #f8fafc; border-radius: 8px;">
+                            <strong style="color: #64748b; display: block; margin-bottom: 8px;">Lien de réunion:</strong>
+                            <a href="${demand.meet_link}" target="_blank" style="color: #3b82f6;">${demand.meet_link}</a>
                         </div>
                         ` : ''}
                     </div>
@@ -103,10 +103,7 @@ document.getElementById('statusForm').addEventListener('submit', function(e) {
         if (data.success) {
             alert('Statut mis à jour avec succès');
             closeModal('statusModal');
-            // Recharger la page après 1 seconde
-            setTimeout(() => {
-                location.reload();
-            }, 1000);
+            location.reload();
         } else {
             alert(data.message || 'Erreur lors de la mise à jour');
         }
@@ -127,71 +124,5 @@ function getStatusLabel(status) {
     };
     return labels[status] || status;
 }
-
-// Add CSS for demand details
-const style = document.createElement('style');
-style.textContent = `
-    .demand-details {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .detail-row {
-        display: grid;
-        grid-template-columns: 150px 1fr;
-        gap: 15px;
-        padding: 12px;
-        background: #f9fafb;
-        border-radius: 8px;
-    }
-    
-    .detail-row .label {
-        font-weight: 600;
-        color: #6b7280;
-        font-size: 14px;
-    }
-    
-    .detail-row .value {
-        color: #1f2937;
-        font-size: 14px;
-    }
-    
-    .meet-link {
-        color: #1e40af;
-        text-decoration: none;
-        word-break: break-all;
-    }
-    
-    .meet-link:hover {
-        text-decoration: underline;
-    }
-    
-    .meetings-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .meeting-item {
-        padding: 12px;
-        background: #f9fafb;
-        border-radius: 8px;
-        border-left: 4px solid #1a2332;
-    }
-    
-    .meeting-time {
-        font-weight: 600;
-        color: #1a2332;
-        font-size: 14px;
-    }
-    
-    .meeting-client {
-        color: #6b7280;
-        font-size: 13px;
-        margin-top: 4px;
-    }
-`;
-document.head.appendChild(style);
 
 console.log('Professional Dashboard loaded successfully');

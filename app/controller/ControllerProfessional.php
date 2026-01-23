@@ -4,7 +4,14 @@ namespace App\Controller;
 
 use App\Repository\ProfessionalRepository;
 use App\Helper\Response;
-use App\Helper\Request;
+use App\Helper\View;
+
+
+session_start();
+$_SESSION['user_id'] = 1;
+$_SESSION['user_role'] = 'avocat';
+$_SESSION['user_name'] = 'Maître Jean Dupont';
+$_SESSION['user_email'] = 'jean.dupont@avocat.fr';
 
 class ControllerProfessional
 {
@@ -14,40 +21,28 @@ class ControllerProfessional
     {
         $this->professionalRepo = new ProfessionalRepository();
         
-        // Vérifier l'authentification via la session
-        if (!isset($_SESSION['user_id'])) {
-            (new Response())->header('/login');
-        }
-        
-        // Vérifier le rôle
-        $userRole = $_SESSION['user_role'] ?? '';
-        if (!in_array($userRole, ['avocat', 'huissier'])) {
-            (new Response())->header('/');
-        }
     }
     
-    /**
-     * Dashboard principal
-     */
+    // Dashboard principal
     public function index()
     {
         $userId = $_SESSION['user_id'];
         $userRole = $_SESSION['user_role'];
         
-        $data = [
-            'stats' => $this->professionalRepo->getDashboardStats($userId, $userRole),
-            'recent_demands' => $this->professionalRepo->getRecentDemands($userId, $userRole, 5),
-            'profile' => $this->professionalRepo->getProfile($userId, $userRole),
-            'upcoming_meetings' => $this->professionalRepo->getUpcomingMeetings($userId, $userRole)
-        ];
+        $stats = $this->professionalRepo->getDashboardStats($userId, $userRole);
+        $recent_demands = $this->professionalRepo->getRecentDemands($userId, $userRole, 5);
+        $profile = $this->professionalRepo->getProfile($userId, $userRole);
+        $upcoming_meetings = $this->professionalRepo->getUpcomingMeetings($userId, $userRole);
         
-        // Inclure la vue
-        require_once __DIR__ . '/../../src/views/professional_dashboard.php';
+        View::render('professional_dashboard.php', [
+            'stats' => $stats,
+            'recent_demands' => $recent_demands,
+            'profile' => $profile,
+            'upcoming_meetings' => $upcoming_meetings
+        ]);
     }
     
-    /**
-     * Liste des demandes
-     */
+    // Liste des demandes
     public function demands()
     {
         $userId = $_SESSION['user_id'];
@@ -55,50 +50,17 @@ class ControllerProfessional
         
         $filter = $_GET['filter'] ?? 'all';
         
-        $data = [
-            'demands' => $this->professionalRepo->getAllDemands($userId, $userRole, $filter),
+        $demands = $this->professionalRepo->getAllDemands($userId, $userRole, $filter);
+        $stats = $this->professionalRepo->getDashboardStats($userId, $userRole);
+        
+        View::render('professional_demands.php', [
+            'demands' => $demands,
             'filter' => $filter,
-            'stats' => $this->professionalRepo->getDashboardStats($userId, $userRole)
-        ];
-        
-        require_once __DIR__ . '/../../src/views/professional_demands.php';
+            'stats' => $stats
+        ]);
     }
     
-    /**
-     * Calendrier
-     */
-    public function calendar()
-    {
-        $userId = $_SESSION['user_id'];
-        $userRole = $_SESSION['user_role'];
-        
-        // Implémenter la logique du calendrier
-        echo "Calendrier - À implémenter";
-    }
-    
-    /**
-     * Clients
-     */
-    public function clients()
-    {
-        $userId = $_SESSION['user_id'];
-        $userRole = $_SESSION['user_role'];
-        
-        // Logique pour les clients
-        echo "Clients - À implémenter";
-    }
-    
-    /**
-     * Documents
-     */
-    public function documents()
-    {
-        echo "Documents - À implémenter";
-    }
-    
-    /**
-     * Profil
-     */
+    // Profil
     public function profile()
     {
         $userId = $_SESSION['user_id'];
@@ -125,7 +87,6 @@ class ControllerProfessional
             
             if ($result) {
                 $_SESSION['success_message'] = 'Profil mis à jour avec succès';
-                // Mettre à jour les données de session
                 $_SESSION['user_name'] = $data['name'];
                 $_SESSION['user_email'] = $data['email'];
             } else {
@@ -135,16 +96,14 @@ class ControllerProfessional
             (new Response())->header('/professional/profile');
         }
         
-        $data = [
-            'profile' => $this->professionalRepo->getProfile($userId, $userRole)
-        ];
+        $profile = $this->professionalRepo->getProfile($userId, $userRole);
         
-        require_once __DIR__ . '/../../src/views/professional_profile.php';
+        View::render('professional_profile.php', [
+            'profile' => $profile
+        ]);
     }
     
-    /**
-     * API: Mettre à jour le statut d'une demande
-     */
+    // Mettre à jour le statut
     public function updateStatus()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -174,9 +133,7 @@ class ControllerProfessional
         exit;
     }
     
-    /**
-     * API: Obtenir les détails d'une demande
-     */
+    // Obtenir les détails d'une demande
     public function getDemandDetails()
     {
         $userId = $_SESSION['user_id'];
@@ -186,6 +143,7 @@ class ControllerProfessional
         
         $demand = $this->professionalRepo->getDemandDetails($demandId, $userId, $userRole);
         
+        header('Content-Type: application/json');
         if ($demand) {
             echo json_encode(['success' => true, 'data' => $demand]);
         } else {

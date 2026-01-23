@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Repository\RepositoryInterface;
+namespace App\Repository;
 
 use App\Repository\BaseRepository;
 
 class ProfessionalRepository extends BaseRepository
 {
-    public static string $tableName = "professionnels"; // Table générique, mais nous allons l'adapter
+    public static string $tableName = "professionnels";
     
-    /**
-     * Obtenir les statistiques du dashboard
-     */
+
+    //afficher les statistique dyal professional
     public function getDashboardStats($userId, $userRole)
     {
         $profId = $this->getProfessionalId($userId, $userRole);
@@ -67,9 +66,8 @@ class ProfessionalRepository extends BaseRepository
         ];
     }
     
-    /**
-     * Obtenir les demandes récentes
-     */
+    // Obtenir les demandes récentes
+     
     public function getRecentDemands($userId, $userRole, $limit = 5)
     {
         $profId = $this->getProfessionalId($userId, $userRole);
@@ -143,7 +141,6 @@ class ProfessionalRepository extends BaseRepository
         $sql = "SELECT a.*, 
                        u.name, 
                        u.email,
-                       u.phone,
                        v.name as ville_name
                 FROM $profTable a
                 JOIN users u ON a.user_id = u.id
