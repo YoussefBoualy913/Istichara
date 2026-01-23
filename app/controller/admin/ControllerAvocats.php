@@ -1,5 +1,6 @@
 <?php
-namespace App\Controller;
+namespace App\Admin\Controller;
+
 use  App\Models\Avocat;
 use App\Repository\AvocatRepository;
 use App\Repository\UserRepository;
