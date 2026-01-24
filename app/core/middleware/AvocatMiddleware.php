@@ -1,21 +1,21 @@
 <?php
 
 namespace App\Core\Middleware;
-use App\Helper\Response;
 use App\Helper\Session;
+use App\Helper\Response;
 
-class AuthMiddleware {
+class AvocatMiddleware{
     private Session $session;
     private Response $response;
-    
+
     public function __construct(){
         $this->session = new Session();
         $this->response = new Response();
         $this->session->Start();
     }
-    
-    public function handle() {
+
+    public function handle(){
         $user = $this->session->getUser();
-        if(!$user) $this->response->header('/');
+        if ($user || $user['role'] !== 'AVOCAT') $this->response->header('/');
     }
 }
