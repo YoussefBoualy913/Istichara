@@ -187,7 +187,7 @@
                                         <small style="color: var(--text-muted);">PDF - 2.4 MB</small>
                                     </div>
                                 </div>
-                                <a href="<?= $professionnlle[0]->getDocument()[0]['carte_professionnelle'] ?>" class="btn btn-outline" style="font-size: 0.9rem;">
+                                <a href="" class="btn btn-outline" style="font-size: 0.9rem;">
                                     <i class="fas fa-eye"></i> Voir
                                 </a>
                             </div>
@@ -212,7 +212,7 @@
                                         <small style="color: var(--text-muted);">JPG - 1.1 MB</small>
                                     </div>
                                 </div>
-                                <a href="<?= $professionnlle[0]->getDocument()[0]['diplome'] ?>" class="btn btn-outline" style="font-size: 0.9rem;">
+                                <a href="" class="btn btn-outline" style="font-size: 0.9rem;">
                                     <i class="fas fa-eye"></i> Voir
                                 </a>
                             </div>
@@ -234,14 +234,14 @@
                         </p>
 
                         <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <button class="btn btn-outline"
+                            <a href="./rejectAccount ? user_id=<?=$professionnlle[0]->getId()?>" class="btn btn-outline"
                                 style="color: var(--danger); border-color: var(--danger); justify-content: center;">
                                 <i class="fas fa-times" style="margin-right: 0.5rem;"></i> Refuser le dossier
-                            </button>
-                            <button class="btn btn-primary"
+                            </a>
+                            <a href="./validatacount ? user_id=<?=$professionnlle[0]->getId()?>" class="btn btn-primary"
                                 style="background: var(--success); border-color: var(--success); justify-content: center;">
                                 <i class="fas fa-check" style="margin-right: 0.5rem;"></i> Valider le compte
-                            </button>
+                            </a>
                         </div>
                     </div>
 

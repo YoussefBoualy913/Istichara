@@ -25,7 +25,10 @@ Router::add('auth/huissier/register',["callable" =>"App\\Controller\\Auth\\AuthC
 Router::add('auth/avocat/register',["callable" =>"App\\Controller\\Auth\\AuthController@registerAvocat","auth" =>false ,"roles" => []]);
 Router::add('auth/logout',["callable" =>"App\\Controller\\Auth\\AuthController@logout","auth" =>false ,"roles" => []]);
 
-Router::add('dashboard',["callable" => 'App\\Controller\\ControllerDachboard@index', "auth" => true, "roles" => ["ADMIN"]]);
+Router::add('dashboard',["callable" => 'App\\Controller\\admin\\ControllerDachboard@index', "auth" => true, "roles" => ["ADMIN"]]);
+Router::add('verifyAccountDetails',["callable" => 'App\\Controller\\admin\\ControllerDachboard@verifyAccountDetails', "auth" => true, "roles" => ["ADMIN"]]);
+Router::add('validatacount',["callable" => 'App\\Controller\\admin\\ControllerDachboard@validateAccount', "auth" => true, "roles" => ["ADMIN"]]);
+Router::add('rejectAccount',["callable" => 'App\\Controller\\admin\\ControllerDachboard@rejectAccount', "auth" => true, "roles" => ["ADMIN"]]);
 Router::add('avocats',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@index', "auth" => true, "roles" => ["ADMIN"]]);
 Router::add('avocat/create',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@create', "auth" => true, "roles" => ["ADMIN"]]);
 Router::add('avocat/store',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@store', "auth" => true, "roles"  => ["ADMIN"]]);
