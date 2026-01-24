@@ -37,7 +37,7 @@ class AuthController {
         $password = $this->Validator->isValidString($this->request->getParam("password"));
         
         $user  = $this->userRepo->findByEmail($email);
-        if(!$user) $this->response->header("/auth/register");
+        if(!$user) $this->response->header("/register");
         
         $ispasswordValid = $this->Validator->isValidPassword($password, $user['password']);
         if(!$ispasswordValid) $this->response->header("/auth/login");

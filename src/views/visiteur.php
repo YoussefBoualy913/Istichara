@@ -151,6 +151,7 @@ function renderResults(list) {
     list.forEach(p => {
         const badgeClass = p.role === "avocat" ? "badge-blue" : "badge-gold";
         const icon = p.role === "avocat" ? "fa-user-tie" : "fa-file-signature";
+        const link = p.role === "avocat" ? "/avocat/profile/" : "/huissier/profile/";
 
         grid.innerHTML += `
         <article class="card">
@@ -173,7 +174,7 @@ function renderResults(list) {
             </div>
 
             <div style="border-top:1px solid var(--border);margin-top:1rem;padding-top:1rem;text-align:right;">
-                <button class="btn btn-outline">Voir profil</button>
+                <a href=${link + p.id} class="btn btn-outline">Voir profil</a>
             </div>
         </article>`;
     });

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Huissier - ISTICHARA</title>
+    <title>Profil Avocat - ISTICHARA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
@@ -198,8 +198,8 @@
             display: inline-flex;
             align-items: center;
             padding: 0.5rem 1rem;
-            background: #fef3c7;
-            color: #92400e;
+            background: #eff6ff;
+            color: #1e40af;
             border-radius: var(--radius-md);
             font-weight: 600;
             font-size: 0.95rem;
@@ -269,41 +269,22 @@
             font-weight: 600;
         }
 
-        .actes-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .acte-badge {
+        .consultation-badge {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.625rem 1rem;
+            padding: 0.75rem 1.25rem;
             background: #ecfdf5;
             color: #047857;
             border-radius: var(--radius-md);
             font-weight: 600;
             border: 1px solid #a7f3d0;
-            font-size: 0.9rem;
         }
 
-        .acte-badge.signification {
-            background: #eff6ff;
-            color: #1e40af;
-            border-color: #bfdbfe;
-        }
-
-        .acte-badge.execution {
+        .consultation-badge.offline {
             background: #fef3c7;
             color: #92400e;
             border-color: #fde68a;
-        }
-
-        .acte-badge.constat {
-            background: #f3e8ff;
-            color: #6b21a8;
-            border-color: #e9d5ff;
         }
 
         .action-buttons {
@@ -380,16 +361,12 @@
                 height: 100px;
                 font-size: 2.5rem;
             }
-
-            .actes-badges {
-                justify-content: center;
-            }
         }
     </style>
 </head>
 <body>
 
-<?php require_once __DIR__ . "/../components/header.php" ?>
+    <?php require_once __DIR__ . "/../components/header.php";?>
 
 <main class="profile-container">
     <a href="/" class="back-link">
@@ -401,30 +378,29 @@
     <div class="profile-header">
         <div class="profile-top">
             <div class="profile-avatar">
-                <i class="fas fa-gavel"></i>
+                <i class="fas fa-user-tie"></i>
             </div>
-            
             <div class="profile-info">
-                <h1 class="profile-name"><?= $huissier->getName() ?></h1>
+                <h1 class="profile-name"><?= $avocat->getName() ?></h1>
                 <div class="profile-specialty">
-                    <i class="fas fa-stamp" style="margin-right: 0.5rem;"></i>
-                    Huissier de <?= $huissier->getTypes_actes() ?>
+                    <i class="fas fa-gavel" style="margin-right: 0.5rem;"></i>
+                    <?= ucfirst($avocat->getSpecialite()) ?>
                 </div>
                 
                 <div class="profile-meta">
                     <div class="meta-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span><?= $huissier->getVille_Name() ?></span>
+                        <span><?= $avocat->getVille_Name() ?></span>
                     </div>
                     
                     <div class="meta-item">
                         <i class="fas fa-briefcase"></i>
-                        <span><?= $huissier->getYears_of_experience() ?> ans d'expérience</span>
+                        <span><?= $avocat->getYears_of_experience() ?> ans d'expérience</span>
                     </div>
                     
                     <div class="meta-item">
                         <i class="fas fa-envelope"></i>
-                        <span><?= $huissier->getEmail() ?></span>
+                        <span><?= $avocat->getEmail() ?></span>
                     </div>
                 </div>
             </div>
@@ -437,63 +413,48 @@
         
         <div class="info-grid">
             <div class="info-item">
-                <span class="info-label">Profession</span>
-                <span class="info-value">Huissier de <?= $huissier->getTypes_actes() ?></span>
+                <span class="info-label">Spécialité</span>
+                <span class="info-value"><?= ucfirst($avocat->getSpecialite()) ?></span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Années d'expérience</span>
-                <span class="info-value"><?= $huissier->getYears_of_experience() ?> ans</span>
+                <span class="info-value"><?= $avocat->getYears_of_experience() ?>  ans</span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Ville d'exercice</span>
-                <span class="info-value"><?= $huissier->getVille_Name() ?></span>
+                <span class="info-value"><?= $avocat->getVille_Name() ?></span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Email</span>
-                <span class="info-value"><?= $huissier->getEmail() ?></span>
+                <span class="info-value"><?= $avocat->getEmail() ?> </span>
             </div>
         </div>
-    </div>
 
-    <!-- Types d'Actes Section -->
-    <div class="profile-section">
-        <h2 class="section-title">Types d'Actes</h2>
-        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-            Services juridiques proposés par cet huissier de justice.
-        </p>
-        
-        <div class="actes-badges">
-            <div class="acte-badge signification">
-                <i class="fas fa-file-invoice"></i>
-                Signification
-            </div>
-            <div class="acte-badge execution">
-                <i class="fas fa-hammer"></i>
-                Exécution
-            </div>
-            <div class="acte-badge constat">
-                <i class="fas fa-clipboard-check"></i>
-                Constats
+        <div style="margin-top: 2rem;">
+            <span class="info-label" style="display: block; margin-bottom: 0.75rem;">Mode de consultation</span>
+            <div class="consultation-badge <?= $avocat->getConsoltation_en_ligne() === "1" ? "" : "offline" ?>">
+                <i class="fas fa-video"></i>
+                Consultation en ligne disponible
             </div>
         </div>
     </div>
 
     <!-- Action Buttons -->
     <div class="profile-section">
-        <h2 class="section-title">Demander un Service</h2>
+        <h2 class="section-title">Prendre Rendez-vous</h2>
         <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-            Contactez cet huissier de justice pour vos besoins en actes juridiques.
+            Réservez une consultation avec cet avocat pour discuter de votre situation juridique.
         </p>
         
         <div class="action-buttons">
-            <button class="btn btn-large btn-book" onclick="demanderService()">
-                <i class="fas fa-file-signature" style="margin-right: 0.75rem;"></i>
-                Demander un acte
+            <button class="btn btn-large btn-book" onclick="bookConsultation()">
+                <i class="fas fa-calendar-check" style="margin-right: 0.75rem;"></i>
+                Réserver une consultation
             </button>
-            <button class="btn btn-large btn-contact" onclick="contactHuissier()">
+            <button class="btn btn-large btn-contact" onclick="contactAvocat()">
                 <i class="fas fa-envelope" style="margin-right: 0.75rem;"></i>
                 Envoyer un message
             </button>
@@ -514,12 +475,14 @@
 </footer>
 
 <script>
-function demanderService() {
-    alert('Redirection vers la page de demande d\'acte...');
+function bookConsultation() {
+    alert('Redirection vers la page de réservation...');
+    // window.location.href = '/book';
 }
 
-function contactHuissier() {
+function contactAvocat() {
     alert('Ouverture du formulaire de contact...');
+    // window.location.href = '/contact';
 }
 </script>
 
