@@ -26,7 +26,7 @@ class ProfessionalsAPIController {
         $ville = $this->validator->isValidNumber($this->request->getQuery("ville"));
         $search = $this->validator->isValidString($this->request->getQuery("search"));
         $experience = $this->validator->isValidNumber($this->request->getQuery("experience"));
-        $page = $this->validator->isValidNumber($this->request->getQuery("page" ?? 1));
+        $page = $this->validator->isValidNumber($this->request->getQuery("page") ?? 1);
 
         $offset = ($page - 1) * 10;
 
