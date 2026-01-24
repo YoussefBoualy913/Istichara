@@ -366,7 +366,7 @@
 </head>
 <body>
 
-    <?php require_once __DIR__ . "/../components/header.php" ?>
+    <?php require_once __DIR__ . "/../components/header.php";?>
 
 <main class="profile-container">
     <a href="/" class="back-link">
@@ -380,28 +380,27 @@
             <div class="profile-avatar">
                 <i class="fas fa-user-tie"></i>
             </div>
-            
             <div class="profile-info">
-                <h1 class="profile-name">Sarah El Fassi</h1>
+                <h1 class="profile-name"><?= $avocat->getName() ?></h1>
                 <div class="profile-specialty">
                     <i class="fas fa-gavel" style="margin-right: 0.5rem;"></i>
-                    Droit pénal
+                    <?= ucfirst($avocat->getSpecialite()) ?>
                 </div>
                 
                 <div class="profile-meta">
                     <div class="meta-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Casablanca</span>
+                        <span><?= $avocat->getVille_Name() ?></span>
                     </div>
                     
                     <div class="meta-item">
                         <i class="fas fa-briefcase"></i>
-                        <span>15 ans d'expérience</span>
+                        <span><?= $avocat->getYears_of_experience() ?> ans d'expérience</span>
                     </div>
                     
                     <div class="meta-item">
                         <i class="fas fa-envelope"></i>
-                        <span>s.elfassi@law.ma</span>
+                        <span><?= $avocat->getEmail() ?></span>
                     </div>
                 </div>
             </div>
@@ -415,28 +414,28 @@
         <div class="info-grid">
             <div class="info-item">
                 <span class="info-label">Spécialité</span>
-                <span class="info-value">Droit pénal</span>
+                <span class="info-value"><?= ucfirst($avocat->getSpecialite()) ?></span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Années d'expérience</span>
-                <span class="info-value">15 ans</span>
+                <span class="info-value"><?= $avocat->getYears_of_experience() ?>  ans</span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Ville d'exercice</span>
-                <span class="info-value">Casablanca</span>
+                <span class="info-value"><?= $avocat->getVille_Name() ?></span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Email</span>
-                <span class="info-value">s.elfassi@law.ma</span>
+                <span class="info-value"><?= $avocat->getEmail() ?> </span>
             </div>
         </div>
 
         <div style="margin-top: 2rem;">
             <span class="info-label" style="display: block; margin-bottom: 0.75rem;">Mode de consultation</span>
-            <div class="consultation-badge">
+            <div class="consultation-badge <?= $avocat->getConsoltation_en_ligne() === "1" ? "" : "offline" ?>">
                 <i class="fas fa-video"></i>
                 Consultation en ligne disponible
             </div>

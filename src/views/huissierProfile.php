@@ -389,25 +389,10 @@
 </head>
 <body>
 
-<header class="header">
-    <div class="container">
-        <div class="flex justify-between items-center">
-            <a href="/" class="brand">
-                <i class="fas fa-balance-scale"></i>
-                ISTICHARA<span>.</span>
-            </a>
-            <nav class="flex gap-6 items-center">
-                <a href="/" class="nav-link">Accueil</a>
-                <a href="/experts" class="nav-link active">Experts</a>
-                <a href="/about" class="nav-link">À propos</a>
-                <a href="/register" class="btn btn-primary">Connexion</a>
-            </nav>
-        </div>
-    </div>
-</header>
+<?php require_once __DIR__ . "/../components/header.php" ?>
 
 <main class="profile-container">
-    <a href="/experts" class="back-link">
+    <a href="/" class="back-link">
         <i class="fas fa-arrow-left"></i>
         Retour à la liste
     </a>
@@ -420,26 +405,26 @@
             </div>
             
             <div class="profile-info">
-                <h1 class="profile-name">Ahmed Benani</h1>
+                <h1 class="profile-name"><?= $huissier->getName() ?></h1>
                 <div class="profile-specialty">
                     <i class="fas fa-stamp" style="margin-right: 0.5rem;"></i>
-                    Huissier de Justice
+                    Huissier de <?= $huissier->getTypes_actes() ?>
                 </div>
                 
                 <div class="profile-meta">
                     <div class="meta-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>Rabat</span>
+                        <span><?= $huissier->getVille_Name() ?></span>
                     </div>
                     
                     <div class="meta-item">
                         <i class="fas fa-briefcase"></i>
-                        <span>12 ans d'expérience</span>
+                        <span><?= $huissier->getYears_of_experience() ?> ans d'expérience</span>
                     </div>
                     
                     <div class="meta-item">
                         <i class="fas fa-envelope"></i>
-                        <span>a.benani@huissier.ma</span>
+                        <span><?= $huissier->getEmail() ?></span>
                     </div>
                 </div>
             </div>
@@ -453,22 +438,22 @@
         <div class="info-grid">
             <div class="info-item">
                 <span class="info-label">Profession</span>
-                <span class="info-value">Huissier de Justice</span>
+                <span class="info-value">Huissier de <?= $huissier->getTypes_actes() ?></span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Années d'expérience</span>
-                <span class="info-value">12 ans</span>
+                <span class="info-value"><?= $huissier->getYears_of_experience() ?> ans</span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Ville d'exercice</span>
-                <span class="info-value">Rabat</span>
+                <span class="info-value"><?= $huissier->getVille_Name() ?></span>
             </div>
             
             <div class="info-item">
                 <span class="info-label">Email</span>
-                <span class="info-value">a.benani@huissier.ma</span>
+                <span class="info-value"><?= $huissier->getEmail() ?></span>
             </div>
         </div>
     </div>

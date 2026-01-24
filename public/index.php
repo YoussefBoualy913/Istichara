@@ -14,6 +14,7 @@ require_once('../app/core/router/router.php');
 Router::add('/',["callable" => "App\\Controller\\ControllerVisiteur@index" , "middlewares" => []]);
 Router::add('register',["callable" =>"App\\Controller\\ControllerVisiteur@register","middlewares" => [VisitorMiddleware::class]]);
 Router::add('avocat/profile/{id}',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@profile","middlewares" => []]);
+Router::add('huissier/profile/{id}',["callable" =>"App\\Controller\\Professionnelle\\HuissierController@profile","middlewares" => []]);
 
 // Public API routes
 Router::add('api/v4/professionals',["callable" =>"App\\Controller\\Api\\ProfessionalsAPIController@getProfessionals","middlewares" =>[]]);
