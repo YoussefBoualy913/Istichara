@@ -6,9 +6,9 @@
                 ISTICHARA<span>.</span>
             </a>
             <nav class="flex gap-6 items-center">
-                <a href="#" class="nav-link active">Accueil</a>
-                <a href="#" class="nav-link">Experts</a>
-                <a href="#" class="nav-link">À propos</a>
+                <a href="/" class="nav-link active">Accueil</a>
+                <a href="/" class="nav-link">Experts</a>
+                <a href="/" class="nav-link">À propos</a>
                 <?php if(!$user){ ?>
                 <a href="register" class="btn btn-primary">Connexion</a>
                 <?php } ?>
