@@ -9,7 +9,6 @@
                 <a href="#" class="nav-link active">Accueil</a>
                 <a href="#" class="nav-link">Experts</a>
                 <a href="#" class="nav-link">À propos</a>
-                
                 <?php if(!$user){ ?>
                 <a href="register" class="btn btn-primary">Connexion</a>
                 <?php } ?>
@@ -22,13 +21,13 @@
                         <i class="fas fa-chevron-down" style="margin-left: 0.5rem; font-size: 0.75rem;"></i>
                     </button>
                     <div class="dropdown-menu">
-                        <?php if(in_array(strtoupper($user['role']), ["ADMIN", "AVOCAT", "CLIENT"])){ ?>
+                        <?php if(in_array(strtoupper($user['role']), ["ADMIN", "AVOCAT", "HUISSIER"])){ ?>
                         <a href="/dashboard" class="dropdown-item">
                             <i class="fas fa-user"></i>
                             Dashboard
                         </a>
                         <?php } else {?>
-                        <a href="/profile" class="dropdown-item">
+                        <a href="/client/profile" class="dropdown-item">
                             <i class="fas fa-user"></i>
                             Profil
                         </a>

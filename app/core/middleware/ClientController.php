@@ -4,7 +4,7 @@ namespace App\Core\Middleware;
 use App\Helper\Session;
 use App\Helper\Response;
 
-class HuissiserMiddleware{
+class ClientController{
     private Session $session;
     private Response $response;
 
@@ -16,6 +16,6 @@ class HuissiserMiddleware{
 
     public function handle(): void {
         $user = $this->session->getUser();
-        if (!$user || $user['role'] !== 'HUISSIER') $this->response->header('/');
+        if (!$user || $user['role'] !== 'CLIENT') $this->response->header('/');
     }
 }

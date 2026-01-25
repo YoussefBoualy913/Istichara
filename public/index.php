@@ -2,6 +2,7 @@
 
 use App\Core\Middleware\AdminMiddleware;
 use App\Core\Middleware\AuthMiddleware;
+use App\Core\Middleware\ClientController;
 use App\Core\Middleware\VisitorMiddleware;
 use Dotenv\Dotenv;
 
@@ -15,6 +16,8 @@ Router::add('/',["callable" => "App\\Controller\\ControllerVisiteur@index" , "mi
 Router::add('register',["callable" =>"App\\Controller\\ControllerVisiteur@register","middlewares" => [VisitorMiddleware::class]]);
 Router::add('avocat/profile/{id}',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@profile","middlewares" => []]);
 Router::add('huissier/profile/{id}',["callable" =>"App\\Controller\\Professionnelle\\HuissierController@profile","middlewares" => []]);
+
+Router::add('client/profile',["callable" =>"App\\Controller\\ControllerVisiteur@profile","middlewares" => [AuthMiddleware::class, ClientController::class]]);
 
 // Public API routes
 Router::add('api/v4/professionals',["callable" =>"App\\Controller\\Api\\ProfessionalsAPIController@getProfessionals","middlewares" =>[]]);
