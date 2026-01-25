@@ -6,6 +6,7 @@ use App\Helper\Response;
 use App\Helper\View;
 use App\Models\Avocat;
 use App\Repository\AvocatRepository;
+use DateTime;
 
 class AvocatController{
     private AvocatRepository $avocatRepo;
@@ -23,4 +24,25 @@ class AvocatController{
         $avocat->hydrate($data);
         View::render("AvocatProfile.php", ["avocat" => $avocat]);
     }
+
+    public function configDisponibilite()
+    {
+         View::render("configuration-disponibilite.php",);
+    }
+
+    public function storeDisponibilite()
+    {
+        $data =[];
+        $start = new DateTime('next monday');
+        foreach($_POST['horaires'] as $jour =>$creneaux ){
+
+             $data[$start->format('Y-m-d')][$jour] = $creneaux;
+          
+             $start->modify('+1 day');
+            
+         
+        }
+      
+    }
+    
 }

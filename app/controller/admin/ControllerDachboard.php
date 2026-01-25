@@ -69,12 +69,12 @@ class ControllerDachboard
       ]);
    }
 
-   public function verifyAccountDetails()
+   public function verifyAccountDetails(int $user_id)
    {
 
-      $pro = $this->UserRepository->findByUserId($_GET['user_id']);
-      if(!$pro)$this->response->header('dashboard');
-      if(!in_array($pro['role'],['avocat','huissier']))$this->response->header('dashboard');
+      $pro = $this->UserRepository->findByUserId($user_id);
+      if (!$pro) $this->response->header('dashboard');
+      if (!in_array($pro['role'], ['avocat', 'huissier'])) $this->response->header('dashboard');
 
       $professionnlle = [];
       if ($pro['role'] === "avocat") {
@@ -92,41 +92,42 @@ class ControllerDachboard
       $this->view->render('verifyAccount_details.php', ['professionnlle' => $professionnlle]);
    }
 
-   public function validateAccount()
+   public function validateAccount(int $user_id)
    {
-      $pro = $this->UserRepository->findByUserId($_GET['user_id']);
+     
+      $pro = $this->UserRepository->findByUserId($user_id);
       $data['statut'] = "actif";
-      $data['id'] = $_GET['user_id'];
+      $data['id'] = $user_id;
 
       if ($pro['role'] === "avocat") {
 
          $this->AvocatRepository->updateOne($data);
-         $this->response->header('dashboard');
+         $this->response->header('../dashboard');
       }
 
       if ($pro['role'] === "huissier") {
 
          $this->HuissiersRepository->updateOne($data);
-          $this->response->header('dashboard');
+         $this->response->header('../dashboard');
       }
    }
 
-   public function rejectAccount() 
+   public function rejectAccount(int $user_id)
    {
-      $pro = $this->UserRepository->findByUserId($_GET['user_id']);
+      $pro = $this->UserRepository->findByUserId($user_id);
       $data['statut'] = "refuse";
-      $data['id'] = $_GET['user_id'];
+      $data['id'] = $user_id;
 
       if ($pro['role'] === "avocat") {
-
+         
          $this->AvocatRepository->updateOne($data);
-         // $this->response->header('dashboard');
+         $this->response->header('../dashboard');
       }
 
       if ($pro['role'] === "huissier") {
-
+         
          $this->HuissiersRepository->updateOne($data);
-         $this->response->header('dashboard');
+         $this->response->header('../dashboard');
       }
    }
 }

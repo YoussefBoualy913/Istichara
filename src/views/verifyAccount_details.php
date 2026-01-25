@@ -234,11 +234,11 @@
                         </p>
 
                         <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <a href="./rejectAccount ? user_id=<?=$professionnlle[0]->getId()?>" class="btn btn-outline"
+                            <a href="../rejectAccount/<?=$professionnlle[0]->getId()?>" class="btn btn-outline"
                                 style="color: var(--danger); border-color: var(--danger); justify-content: center;">
                                 <i class="fas fa-times" style="margin-right: 0.5rem;"></i> Refuser le dossier
                             </a>
-                            <a href="./validatacount ? user_id=<?=$professionnlle[0]->getId()?>" class="btn btn-primary"
+                            <a href="../validateAccount/<?=$professionnlle[0]->getId()?>" class="btn btn-primary"
                                 style="background: var(--success); border-color: var(--success); justify-content: center;">
                                 <i class="fas fa-check" style="margin-right: 0.5rem;"></i> Valider le compte
                             </a>

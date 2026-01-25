@@ -41,14 +41,18 @@ class BaseRepository {
   }
      
   public function updateOne(array $data){
+      $user_id = $data['id'];
+      unset($data['id']);
       $keys = array_keys($data);
       $placeholder = [];
       foreach($keys as $key){
         $placeholder[] = "$key = :$key";
       }
+    
         
-      $sql = "UPDATE " .static::$tableName . " SET " . implode(", ", $placeholder) . " WHERE id = :id";
+      $sql = "UPDATE " .static::$tableName . " SET " . implode(", ", $placeholder) . " WHERE user_id = :id";
       $stm = $this->pdo->prepare($sql);
+      $data['id'] = $user_id;
       $stm->execute($data);
   }
 }

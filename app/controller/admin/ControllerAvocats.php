@@ -1,12 +1,18 @@
 <?php
 namespace App\Admin\Controller;
 
+use App\Helper\Response;
+use App\Helper\View;
 use  App\Models\Avocat;
 use App\Repository\AvocatRepository;
 use App\Repository\UserRepository;
 
 class ControllerAvocats{
-
+   private View $view;
+   private AvocatRepository $AvocatRepository;
+   private UserRepository $UserRepository;
+   private Response $response;
+   
      public function index(){
      $repoavocat = new AvocatRepository();
      $result = $repoavocat->getALL('avocat');

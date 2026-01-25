@@ -13,7 +13,7 @@ class StatistiqueRepository{
    }
    
    public function  totalProfessionnels($tablename):int  {
-      $stmt = $this->pdo->prepare("select count(*) as totalprofessionnels from  ".$tablename.";");
+      $stmt = $this->pdo->prepare("select count(*) as totalprofessionnels from  ".$tablename." where statut = 'actif';");
       $stmt->execute();
      return $stmt->fetchColumn();
    }
