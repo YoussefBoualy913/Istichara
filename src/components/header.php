@@ -21,8 +21,13 @@
                         <i class="fas fa-chevron-down" style="margin-left: 0.5rem; font-size: 0.75rem;"></i>
                     </button>
                     <div class="dropdown-menu">
-                        <?php if(in_array(strtoupper($user['role']), ["ADMIN", "AVOCAT", "HUISSIER"])){ ?>
+                        <?php if($user['role'] === "ADMIN"){ ?>
                         <a href="/dashboard" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            Dashboard
+                        </a>
+                        <?php } else if(in_array(strtoupper($user['role']), ["AVOCAT", "HUISSIER"])){ ?>
+                        <a href="/professional/dashboard" class="dropdown-item">
                             <i class="fas fa-user"></i>
                             Dashboard
                         </a>

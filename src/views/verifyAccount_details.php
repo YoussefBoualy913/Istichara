@@ -212,7 +212,8 @@
                                         <small style="color: var(--text-muted);">JPG - 1.1 MB</small>
                                     </div>
                                 </div>
-                                <a href="" class="btn btn-outline" style="font-size: 0.9rem;">
+                                <a href="<?= $professionnlle[0]->getDocument()[0]['diplome'] ?>" class="btn btn-outline" style="font-size: 0.9rem;">
+
                                     <i class="fas fa-eye"></i> Voir
                                 </a>
                             </div>

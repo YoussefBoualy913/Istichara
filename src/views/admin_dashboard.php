@@ -117,13 +117,10 @@
                                     <td><span class="badge badge-gold">panding</span></td>
                                    
                                     <td>
-                                      
-
                                         <a href="./verifyAccountDetails/<?=$item->getId()?>" class="btn btn-outline btn-info" title="Détails">
                                            <i class="fas fa-file-alt"></i>
                                          </a>
-                                         <a href="./validateAccount/<?=$item->getId()?>" class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></a>
-       
+                                         <a href="./validateAccount/<?=$item->getId()?>" class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></a>       
                                 </tr>
                                 <?php }; ?>
                                 
