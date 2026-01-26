@@ -5,7 +5,7 @@ use App\Helper\Database;
 use PDO;
 
 class DesponibiliteRepository {
-    private string $tableName ="disponible";
+    private static string $tableName ="disponible";
     protected PDO $pdo;
 
     public function __construct(){

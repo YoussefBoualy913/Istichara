@@ -47,7 +47,7 @@ Router::add('Huissiers/update',["callable" => 'App\\Controller\\Admin\\\Controll
 Router::add('Huissiers/destroy',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@destroy', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
 
 // profesinnelle routes
-Router::add('avocat/profile',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@configDisponibilite","middlewares" => []]);
-Router::add('storeDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@storeDisponibilite","middlewares" => []]);
+Router::add('configDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\ProfessinllelleController@configDisponibilite","middlewares" => []]);
+Router::add('storeDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\ProfessinllelleController@storeDisponibilite","middlewares" => []]);
 
 (new Router())->dispatsh();
