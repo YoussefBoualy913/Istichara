@@ -12,7 +12,7 @@ use App\Helper\Database;
 use DateTime;
 use PDO;
 
-class ProfessinllelleController{
+class DesponibiliterController{
     private AvocatRepository $avocatRepo;
     private Response $response;
     private session $session;
@@ -29,8 +29,7 @@ class ProfessinllelleController{
     }
 
    
-
-    public function configDisponibilite()
+ public function configDisponibilite()
     {
 
     View::render("configuration-disponibilite.php");
@@ -65,11 +64,11 @@ class ProfessinllelleController{
             
         }
       $json = json_encode($dispo, JSON_UNESCAPED_UNICODE);
-     $data['user_id'] = $this->session->getUser();
+     $data['user_id'] = ($this->session->getUser())['id'];
      $data['disponible'] = $json;
       $this->dosponibleRepo->createDesponible($data);
      
-    //    $this->response->header('');
+       $this->response->header('professional/dashboard');
       }
       if($exists){
             $this->response->header('configDisponibilite');
@@ -77,4 +76,5 @@ class ProfessinllelleController{
       }
     }
     
+   
 }

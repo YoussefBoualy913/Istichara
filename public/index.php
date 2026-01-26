@@ -47,11 +47,10 @@ Router::add('Huissiers/edit',["callable" => 'App\\Controller\\Admin\\\Controller
 Router::add('Huissiers/update',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@update', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
 Router::add('Huissiers/destroy',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@destroy', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
 
-// profesinnelle routes
-Router::add('configDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\ProfessinllelleController@configDisponibilite","middlewares" => []]);
-Router::add('storeDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\ProfessinllelleController@storeDisponibilite","middlewares" => []]);
 
 // routes des professionnelles 
+Router::add('configDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\DesponibiliterController@configDisponibilite","middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
+Router::add('storeDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\DesponibiliterController@storeDisponibilite","middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 Router::add('professional/dashboard', ["callable" => 'App\\Controller\\ControllerProfessional@index', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 Router::add('professional/demands', ["callable" => 'App\\Controller\\ControllerProfessional@demands', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 Router::add('professional/update-status', ["callable" => 'App\\Controller\\ControllerProfessional@updateStatus', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);

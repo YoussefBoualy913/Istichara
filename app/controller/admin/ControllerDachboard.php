@@ -89,6 +89,7 @@ class ControllerDachboard
          $huissier->hydrate($pro);
          array_push($professionnlle, $huissier);
       }
+      // var_dump($professionnlle[0]->getDocument()['document']);
       $this->view->render('verifyAccount_details.php', ['professionnlle' => $professionnlle]);
    }
 
