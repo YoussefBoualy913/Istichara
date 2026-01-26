@@ -76,23 +76,24 @@
                                 <th>Ville</th>
                                 <th>Spécialités</th>
                                 <th>Experience</th>
-                                <th>C. en ligne</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                           <?php foreach($result as $item){  ?> 
+                            <?php foreach ($data as $item){  ?> 
+                            
                             <tr>
-                                <td style="font-weight: 500;"><?= $item['nom'] ?></td>
-                                <td><?= $item['villename'] ?></td>
-                                <td><?= $item['specialite'] ?></td>
-                                <td><?= $item['years_of_experience'] ?></td>
-                                <td><?= $item['consoltation_en_ligne'] ?></td>
+                                <td style="font-weight: 500;"><?=$item->getName() ?></td>
+                                <td><?=$item->getVille_name() ?></td>
+                                <td><?=$item->getSpecialite() ?></td>
+                                <td><?=$item->getYears_of_experience() ?></td>
+                                <td><?=$item->getStatus() ?></td>
                                 <td>
-                                    <a href="./avocat/edit? avocat_id=<?=$item['id'] ?>"  class="btn btn-outline"
+                                    <a href="./avocat/edit/<?=$item->getId()?>"  class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem;"><i
                                             class="fas fa-edit"></i></a>
-                                    <a href="./avocat/destroy? avocat_id=<?=$item['id'] ?>" class="btn btn-outline"
+                                    <a href="../avocat/destroy/<?=$item->getId()?>" class="btn btn-outline"
                                         style="padding: 0.25rem 0.5rem; font-size: 0.8rem; color: var(--danger); border-color: var(--danger);"><i
                                             class="fas fa-trash"></i></a>
                                 </td>

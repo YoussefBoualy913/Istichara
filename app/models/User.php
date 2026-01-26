@@ -49,7 +49,7 @@ class User {
      }
 
      public function hydrate(array $data){
-        $this->id = $data["user_id"];
+        $this->id = $data["id"];
         $this->name = $data['name'];
         $this->email = $data['email'];
         $this->role = $data['role'];

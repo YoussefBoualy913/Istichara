@@ -20,7 +20,6 @@ class ProfessionalsAPIController {
         $this->validator = new Validator();
     }
 
-
     public  function getProfessionals(){
         header('Content-Type: application/json; charset=utf-8');
         $type = $this->validator->isValidString($this->request->getQuery("type"));

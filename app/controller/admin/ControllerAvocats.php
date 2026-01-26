@@ -1,16 +1,41 @@
 <?php
-namespace App\Admin\Controller;
+namespace App\Controller\Admin;
 
+use App\Helper\Response;
+use App\Helper\View;
 use  App\Models\Avocat;
 use App\Repository\AvocatRepository;
 use App\Repository\UserRepository;
 
-class ControllerAvocats{
-
+class ControllerAvocats
+{
+   private View $view;
+   private AvocatRepository $AvocatRepository;
+   private UserRepository $UserRepository;
+   private Response $response;
+   private UserRepository $repoRepository;
+  
+   
+   public function __construct()
+   {
+     $this->view = new View();
+     $this->response = new Response();
+     $this->AvocatRepository = new AvocatRepository();
+     $this->repoRepository = new UserRepository();
+     }
+     
      public function index(){
-     $repoavocat = new AvocatRepository();
-     $result = $repoavocat->getALL('avocat');
-        require_once(__DIR__.'/../../src/views/avocats.php');
+        $result = $this->AvocatRepository->getALL();
+        $data =[];
+      //   var_dump($result);
+        foreach($result as $item){
+        $avocat = new Avocat();
+        $avocat->hydrate($item);
+        array_push($data,$avocat);
+
+     }
+    
+      $this->view->render('avocats.php',['data'=> $data]);
      }
 
       public function create():void{
@@ -59,11 +84,10 @@ class ControllerAvocats{
         exit;
      }
 
-      public function destroy(){
-       $repoRepository = new UserRepository();
-     
-       $repoRepository->delete($_GET['avocat_id']);
-       header('location:../avocats');
-        exit;
+      public function destroy(int $id){
+       
+     $this->repoRepository->delete($id);
+     $this->response->header('/../avocats');
+       
      }
 }

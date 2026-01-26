@@ -24,15 +24,15 @@
                     <i class="fas fa-chart-pie"></i>
                     Tableau de Bord
                 </a>
-                <a href="avocats.html" class="sidebar-link">
+                <a href="./avocats" class="sidebar-link">
                     <i class="fas fa-users-cog"></i>
                     Gestion Avocats
                 </a>
-                <a href="huissiers.html" class="sidebar-link">
+                <a href="./huissiers" class="sidebar-link">
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
-                <a href="index.html" class="sidebar-link" style="margin-top: auto;">
+                <a href="" class="sidebar-link" style="margin-top: auto;">
                     <i class="fas fa-sign-out-alt"></i>
                     Retour au site
                 </a>
@@ -117,13 +117,10 @@
                                     <td><span class="badge badge-gold">panding</span></td>
                                    
                                     <td>
-                                      
-
-                                        <a href="./verifyAccountDetails ? user_id=<?=$item->getId()?>" class="btn btn-outline btn-info" title="Détails">
+                                        <a href="./verifyAccountDetails/<?=$item->getId()?>" class="btn btn-outline btn-info" title="Détails">
                                            <i class="fas fa-file-alt"></i>
                                          </a>
-                                         <a href="" class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></a>
-       
+                                         <a href="./validateAccount/<?=$item->getId()?>" class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></a>       
                                 </tr>
                                 <?php }; ?>
                                 
