@@ -12,8 +12,7 @@ class ProfessionalRepository extends BaseRepository
 
         private function normalizeRole($userRole)
     {
-        // Si le rôle est en majuscules, le convertir en minuscules
-        // parce que dans la base de données, les colonnes sont "avocat_id" et "huissier_id"
+
         return strtolower($userRole);
     }
     
@@ -103,9 +102,9 @@ class ProfessionalRepository extends BaseRepository
         return $stmt->fetchAll();
     }
     
-    /**
-     * Obtenir toutes les demandes
-     */
+    
+    // Obtenir toutes les demandes
+     
     public function getAllDemands($userId, $userRole, $filter = 'all')
     {
          $userRole = $this->normalizeRole($userRole);
@@ -142,9 +141,9 @@ class ProfessionalRepository extends BaseRepository
         return $stmt->fetchAll();
     }
     
-    /**
-     * Obtenir le profil du professionnel
-     */
+    
+     // Obtenir le profil du professionnel
+     
     public function getProfile($userId, $userRole)
     {
          $userRole = $this->normalizeRole($userRole);
@@ -164,11 +163,10 @@ class ProfessionalRepository extends BaseRepository
         return $stmt->fetch();
     }
     
-    // Ajoutez ces méthodes à la fin de la classe ProfessionalRepository
 
-/**
- * Obtenir les clients d'un professionnel
- */
+
+ // Obtenir les clients d'un professionnel
+ 
 public function getClients($userId, $userRole)
 {
      $userRole = $this->normalizeRole($userRole);
@@ -192,9 +190,9 @@ public function getClients($userId, $userRole)
     return $stmt->fetchAll();
 }
 
-/**
- * Obtenir les documents d'un professionnel
- */
+
+ // Obtenir les documents d'un professionnel
+ 
 public function getDocuments($userId, $userRole)
 {
      $userRole = $this->normalizeRole($userRole);
@@ -218,9 +216,9 @@ public function getDocuments($userId, $userRole)
     return [];
 }
 
-/**
- * Obtenir les statistiques détaillées
- */
+
+ // Obtenir les statistiques détaillées
+ 
 public function getStatistics($userId, $userRole, $period = 'month')
 {
      $userRole = $this->normalizeRole($userRole);
@@ -248,9 +246,9 @@ public function getStatistics($userId, $userRole, $period = 'month')
     $stmt->execute(['prof_id' => $profId]);
     return $stmt->fetchAll();
 }
-    /**
-     * Mettre à jour le profil
-     */
+    
+     // Mettre à jour le profil
+     
     public function updateProfile($userId, $userRole, $data)
     {
          $userRole = $this->normalizeRole($userRole);

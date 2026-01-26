@@ -17,7 +17,11 @@ class HuissiserMiddleware{
     public function handle(): void {
         $user = $this->session->getUser();
 <<<<<<< HEAD
+<<<<<<< HEAD
         if (!$user || $user['Role'] !== 'HUISSIER') $this->response->header('/');
+=======
+        if (!$user || $user['role'] !== 'HUISSIER') $this->response->header('/');
+>>>>>>> 3aed771df3dace8e84bd5e07289afe121e61afcc
 =======
         if (!$user || $user['role'] !== 'HUISSIER') $this->response->header('/');
 >>>>>>> 3aed771df3dace8e84bd5e07289afe121e61afcc

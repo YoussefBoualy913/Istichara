@@ -213,6 +213,7 @@
                                     </div>
                                 </div>
                                 <a href="<?= $professionnlle[0]->getDocument()[0]['diplome'] ?>" class="btn btn-outline" style="font-size: 0.9rem;">
+
                                     <i class="fas fa-eye"></i> Voir
                                 </a>
                             </div>
