@@ -24,15 +24,15 @@
                     <i class="fas fa-chart-pie"></i>
                     Tableau de Bord
                 </a>
-                <a href="avocats.html" class="sidebar-link">
+                <a href="./avocats" class="sidebar-link">
                     <i class="fas fa-users-cog"></i>
                     Gestion Avocats
                 </a>
-                <a href="huissiers.html" class="sidebar-link">
+                <a href="./huissiers" class="sidebar-link">
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
-                <a href="index.html" class="sidebar-link" style="margin-top: auto;">
+                <a href="" class="sidebar-link" style="margin-top: auto;">
                     <i class="fas fa-sign-out-alt"></i>
                     Retour au site
                 </a>

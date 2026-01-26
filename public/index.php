@@ -38,7 +38,7 @@ Router::add('avocat/create',["callable" => 'App\\Controller\\Admin\\ControllerAv
 Router::add('avocat/store',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@store', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class],]);
 Router::add('avocat/edit',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@edit', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
 Router::add('avocat/update',["callable" =>'App\\Controller\\Admin\\ControllerAvocats@update', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
-Router::add('avocat/destroy',["callable" =>'App\\Controller\\Admin\\ControllerAvocats@destroy', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class],]);
+Router::add('avocat/destroy/{id}',["callable" =>'App\\Controller\\Admin\\ControllerAvocats@destroy', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class],]);
 Router::add('Huissiers',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@index', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
 Router::add('Huissiers/create',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@create',"middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
 Router::add('Huissiers/store',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@store', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
