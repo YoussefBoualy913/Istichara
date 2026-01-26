@@ -24,15 +24,15 @@
                     <i class="fas fa-chart-pie"></i>
                     Tableau de Bord
                 </a>
-                <a href="avocats.html" class="sidebar-link">
+                <a href="./avocats" class="sidebar-link">
                     <i class="fas fa-users-cog"></i>
                     Gestion Avocats
                 </a>
-                <a href="huissiers.html" class="sidebar-link">
+                <a href="./huissiers" class="sidebar-link">
                     <i class="fas fa-gavel"></i>
                     Gestion Huissiers
                 </a>
-                <a href="index.html" class="sidebar-link" style="margin-top: auto;">
+                <a href="" class="sidebar-link" style="margin-top: auto;">
                     <i class="fas fa-sign-out-alt"></i>
                     Retour au site
                 </a>
@@ -66,7 +66,7 @@
                         <i class="fas fa-user-tie"></i>
                     </div>
                     <div>
-                        <div style="font-size: 2rem; font-weight: 700;">124</div>
+                        <div style="font-size: 2rem; font-weight: 700;"><?=$totalavocat ?></div>
                         <div style="color: var(--text-muted);">Avocats Inscrits</div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                         <i class="fas fa-file-signature"></i>
                     </div>
                     <div>
-                        <div style="font-size: 2rem; font-weight: 700;">86</div>
+                        <div style="font-size: 2rem; font-weight: 700;"><?=$totalhuissier?></div>
                         <div style="color: var(--text-muted);">Huissiers Inscrits</div>
                     </div>
                 </div>
@@ -110,45 +110,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+
+                            <?php foreach($InactifProfessionnlle as $item){ ?>
                                 <tr>
-                                    <td style="font-weight: 500;">Me. Karim Bennani</td>
+                                    <td style="font-weight: 500;"><?=$item->getName() ?></td>
                                     <td><span class="badge badge-gold">panding</span></td>
                                    
                                     <td>
-                                      
-
-                                        <button class="btn btn-outline btn-info" title="Détails">
+                                        <a href="./verifyAccountDetails/<?=$item->getId()?>" class="btn btn-outline btn-info" title="Détails">
                                            <i class="fas fa-file-alt"></i>
-                                         </button>
-                                         <button class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></button>
-       
+                                         </a>
+                                         <a href="./validateAccount/<?=$item->getId()?>" class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></a>       
                                 </tr>
-                                 <tr>
-                                    <td style="font-weight: 500;">Me. youssef</td>
-                                    <td><span class="badge badge-gold">panding</span></td>
-                                   
-                                    <td>
-                                      
-
-                                        <button class="btn btn-outline btn-info" title="Détails">
-                                           <i class="fas fa-file-alt"></i>
-                                         </button>
-                                         <button class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></button>
-       
-                                </tr>
-                                 <tr>
-                                    <td style="font-weight: 500;">Me. Khalid</td>
-                                    <td><span class="badge badge-gold">panding</span></td>
-                                   
-                                    <td>
-                                      
-
-                                        <button class="btn btn-outline btn-info" title="Détails">
-                                           <i class="fas fa-file-alt"></i>
-                                         </button>
-                                         <button class="btn btn-outline" title="Valider"><i class="fas fa-check"></i></button>
-       
-                                </tr>
+                                <?php }; ?>
+                                
+                                 
                                 
                             </tbody>
                         </table>
@@ -164,22 +140,18 @@
                             <thead>
                                 <tr>
                                     <th>Ville</th>
-                                    <th>Total</th>
+                                    <th>avocat</th>
+                                    <th>huissire</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                 <?php foreach($totalPparville as $item){ ?>
                                 <tr>
-                                    <td>Casablanca</td>
-                                    <td style="font-weight: bold;">45</td>
+                                    <td><?= $item['name'] ?></td>
+                                    <td style="font-weight: bold;"><?= $item['totalavocat'] ?></td>
+                                    <td style="font-weight: bold;"><?= $item['totalhuissier'] ?></td>
                                 </tr>
-                                <tr>
-                                    <td>Rabat</td>
-                                    <td style="font-weight: bold;">32</td>
-                                </tr>
-                                <tr>
-                                    <td>Marrakech</td>
-                                    <td style="font-weight: bold;">28</td>
-                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -187,27 +159,27 @@
                     <div class="card">
                         <h3 style="margin-bottom: 1rem;">Top Avocats (Exp.)</h3>
                         <!-- Top 3 Avocats par expérience -->
-                        <div class="flex items-center gap-4"
+                         <div class="flex items-center gap-4"
                             style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">1</div>
                             <div>
-                                <div style="font-weight: 600;">Me. Alami</div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);">35 ans d'expérience</div>
+                                <div style="font-weight: 600;"><?= $topAvocat['0']['name'] ?></div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['0']['years_of_experience'] ?> ans d'expérience</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4"
                             style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">2</div>
                             <div>
-                                <div style="font-weight: 600;">Me. Tazi</div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);">28 ans d'expérience</div>
+                                <div style="font-weight: 600;"><?= $topAvocat['1']['name'] ?></div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['1']['years_of_experience'] ?> ans d'expérience</div>
                             </div>
                         </div>
                         <div class="flex items-center gap-4">
                             <div style="font-weight: 700; color: var(--accent); font-size: 1.25rem;">3</div>
                             <div>
-                                <div style="font-weight: 600;">Me. Bennis</div>
-                                <div style="font-size: 0.8rem; color: var(--text-muted);">25 ans d'expérience</div>
+                                <div style="font-weight: 600;"><?= $topAvocat['2']['name'] ?></div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);"><?= $topAvocat['2']['years_of_experience'] ?> ans d'expérience</div>
                             </div>
                         </div>
                     </div>

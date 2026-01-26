@@ -4,271 +4,208 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ISTICHARA - Expertise Juridique au Maroc</title>
+
+    <!-- KEEP YOUR CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="flex justify-between items-center">
-                <a href="#" class="brand">
-                    <i class="fas fa-balance-scale"></i>
-                    ISTICHARA<span>.</span>
-                </a>
-                <nav class="flex gap-6 items-center">
-                    <a href="#" class="nav-link active">Accueil</a>
-                    <a href="#" class="nav-link">Experts</a>
-                    <a href="#" class="nav-link">À propos</a>
-                    <a href="register" class="btn btn-primary" style="padding: 0.5rem 1rem;">Connexion</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+<?php require_once __DIR__ . "/../components/header.php" ?>
+<section class="hero">
+    <div class="container">
+        <h1>L'expertise juridique<br>à portée de main.</h1>
+        <p>Trouvez l'avocat ou l'huissier idéal partout au Maroc.</p>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="animate-fade-in">
-                <h1>L'expertise juridique <br>à portée de main.</h1>
-                <p>Trouvez l'avocat ou l'huissier de justice idéal pour vos besoins. Consultations en ligne, conseils et médiation partout au Maroc.</p>
-                
-                <!-- Search Filter -->
-                <div class="search-container">
-                    <div class="input-group">
-                        <label class="label">Rechercher par nom</label>
-                        <div class="flex items-center" style="position:relative">
-                            <i class="fas fa-search" style="position:absolute; left: 12px; color: var(--text-light)"></i>
-                            <input type="text" class="input" placeholder="Ex: Maître Alami..." style="padding-left: 2.5rem;">
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <label class="label">Profession</label>
-                        <select class="select">
-                            <option value="">Tous les experts</option>
-                            <option value="avocat">Avocat</option>
-                            <option value="huissier">Huissier de Justice</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label class="label">Ville</label>
-                        <select class="select">
-                            <option value="">Toutes les villes</option>
-                            <option value="casablanca">Casablanca</option>
-                            <option value="rabat">Rabat</option>
-                            <option value="marrakech">Marrakech</option>
-                            <option value="tanger">Tanger</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-primary">
-                        Trouver un expert
-                    </button>
-                </div>
+        <!-- SEARCH / FILTERS -->
+        <div class="search-container">
+            <div class="input-group">
+                <label class="label">Nom</label>
+                <input id="searchName" class="input" placeholder="Ex: David Huissier">
             </div>
-        </div>
-    </section>
 
-    <!-- Main Content -->
-    <main class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
-        
-        <div class="flex justify-between items-center" style="margin-bottom: 2rem;">
-            <div>
-                <h2 style="font-size: 2rem;">Nos Experts Recommandés</h2>
-                <p style="color: var(--text-muted);">Les profils les mieux notés de la plateforme</p>
-            </div>
-            
-            <div class="flex gap-2">
-                <select class="select" style="min-width: 200px;">
-                    <option>Trier par expérience</option>
-                    <option>Trier par tarif horaire</option>
+            <div class="input-group">
+                <label class="label">Profession</label>
+                <select id="searchRole" class="select">
+                    <option value="">Tous</option>
+                    <option value="avocat">Avocat</option>
+                    <option value="huissier">Huissier</option>
                 </select>
             </div>
-        </div>
 
-        <!-- Grid Results -->
-        <div class="grid" style="grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
-            
-            <!-- Result Card 1 (Avocat) -->
-            <article class="card">
-                <div class="flex justify-between items-start" style="margin-bottom: 1rem;">
-                    <div class="flex gap-4 items-center">
-                        <div style="width: 60px; height: 60px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary);">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div>
-                            <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">Me. Karim Bennani</h3>
-                            <span class="badge badge-blue">Avocat</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <div style="font-weight: 700; color: var(--primary);">500 DH</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">/heure</div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 1rem;">
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                        <i class="fas fa-map-marker-alt" style="width: 20px; text-align: center;"></i> Casablanca
-                    </div>
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                        <i class="fas fa-briefcase" style="width: 20px; text-align: center;"></i> 15 ans d'expérience
-                    </div>
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem;">
-                        <i class="fas fa-gavel" style="width: 20px; text-align: center;"></i> Droit des affaires, Civil
-                    </div>
-                </div>
-
-                <div style="border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.875rem; color: var(--success); font-weight: 500;">
-                        <i class="fas fa-video"></i> Consult. en ligne
-                    </span>
-                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Voir profil</button>
-                </div>
-            </article>
-
-            <!-- Result Card 2 (Avocat) -->
-            <article class="card">
-                <div class="flex justify-between items-start" style="margin-bottom: 1rem;">
-                    <div class="flex gap-4 items-center">
-                        <div style="width: 60px; height: 60px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary);">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div>
-                            <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">Me. Salma Idrissi</h3>
-                            <span class="badge badge-blue">Avocat</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <div style="font-weight: 700; color: var(--primary);">350 DH</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">/heure</div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 1rem;">
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                        <i class="fas fa-map-marker-alt" style="width: 20px; text-align: center;"></i> Rabat
-                    </div>
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                        <i class="fas fa-briefcase" style="width: 20px; text-align: center;"></i> 8 ans d'expérience
-                    </div>
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem;">
-                        <i class="fas fa-gavel" style="width: 20px; text-align: center;"></i> Droit de la famille
-                    </div>
-                </div>
-
-                <div style="border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.875rem; color: var(--text-muted);">
-                        <i class="fas fa-building"></i> Cabinet physique
-                    </span>
-                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Voir profil</button>
-                </div>
-            </article>
-
-            <!-- Result Card 3 (Huissier) -->
-            <article class="card">
-                <div class="flex justify-between items-start" style="margin-bottom: 1rem;">
-                    <div class="flex gap-4 items-center">
-                        <div style="width: 60px; height: 60px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent);">
-                            <i class="fas fa-file-signature"></i>
-                        </div>
-                        <div>
-                            <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">Mr. Omar Tazi</h3>
-                            <span class="badge badge-gold">Huissier</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <!-- No hourly rate for bailiffs usually, but keeping structure consistent or custom -->
-                        <div style="font-weight: 700; color: var(--primary);">Variable</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">/acte</div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 1rem;">
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                        <i class="fas fa-map-marker-alt" style="width: 20px; text-align: center;"></i> Marrakech
-                    </div>
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                        <i class="fas fa-briefcase" style="width: 20px; text-align: center;"></i> 20 ans d'expérience
-                    </div>
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem;">
-                        <i class="fas fa-tasks" style="width: 20px; text-align: center;"></i> Signification, Exécution
-                    </div>
-                </div>
-
-                <div style="border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.875rem; color: var(--text-muted);">
-                        <i class="fas fa-check-circle"></i> Disponible
-                    </span>
-                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Voir profil</button>
-                </div>
-            </article>
-             <!-- Result Card 4 (Avocat) -->
-             <article class="card">
-                <div class="flex justify-between items-start" style="margin-bottom: 1rem;">
-                    <div class="flex gap-4 items-center">
-                        <div style="width: 60px; height: 60px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--primary);">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div>
-                            <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">Me. Layla Bennis</h3>
-                            <span class="badge badge-blue">Avocat</span>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <div style="font-weight: 700; color: var(--primary);">400 DH</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">/heure</div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 1rem;">
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                        <i class="fas fa-map-marker-alt" style="width: 20px; text-align: center;"></i> Tanger
-                    </div>
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
-                        <i class="fas fa-briefcase" style="width: 20px; text-align: center;"></i> 12 ans d'expérience
-                    </div>
-                    <div class="flex items-center gap-2" style="color: var(--text-muted); font-size: 0.9rem;">
-                        <i class="fas fa-gavel" style="width: 20px; text-align: center;"></i> Droit pénal
-                    </div>
-                </div>
-
-                <div style="border-top: 1px solid var(--border); padding-top: 1rem; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.875rem; color: var(--success); font-weight: 500;">
-                        <i class="fas fa-video"></i> Consult. en ligne
-                    </span>
-                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Voir profil</button>
-                </div>
-            </article>
-
-        </div>
-
-        <!-- Pagination -->
-        <div class="flex justify-center items-center gap-2" style="margin-top: 3rem;">
-            <button class="btn btn-outline" style="width: 40px; height: 40px; padding: 0;">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="btn btn-primary" style="width: 40px; height: 40px; padding: 0;">1</button>
-            <button class="btn btn-outline" style="width: 40px; height: 40px; padding: 0;">2</button>
-            <button class="btn btn-outline" style="width: 40px; height: 40px; padding: 0;">3</button>
-            <button class="btn btn-outline" style="width: 40px; height: 40px; padding: 0;">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-
-    </main>
-
-    <footer style="background: var(--primary); color: white; padding: 3rem 0; margin-top: 4rem;">
-        <div class="container text-center">
-            <h2 class="brand" style="justify-content: center; color: white; margin-bottom: 1rem;">
-                ISTICHARA<span>.</span>
-            </h2>
-            <p style="color: #94a3b8; margin-bottom: 2rem;">La plateforme de référence pour les services juridiques au Maroc.</p>
-            <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; color: #64748b; font-size: 0.875rem;">
-                &copy; 2024 ISTICHARA. Tous droits réservés.
+            <div class="input-group">
+                <label class="label">Ville</label>
+                <select id="searchVille" class="select">
+                    <option value="">Toutes</option>
+                    <option value="Casablanca">Casablanca</option>
+                    <option value="Rabat">Rabat</option>
+                    <option value="Marrakech">Marrakech</option>
+                </select>
             </div>
+
+            <div class="input-group">
+                <label class="label">Expérience min</label>
+                <select id="searchExperience" class="select">
+                    <option value="">Toutes</option>
+                    <option value="5">5 ans</option>
+                    <option value="10">10 ans</option>
+                    <option value="20">20 ans</option>
+                </select>
+            </div>
+
+            <button id="searchBtn" class="btn btn-primary">Rechercher</button>
         </div>
-    </footer>
+    </div>
+</section>
+
+<main class="container" style="padding:4rem 0">
+
+    <div class="flex justify-between items-center" style="margin-bottom:2rem;">
+        <div>
+            <h2>Nos Experts</h2>
+            <p style="color:var(--text-muted);">Professionnels juridiques disponibles</p>
+        </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="resultsGrid" class="grid"
+         style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem;">
+    </div>
+
+    <!-- PAGINATION -->
+    <div id="pagination" class="flex justify-center items-center gap-2" style="margin-top:3rem;"></div>
+
+</main>
+
+<footer style="background:var(--primary);color:white;padding:3rem 0;">
+    <div class="container text-center">
+        <h2 class="brand" style="justify-content:center;color:white;">ISTICHARA<span>.</span></h2>
+        <p style="color:#94a3b8;margin-top:1rem;">
+            La plateforme de référence pour les services juridiques au Maroc.
+        </p>
+        <p style="margin-top:2rem;font-size:.875rem;color:#64748b;">
+            &copy; 2024 ISTICHARA. Tous droits réservés.
+        </p>
+    </div>
+</footer>
+
+<script>
+const API_URL = "<?= $_ENV['BASE_URL'] ?>/api/v4/professionals";
+const PER_PAGE = 6;
+let currentPage = 1;
+let allProfessionals = [];
+
+async function loadProfessionals() {
+    const res = await fetch(API_URL);
+    const json = await res.json();
+    allProfessionals = json.data || [];
+    applyFilters();
+}
+
+function applyFilters() {
+    let filtered = [...allProfessionals];
+
+    const name = searchName.value.toLowerCase();
+    const role = searchRole.value;
+    const ville = searchVille.value;
+    const experience = searchExperience.value;
+
+    if (name) {
+        filtered = filtered.filter(p =>
+            p.name.toLowerCase().includes(name)
+        );
+    }
+
+    if (role) {
+        filtered = filtered.filter(p => p.role === role);
+    }
+
+    if (ville) {
+        filtered = filtered.filter(p => p.ville_name === ville);
+    }
+
+    if (experience) {
+        filtered = filtered.filter(p => p.years_of_experience >= experience);
+    }
+
+    renderPage(filtered);
+}
+
+function renderPage(data) {
+    const start = (currentPage - 1) * PER_PAGE;
+    const paginated = data.slice(start, start + PER_PAGE);
+
+    renderResults(paginated);
+    renderPagination(data.length);
+}
+
+function renderResults(list) {
+    const grid = document.getElementById("resultsGrid");
+    grid.innerHTML = "";
+
+    if (!list.length) {
+        grid.innerHTML = "<p>Aucun expert trouvé.</p>";
+        return;
+    }
+
+    list.forEach(p => {
+        const badgeClass = p.role === "avocat" ? "badge-blue" : "badge-gold";
+        const icon = p.role === "avocat" ? "fa-user-tie" : "fa-file-signature";
+        const link = p.role === "avocat" ? "/avocat/profile/" : "/huissier/profile/";
+
+        grid.innerHTML += `
+        <article class="card">
+            <div class="flex gap-4 items-center" style="margin-bottom:1rem;">
+                <div style="width:60px;height:60px;border-radius:50%;
+                background:#e2e8f0;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div>
+                    <h3>${p.name}</h3>
+                    <span class="badge ${badgeClass}">${p.role}</span>
+                </div>
+            </div>
+
+            <div style="color:var(--text-muted);font-size:.9rem;">
+                <p><i class="fas fa-map-marker-alt"></i> ${p.ville_name}</p>
+                <p><i class="fas fa-briefcase"></i> ${p.years_of_experience} ans d'expérience</p>
+                ${p.specialite ? `<p><i class="fas fa-gavel"></i> ${p.specialite}</p>` : ""}
+                ${p.types_actes ? `<p><i class="fas fa-tasks"></i> ${p.types_actes}</p>` : ""}
+            </div>
+
+            <div style="border-top:1px solid var(--border);margin-top:1rem;padding-top:1rem;text-align:right;">
+                <a href=${link + p.id} class="btn btn-outline">Voir profil</a>
+            </div>
+        </article>`;
+    });
+}
+
+function renderPagination(total) {
+    const pages = Math.ceil(total / PER_PAGE);
+    const pag = document.getElementById("pagination");
+    pag.innerHTML = "";
+
+    if (pages <= 1) return;
+
+    for (let i = 1; i <= pages; i++) {
+        pag.innerHTML += `
+        <button class="btn ${i === currentPage ? 'btn-primary' : 'btn-outline'}"
+                onclick="goPage(${i})">${i}</button>`;
+    }
+}
+
+function goPage(page) {
+    currentPage = page;
+    applyFilters();
+}
+
+searchBtn.onclick = () => {
+    currentPage = 1;
+    applyFilters();
+};
+
+loadProfessionals();
+</script>
 
 </body>
 </html>

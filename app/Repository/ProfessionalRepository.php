@@ -9,9 +9,18 @@ class ProfessionalRepository extends BaseRepository
     public static string $tableName = "professionnels";
     
 
+
+        private function normalizeRole($userRole)
+    {
+        // Si le rôle est en majuscules, le convertir en minuscules
+        // parce que dans la base de données, les colonnes sont "avocat_id" et "huissier_id"
+        return strtolower($userRole);
+    }
+    
     //afficher les statistique dyal professional
     public function getDashboardStats($userId, $userRole)
     {
+         $userRole = $this->normalizeRole($userRole);
         $profId = $this->getProfessionalId($userId, $userRole);
         
         if (!$profId) {
@@ -70,6 +79,7 @@ class ProfessionalRepository extends BaseRepository
      
     public function getRecentDemands($userId, $userRole, $limit = 5)
     {
+         $userRole = $this->normalizeRole($userRole);
         $profId = $this->getProfessionalId($userId, $userRole);
         
         if (!$profId) {
@@ -98,6 +108,7 @@ class ProfessionalRepository extends BaseRepository
      */
     public function getAllDemands($userId, $userRole, $filter = 'all')
     {
+         $userRole = $this->normalizeRole($userRole);
         $profId = $this->getProfessionalId($userId, $userRole);
         
         if (!$profId) {
@@ -136,6 +147,7 @@ class ProfessionalRepository extends BaseRepository
      */
     public function getProfile($userId, $userRole)
     {
+         $userRole = $this->normalizeRole($userRole);
         $profTable = $userRole === 'avocat' ? 'avocat' : 'huissier';
         
         $sql = "SELECT a.*, 
@@ -159,6 +171,7 @@ class ProfessionalRepository extends BaseRepository
  */
 public function getClients($userId, $userRole)
 {
+     $userRole = $this->normalizeRole($userRole);
     $profId = $this->getProfessionalId($userId, $userRole);
     
     if (!$profId) {
@@ -184,6 +197,7 @@ public function getClients($userId, $userRole)
  */
 public function getDocuments($userId, $userRole)
 {
+     $userRole = $this->normalizeRole($userRole);
     $profId = $this->getProfessionalId($userId, $userRole);
     
     if (!$profId) {
@@ -209,6 +223,7 @@ public function getDocuments($userId, $userRole)
  */
 public function getStatistics($userId, $userRole, $period = 'month')
 {
+     $userRole = $this->normalizeRole($userRole);
     $profId = $this->getProfessionalId($userId, $userRole);
     
     if (!$profId) {
@@ -238,6 +253,7 @@ public function getStatistics($userId, $userRole, $period = 'month')
      */
     public function updateProfile($userId, $userRole, $data)
     {
+         $userRole = $this->normalizeRole($userRole);
         $profTable = $userRole === 'avocat' ? 'avocat' : 'huissier';
         
         // Mettre à jour users table
@@ -280,57 +296,84 @@ public function getStatistics($userId, $userRole, $period = 'month')
         return $profStmt->execute($profData);
     }
     
-    /**
-     * Mettre à jour le statut d'une demande
-     */
-    public function updateDemandStatus($demandId, $status, $meetLink, $notes, $userId, $userRole)
-    {
-        // Vérifier que la demande appartient au professionnel
-        $profId = $this->getProfessionalId($userId, $userRole);
-        $profField = $userRole . '_id';
-        
-        $checkSql = "SELECT id FROM demand 
-                     WHERE id = :demand_id 
-                     AND $profField = :prof_id";
-        
-        $checkStmt = $this->pdo->prepare($checkSql);
-        $checkStmt->execute(['demand_id' => $demandId, 'prof_id' => $profId]);
-        
-        if (!$checkStmt->fetch()) {
-            return ['success' => false, 'message' => 'Accès non autorisé'];
-        }
-        
-        //modifier le statut dyal demand
-        $updateSql = "UPDATE demand SET 
-                      validation_status = :status,
-                      meet_link = COALESCE(:meet_link, meet_link),
-                      updated_at = CURRENT_TIMESTAMP
-                      WHERE id = :demand_id";
-        
-        $updateStmt = $this->pdo->prepare($updateSql);
-        $result = $updateStmt->execute([
-            'status' => $status,
-            'meet_link' => $meetLink,
-            'demand_id' => $demandId
-        ]);
-        
-        if ($result) {
-            return ['success' => true, 'message' => 'Statut mis à jour avec succès'];
-        }
-        
-        return ['success' => false, 'message' => 'Erreur lors de la mise à jour'];
+public function updateDemandStatus($demandId, $status, $meetLink, $notes, $userId, $userRole)
+{
+    error_log("=== REPOSITORY updateDemandStatus ===");
+    error_log("Demand ID: $demandId");
+    error_log("Status: $status");
+    error_log("User ID: $userId");
+    error_log("User Role: $userRole");
+    
+    // Vérification CRITIQUE
+    if (empty($userRole) || !in_array(strtolower($userRole), ['avocat', 'huissier'])) {
+        error_log("ERROR: userRole invalide: " . ($userRole ?? 'NULL'));
+        return ['success' => false, 'message' => 'Rôle professionnel invalide: ' . $userRole];
     }
+    
+    $userRole = $this->normalizeRole($userRole);
+    error_log("Normalized role: $userRole");
+    
+    $profId = $this->getProfessionalId($userId, $userRole);
+    error_log("Professional ID: " . ($profId ?? 'null'));
+    
+    if (!$profId) {
+        error_log("ERROR: No professional ID found for user $userId, role $userRole");
+        return ['success' => false, 'message' => 'Professionnel non trouvé'];
+    }
+    
+    $profField = $userRole . '_id';
+    error_log("Professional field: $profField");
+    
+    // Vérifier que la demande appartient bien à ce professionnel et est en attente
+    $checkSql = "SELECT id FROM demand WHERE id = :demand_id AND $profField = :prof_id AND validation_status = 'pending'";
+    $checkStmt = $this->pdo->prepare($checkSql);
+    $checkStmt->execute(['demand_id' => $demandId, 'prof_id' => $profId]);
+    
+    if (!$checkStmt->fetch()) {
+        error_log("ERROR: Demand $demandId not found or not pending for professional $profId");
+        return ['success' => false, 'message' => 'Demande non trouvée ou déjà traitée'];
+    }
+    
+    // Mettre à jour le statut
+    $updateSql = "UPDATE demand SET 
+                  validation_status = :status,
+                  meet_link = :meet_link
+                  WHERE id = :demand_id";
+    
+    $updateStmt = $this->pdo->prepare($updateSql);
+    
+    $params = [
+        'status' => $status,
+        'meet_link' => $meetLink ?: null,
+        'demand_id' => $demandId
+    ];
+    
+    try {
+        $success = $updateStmt->execute($params);
+        
+        if ($success) {
+            error_log("Demand $demandId updated successfully to $status");
+            return ['success' => true, 'message' => 'Statut mis à jour avec succès'];
+        } else {
+            error_log("ERROR: Update failed for demand $demandId");
+            return ['success' => false, 'message' => 'Échec de la mise à jour'];
+        }
+    } catch (PDOException $e) {
+        error_log("PDO Exception: " . $e->getMessage());
+        return ['success' => false, 'message' => 'Erreur de base de données: ' . $e->getMessage()];
+    }
+}
     
     //Dteails dyal kola demande
     public function getDemandDetails($demandId, $userId, $userRole)
     {
+         $userRole = $this->normalizeRole($userRole);
         $profId = $this->getProfessionalId($userId, $userRole);
         $profField = $userRole . '_id';
         
         $sql = "SELECT d.*, 
                        u.name as client_name, 
                        u.email as client_email,
-                       u.phone as client_phone,
                        TO_CHAR(d.date, 'DD/MM/YYYY HH24:MI') as formatted_date
                 FROM demand d
                 JOIN users u ON d.user_id = u.id
@@ -345,6 +388,7 @@ public function getStatistics($userId, $userRole, $period = 'month')
     //Affichage dyal les rendez vous
     public function getUpcomingMeetings($userId, $userRole)
     {
+         $userRole = $this->normalizeRole($userRole);
         $profId = $this->getProfessionalId($userId, $userRole);
         $profField = $userRole . '_id';
         
@@ -367,6 +411,7 @@ public function getStatistics($userId, $userRole, $period = 'month')
     
     private function getProfessionalId($userId, $userRole)
     {
+         $userRole = $this->normalizeRole($userRole);
         $table = $userRole === 'avocat' ? 'avocat' : 'huissier';
 
         $sql = "SELECT id FROM $table WHERE user_id = :user_id";

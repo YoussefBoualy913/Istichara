@@ -7,8 +7,6 @@ use App\Helper\Request;
 use App\Helper\Response;
 use App\Helper\Session;
 use App\Helper\Validator;
-use App\Helper\View;
-use App\models\Client;
 use App\Repository\AvocatRepository;
 use App\Repository\HuissiersRepository;
 use App\Repository\UserRepository;
@@ -16,7 +14,6 @@ use App\Repository\UserRepository;
 class AuthController {
     private Request $request;
     private Response $response;
-    private View $view;
     private Session $session;
     private Validator $Validator;
     private UserRepository $userRepo;
@@ -27,7 +24,6 @@ class AuthController {
     public function __construct() {
         $this->request = new Request();
         $this->response = new Response();
-        $this->view = new View();
         $this->session = new Session();
         $this->Validator = new Validator();
         $this->userRepo = new UserRepository();
@@ -37,30 +33,20 @@ class AuthController {
     }
 
     public function login() {
-        if($this->session->getUserId()) $this->response->header("/");
-
         $email = $this->Validator->isValidEmail($this->request->getParam("email"));
         $password = $this->Validator->isValidString($this->request->getParam("password"));
         
         $user  = $this->userRepo->findByEmail($email);
-        if(!$user) $this->response->header("/auth/register");
+        if(!$user) $this->response->header("/register");
         
         $ispasswordValid = $this->Validator->isValidPassword($password, $user['password']);
         if(!$ispasswordValid) $this->response->header("/auth/login");
 
-        $this->session->setUserId((int) $user['id']);
-
-        if($user['role']=='avocat'){
-        $this->response->header("professional/dashboard");
-        }
-
-
-
+        $this->session->setUser((int) $user['id'], $user['role']);
+        $this->response->header("/");
     }
     
     public function registerClient() {
-        if($this->session->getUserId()) $this->response->header("/");
-
         $name = $this->Validator->isValidString($this->request->getParam("name"));
         $email = $this->Validator->isValidEmail($this->request->getParam("email"));
         $password = $this->Validator->isValidString($this->request->getParam("password"));
@@ -75,19 +61,15 @@ class AuthController {
         if(!$status) $this->response->header("/error");
 
         $user = $this->userRepo->findByEmail($email);
-        $this->session->setUserId($user['id']);
+        $this->session->setUser($user['id'], $user['role']);
         $this->response->header("/");
     }
 
     public function registerAvocat() {
-        if($this->session->getUserId()) $this->response->header("/");
-        var_dump($this->session->getUserId());
-            
         $name = $this->Validator->isValidString($this->request->getParam("name"));
         $email = $this->Validator->isValidEmail($this->request->getParam("email"));
         $password = $this->Validator->isValidString($this->request->getParam("password"));
         $ville = 1;
-        $consultationEnLign = $this->Validator->isValidString($this->request->getParam("consultation"));
         $experience = $this->Validator->isValidString($this->request->getParam("experience"));
         $specialite = $this->Validator->isValidString($this->request->getParam("specialite"));
 
@@ -117,13 +99,11 @@ class AuthController {
         $res = $this->avocatRepo->createOne([...$huissierData, "user_id" => $user['id']]);
         if(!$res) $this->response->header('/register');
 
-        $this->session->setUserId($user["id"]);
+        $this->session->setUser((int) $user["id"], $user['role']);
         $this->response->header("/");
     }
     
     public function registerHuissier() {
-        if($this->session->getUserId()) $this->response->header("/");
-       
         $name = $this->Validator->isValidString($this->request->getParam("name"));
         $email = $this->Validator->isValidEmail($this->request->getParam("email"));
         $password = $this->Validator->isValidString($this->request->getParam("password"));
@@ -155,7 +135,7 @@ class AuthController {
         $res = $this->huissierRepo->createOne([...$huissierData, "user_id" => $user['id']]);
         if(!$res) $this->response->header('/register');
 
-        $this->session->setUserId($user["id"]);
+        $this->session->setUser((int) $user["id"], $user['role']);
         $this->response->header("/");
     }
 

@@ -1,45 +1,64 @@
 <?php
 
+use App\Core\Middleware\AdminMiddleware;
+use App\Core\Middleware\AuthMiddleware;
+use App\Core\Middleware\ClientController;
+use App\Core\Middleware\VisitorMiddleware;
+use App\Core\Middleware\ProfessionalMiddleware;
+use Dotenv\Dotenv;
+
 require_once('../vendor/autoload.php');
 require_once('../app/core/router/router.php');
 
-session_start();
+(Dotenv::createImmutable(__DIR__. "/.."))->load();
 
 // Public routes
-Router::add('',["callable" => "App\\Controller\\ControllerVisiteur@index" , "auth" => false, "roles" => []]);
-Router::add('register',["callable" =>"App\\Controller\\ControllerVisiteur@register","auth" =>false ,"roles" => []]);
+Router::add('/',["callable" => "App\\Controller\\ControllerVisiteur@index" , "middlewares" => []]);
+Router::add('register',["callable" =>"App\\Controller\\ControllerVisiteur@register","middlewares" => [VisitorMiddleware::class]]);
+Router::add('avocat/profile/{id}',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@profile","middlewares" => []]);
+Router::add('huissier/profile/{id}',["callable" =>"App\\Controller\\Professionnelle\\HuissierController@profile","middlewares" => []]);
 
+Router::add('client/profile',["callable" =>"App\\Controller\\ControllerVisiteur@profile","middlewares" => [AuthMiddleware::class, ClientController::class]]);
+
+// Public API routes
+Router::add('api/v4/professionals',["callable" =>"App\\Controller\\Api\\ProfessionalsAPIController@getProfessionals","middlewares" =>[]]);
 
 // Authntification routes
-Router::add('auth/login',["callable" =>"App\\Controller\\Auth\\AuthController@login","auth" =>false ,"roles" => []]);
-Router::add('auth/client/register',["callable" =>"App\\Controller\\Auth\\AuthController@registerClient","auth" =>false ,"roles" => []]);
-Router::add('auth/huissier/register',["callable" =>"App\\Controller\\Auth\\AuthController@registerHuissier","auth" =>false ,"roles" => []]);
-Router::add('auth/avocat/register',["callable" =>"App\\Controller\\Auth\\AuthController@registerAvocat","auth" =>false ,"roles" => []]);
-Router::add('auth/logout',["callable" =>"App\\Controller\\Auth\\AuthController@logout","auth" =>false ,"roles" => []]);
+Router::add('auth/login',["callable" =>"App\\Controller\\Auth\\AuthController@login","middlewares" => [VisitorMiddleware::class]]);
+Router::add('auth/client/register',["callable" =>"App\\Controller\\Auth\\AuthController@registerClient","middlewares" => [VisitorMiddleware::class]]);
+Router::add('auth/huissier/register',["callable" =>"App\\Controller\\Auth\\AuthController@registerHuissier","middlewares" => [VisitorMiddleware::class]]);
+Router::add('auth/avocat/register',["callable" =>"App\\Controller\\Auth\\AuthController@registerAvocat","middlewares" => [VisitorMiddleware::class]]);
+Router::add('auth/logout',["callable" =>"App\\Controller\\Auth\\AuthController@logout","middlewares" => [AuthMiddleware::class]]);
 
+Router::add('dashboard',["callable" => 'App\\Controller\\admin\\ControllerDachboard@index', "middlewares" => [AuthMiddleware::class,AdminMiddleware::class]]);
+Router::add('verifyAccountDetails/{id}',["callable" => 'App\\Controller\\admin\\ControllerDachboard@verifyAccountDetails', "middlewares" => [AuthMiddleware::class,AdminMiddleware::class]]);
+Router::add('validateAccount/{id}',["callable" => 'App\\Controller\\admin\\ControllerDachboard@validateAccount', "middlewares" => [AuthMiddleware::class,AdminMiddleware::class]]);
+Router::add('rejectAccount/{id}',["callable" => 'App\\Controller\\admin\\ControllerDachboard@rejectAccount', "middlewares" => [AuthMiddleware::class,AdminMiddleware::class]]);
+Router::add('avocats',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@index', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('avocat/create',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@create', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('avocat/store',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@store', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class],]);
+Router::add('avocat/edit',["callable" => 'App\\Controller\\Admin\\ControllerAvocats@edit', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('avocat/update',["callable" =>'App\\Controller\\Admin\\ControllerAvocats@update', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('avocat/destroy/{id}',["callable" =>'App\\Controller\\Admin\\ControllerAvocats@destroy', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class],]);
+Router::add('Huissiers',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@index', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('Huissiers/create',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@create',"middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('Huissiers/store',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@store', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('Huissiers/edit',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@edit', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('Huissiers/update',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@update', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
+Router::add('Huissiers/destroy',["callable" => 'App\\Controller\\Admin\\\ControllerHuissiers@destroy', "middlewares" => [AuthMiddleware::class, AdminMiddleware::class]]);
 
+// profesinnelle routes
+Router::add('avocat/profile',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@configDisponibilite","middlewares" => []]);
+Router::add('storeDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@storeDisponibilite","middlewares" => []]);
 
-Router::add('dashboard',["callable" => 'App\\Controller\\ControllerDachboard@index', "auth" => true, "roles" => ["ADMIN"]]);
-Router::add('avocats',["callable" => 'App\\Controller\\ControllerAvocats@index', "auth" => true, "roles" => ["ADMIN"]]);
-Router::add('avocat/create',["callable" => 'App\\Controller\\ControllerAvocats@create', "auth" => true, "roles" => ["ADMIN"]]);
-Router::add('avocat/store',["callable" => 'App\\Controller\\ControllerAvocats@store', "auth" => true, "roles"  => ["ADMIN"]]);
-Router::add('avocat/edit',["callable" => 'App\\Controller\\ControllerAvocats@edit', "auth" => true, "roles"  =>  ["ADMIN"]]);
-Router::add('avocat/update',["callable" =>'App\\Controller\\ControllerAvocats@update', "auth" => true, "roles"  =>  ["ADMIN"]]);
-Router::add('avocat/destroy',["callable" =>'App\\Controller\\ControllerAvocats@destroy', "auth" => true, "roles"  => ["ADMIN"]]);
-Router::add('Huissiers',["callable" => 'App\\Controller\\ControllerHuissiers@index', "auth" => true, "roles"  => ["ADMIN"]]);
-Router::add('Huissiers/create',["callable" => 'App\\Controller\\ControllerHuissiers@create',"auth" => true, "roles"  => ["ADMIN"]]);
-Router::add('Huissiers/store',["callable" => 'App\\Controller\\ControllerHuissiers@store', "auth" => true, "roles"  => ["ADMIN"]]);
-Router::add('Huissiers/edit',["callable" => 'App\\Controller\\ControllerHuissiers@edit', "auth" => true, "roles"  => ["ADMIN"]]);
-Router::add('Huissiers/update',["callable" => 'App\\Controller\\ControllerHuissiers@update', "auth" => true, "roles"  => ["ADMIN"]]);
-Router::add('Huissiers/destroy',["callable" => 'App\\Controller\\ControllerHuissiers@destroy', "auth" => true, "roles"  => ["ADMIN"]]);
+// routes des professionnelles - CORRIGÉES
+Router::add('professional/dashboard', ["callable" => 'App\\Controller\\ControllerProfessional@index', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
+Router::add('professional/demands', ["callable" => 'App\\Controller\\ControllerProfessional@demands', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
+Router::add('professional/update-status', ["callable" => 'App\\Controller\\ControllerProfessional@updateStatus', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
+Router::add('professional/demand-details', ["callable" => 'App\\Controller\\ControllerProfessional@getDemandDetails', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
+Router::add('professional/profile', ["callable" => 'App\\Controller\\ControllerProfessional@profile', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
+Router::add('professional/calendar', ["callable" => 'App\\Controller\\ControllerProfessional@calendar', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
+Router::add('professional/clients', ["callable" => 'App\\Controller\\ControllerProfessional@clients', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
+Router::add('professional/documents', ["callable" => 'App\\Controller\\ControllerProfessional@documents', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 
-// routes des professionnelles
-
-
-Router::add('professional/dashboard', ["callable" => 'App\\Controller\\ControllerProfessional@index', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
-Router::add('professional/demands', ["callable" => 'App\\Controller\\ControllerProfessional@demands', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
-Router::add('professional/update-status', ["callable" => 'App\\Controller\\ControllerProfessional@updateStatus', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
-Router::add('professional/demand-details', ["callable" => 'App\\Controller\\ControllerProfessional@getDemandDetails', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
-Router::add('professional/profile', ["callable" => 'App\\Controller\\ControllerProfessional@profile', "auth" => true, "roles" => ["AVOCAT", "HUISSIER"]]);
-
-Router::dispatsh($_GET['url'] ?? "");
+(new Router())->dispatsh();

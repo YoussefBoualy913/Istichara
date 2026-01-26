@@ -7,11 +7,11 @@ class Demande {
 
     private int $id;
     private int $user_id;
-    private int $avocat_id;
-    private int $huissier_id;
+    private ?int $avocat_id;
+    private ?int $huissier_id;
     private DateTime $date;
     private string $validation_status;
-    private string $meet_link ; 
+    private ?string $meet_link ; 
 
 
     public function getId()
@@ -63,10 +63,16 @@ class Demande {
     }
 
     
-    public function getDate()
-    {
-        return $this->date;
-    }
+public function getDate(): string{
+    $formatter = new \IntlDateFormatter(
+        'fr_FR',
+        \IntlDateFormatter::LONG,
+        \IntlDateFormatter::NONE
+    );
+
+    return $formatter->format($this->date);
+}
+
 
     
     public function setDate($date)
@@ -98,6 +104,17 @@ class Demande {
     public function setMeet_link($meet_link)
     {
         $this->meet_link = $meet_link;
+
+    }
+
+    public function hydrate(array $data) {
+           $this->id = $data['id'];
+           $this->user_id = $data['user_id'];
+           $this->avocat_id = $data['avocat_id'];
+           $this->huissier_id = $data['huissier_id'];
+           $this->date = new DateTime($data['date']);
+           $this->validation_status = $data['validation_status'];
+           $this->meet_link  = $data['meet_link']; 
 
     }
 }
