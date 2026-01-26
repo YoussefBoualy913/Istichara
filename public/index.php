@@ -51,14 +51,12 @@ Router::add('Huissiers/destroy',["callable" => 'App\\Controller\\Admin\\\Control
 Router::add('avocat/profile',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@configDisponibilite","middlewares" => []]);
 Router::add('storeDisponibilite',["callable" =>"App\\Controller\\Professionnelle\\AvocatController@storeDisponibilite","middlewares" => []]);
 
-// routes des professionnelles - CORRIGÉES
+// routes des professionnelles 
 Router::add('professional/dashboard', ["callable" => 'App\\Controller\\ControllerProfessional@index', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 Router::add('professional/demands', ["callable" => 'App\\Controller\\ControllerProfessional@demands', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 Router::add('professional/update-status', ["callable" => 'App\\Controller\\ControllerProfessional@updateStatus', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 Router::add('professional/demand-details', ["callable" => 'App\\Controller\\ControllerProfessional@getDemandDetails', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 Router::add('professional/profile', ["callable" => 'App\\Controller\\ControllerProfessional@profile', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 Router::add('professional/calendar', ["callable" => 'App\\Controller\\ControllerProfessional@calendar', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
-Router::add('professional/clients', ["callable" => 'App\\Controller\\ControllerProfessional@clients', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
-Router::add('professional/documents', ["callable" => 'App\\Controller\\ControllerProfessional@documents', "middlewares" => [AuthMiddleware::class, ProfessionalMiddleware::class]]);
 
 (new Router())->dispatsh();
